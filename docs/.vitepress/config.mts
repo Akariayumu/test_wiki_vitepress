@@ -180,6 +180,7 @@ const enNav = [
 ]
 
 export default defineConfig({
+  base: '/test_wiki_vitepress/',
   title: 'LinkZee Wiki',
   description: '控元科技 Jetson Orin 载板产品文档',
 
@@ -209,4 +210,9 @@ export default defineConfig({
     ],
   },
 
+  // Route rewrites: c1902-introduction.md → /c1902/c1902-introduction
+  rewrites: {
+    'c1902/c1902-introduction.md': 'en/c1902/c1902-introduction.md',
+    'c2401/c2401-introduction.md': 'en/c2401/c2401-introduction.md',
+  }
 })
