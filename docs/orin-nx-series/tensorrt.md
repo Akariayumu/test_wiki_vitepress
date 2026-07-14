@@ -1,7 +1,10 @@
 ---
-title: 使用 TensorRT 加速
+title: 使用TensorRT加速
+outline: deep
 ---
 
-# 使用 TensorRT 加速
+# 使用TensorRT加速
 
-> 内容待从 LinkZee Wiki 迁移。
+c++
+
+python绑定

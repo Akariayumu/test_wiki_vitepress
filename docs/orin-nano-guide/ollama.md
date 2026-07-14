@@ -1,7 +1,25 @@
 ---
-title: 安装使用 Ollama
+title: 安装使用ollama
+outline: deep
 ---
 
-# 安装使用 Ollama
+## 1. 运行以下指令安装ollama
 
-> 内容待从 LinkZee Wiki 迁移。
+```shell
+curl -fsSL https://ollama.com/install.sh | sh
+```
+
+## 2. 检查是否正确安装
+
+```shell
+jetson@jetson-desktop:~$ ollama -v
+ollama version is 0.9.6
+```
+
+## 3. 下载并运行deepseek-r1 1.5b模型
+
+```shell
+ollama run deepseek-r1:1.5b
+```
+
+![image](https://www.linkzeelabs.com/wiki/uploads/images/gallery/2025-07/fKNimage.png)
