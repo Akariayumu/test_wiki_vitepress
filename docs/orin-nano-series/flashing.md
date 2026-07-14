@@ -17,6 +17,12 @@ title: 刷机教程
 
 选项保持默认，输入激活码（自行搜索：vmware16密钥）。
 
+![安装 VMware](/img/wiki-snipaste-2025-06-09-14-51-05.png)
+
+![安装 VMware](/img/wiki-snipaste-2025-06-09-14-56-52.png)
+
+![安装 VMware](/img/wiki-snipaste-2025-06-09-14-59-23.png)
+
 ### 1.3 安装 Ubuntu 系统
 
 推荐使用 **20.04** 或 **22.04** 版本。下载 `ubuntu20.04_desktop_amd64.iso`，若下载速度较慢推荐使用 [清华源](https://mirrors.tuna.tsinghua.edu.cn/) 或 [中科大源](https://mirrors.ustc.edu.cn/)。
@@ -27,6 +33,24 @@ title: 刷机教程
 4. 选择存放路径，建议最少 300G 存储空间
 5. 等待安装完成
 
+![新建虚拟机](/img/wiki-snipaste-2025-06-11-15-21-48.png)
+
+![新建虚拟机](/img/wiki-snipaste-2025-06-11-15-32-12.png)
+
+![选择 ISO 镜像](/img/wiki-snipaste-2025-06-11-15-33-59.png)
+
+![配置账户](/img/wiki-snipaste-2025-06-11-15-37-32.png)
+
+![选择存放路径](/img/wiki-snipaste-2025-06-11-15-38-12.png)
+
+![配置磁盘](/img/wiki-snipaste-2025-06-11-15-40-38.png)
+
+![完成配置](/img/wiki-snipaste-2025-06-11-15-41-54.png)
+
+![等待安装](/img/wiki-snipaste-2025-06-11-15-51-19.png)
+
+![安装完成](/img/wiki-snipaste-2025-06-11-15-58-36.png)
+
 ---
 
 ## 2. 安装 NVIDIA SDK Manager
@@ -34,6 +58,8 @@ title: 刷机教程
 ### 2.1 下载安装包
 
 进入虚拟机浏览器，访问 [Jetson SDK](https://developer.nvidia.com/sdk-manager)，下载 `.deb` Ubuntu 安装包。
+
+![下载 SDK Manager 安装包](/img/wiki-1.png)
 
 ### 2.2 安装 SDK Manager
 
@@ -43,6 +69,12 @@ sudo dpkg -i sdkmanager_2.3.0-12617_amd64.deb  # 根据实际版本修改包名
 sudo apt install --fix-broken
 ```
 
+![安装 SDK Manager](/img/wiki-12.png)
+
+![登录 NVIDIA 账号](/img/wiki-ZDbimage.png)
+
+![SDK Manager 主界面](/img/wiki-f6Eimage.png)
+
 ---
 
 ## 3. 使用 NVIDIA SDK Manager 进行刷机
@@ -50,6 +82,10 @@ sudo apt install --fix-broken
 ### 3.1 设置 VMware 的 USB 模式
 
 将 USB 连接模式设置为「将设备连接到前台虚拟机」，避免刷机中途开发板重启导致失败。
+
+![设置 USB 连接模式](/img/wiki-4.png)
+
+![设置 USB 连接模式](/img/wiki-5.png)
 
 ### 3.2 进入恢复模式
 
@@ -60,12 +96,22 @@ sudo apt install --fix-broken
 
 > 进入恢复模式后一段时间内不操作会重启进入系统，请注意操作时机。
 
+![短接 FC REC 和 GND](/img/wiki-0q7a9416.jpg)
+
+![检测到核心卡](/img/wiki-14.png)
+
 ### 3.3 配置 SDK
 
 - 取消 **Host Machine**，点击 **CONTINUE**
 - 只勾选 **Jetson Linux**
 
+![取消 Host Machine](/img/wiki-B3Uimage.png)
+
+![只勾选 Jetson Linux](/img/wiki-15.png)
+
 ### 3.4 等待下载完成
+
+![等待下载完成](/img/wiki-3k6image.png)
 
 ### 3.5 配置刷机参数
 
@@ -75,6 +121,16 @@ sudo apt install --fix-broken
 - 选择 **Developer Kit Version**
 
 > 耐心等待刷机完成（10~20 分钟），请勿途中拔开数据线或切断开发板电源。
+
+![配置刷机参数](/img/wiki-XjOimage.png)
+
+![配置刷机参数](/img/wiki-JBF12.png)
+
+![选择存储介质](/img/wiki-ftEimage.png)
+
+![刷机进行中](/img/wiki-6.png)
+
+![刷机完成](/img/wiki-7.png)
 
 ---
 
@@ -104,9 +160,13 @@ cd ~/nvidia/nvidia_sdk/JetPack_5.1.5_Linux_JETSON_ORIN_NANO_TARGETS/Linux_for_Te
 sudo ./tools/kernel_flash/l4t_initrd_flash.sh --external-device nvme0n1p1   -c tools/kernel_flash/flash_l4t_external.xml -p "-c bootloader/t186ref/cfg/flash_t234_qspi.xml"   --showlogs --network usb0 jetson-orin-nano-devkit-super internal
 ```
 
+![命令行刷机](/img/wiki-8.png)
+
 ### 4.3 验证 SUPER 模式
 
 开机后在桌面右上角选择电源模式。**25W & MAXN SUPER** 为 SUPER 模式独有，普通模式只有 7W 和 15W 两档。
+
+![验证 SUPER 模式](/img/wiki-9.png)
 
 ---
 
@@ -124,6 +184,8 @@ sudo reboot -f forced-recovery
 cd ~/nvidia/nvidia_sdk/JetPack_6.2.1_Linux_JETSON_ORIN_NANO_TARGETS/Linux_for_Tegra
 sudo apt-get install qemu-user-static libxml2-utils abootimg sshpass nfs-kernel-server binutils
 ```
+
+![备份固件](/img/wiki-VXwimage.png)
 
 **备份：**
 ```bash
