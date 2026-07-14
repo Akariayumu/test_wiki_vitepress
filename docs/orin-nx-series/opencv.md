@@ -9,9 +9,9 @@ outline: deep
 JetPack预装的opencv没有启用cuda，需要自行编译安装。
 :::
 
-[![image.png](https://www.linkzeelabs.com/wiki/uploads/images/gallery/2025-07/scaled-1680-/g2Timage.png)](https://www.linkzeelabs.com/wiki/uploads/images/gallery/2025-07/g2Timage.png)
+![image.png](/img/wiki-g2Timage.png)
 
-#### 1. 脚本一键安装
+## 1. 脚本一键安装
 
 ```bash
 #!/bin/bash
@@ -231,7 +231,7 @@ echo "  python3 -c 'import cv2; print(cv2.__version__)'"
 echo "** Installation successful!"
 ```
 
-#### 2. 手动安装
+## 2. 手动安装
 
 2.1 卸载自带opencv
 
@@ -289,9 +289,9 @@ echo 'export PYTHONPATH=/usr/local/lib/python3.10/site-packages/:$PYTHONPATH' >>
 source ~/.bashrc
 ```
 
-#### 三、验证测试
+## 三、验证测试
 
-[![image.png](https://www.linkzeelabs.com/wiki/uploads/images/gallery/2025-07/scaled-1680-/bA0image.png)](https://www.linkzeelabs.com/wiki/uploads/images/gallery/2025-07/bA0image.png)
+![image.png](/img/wiki-bA0image.png)
 
 ```cpp
 // test_cuda.cpp

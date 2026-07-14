@@ -27,14 +27,14 @@ sudo systemctl restart jtop.service
 
 - 安装完成后在控制台中输入jtop打开主界面
 
-![image](https://www.linkzeelabs.com/wiki/uploads/images/gallery/2025-07/YiKimage.png)
+![image](/img/wiki-YiKimage.png)
 
 ### 2.1 监视各个模块的工作信息
 
 ### 2.2 控制风扇
 
-![1.png](https://www.linkzeelabs.com/wiki/uploads/images/gallery/2025-07/x711.png)
+![1.png](/img/wiki-x711.png)
 
 ### 2.3 查看内置软件信息
 
-![image](https://www.linkzeelabs.com/wiki/uploads/images/gallery/2025-07/L3Timage.png)
+![image](/img/wiki-L3Timage.png)

@@ -22,4 +22,4 @@ ollama version is 0.9.6
 ollama run deepseek-r1:1.5b
 ```
 
-![image](https://www.linkzeelabs.com/wiki/uploads/images/gallery/2025-07/fKNimage.png)
+![image](/img/wiki-fKNimage.png)

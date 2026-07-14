@@ -13,7 +13,7 @@ cutecom 是一个跨平台的串口终端程序，它提供了一个简洁直观
 sudo apt install cutecom
 ```
 
-![1.png](https://www.linkzeelabs.com/wiki/uploads/images/gallery/2025-07/EKf1.png)
+![1.png](/img/wiki-EKf1.png)
 
 官方默认开启的UART接口为 ttyTHS1 即 40pin GPIO中的 pin8 (TX) 和 pin10( RX) 引脚。
 
@@ -32,11 +32,11 @@ sudo usermod -aG dialout $USER
 
 - 打开 cutecom，选择 ttyTHS1 并打开。
 
-![8.png](https://www.linkzeelabs.com/wiki/uploads/images/gallery/2025-07/DfP8.png)
+![8.png](/img/wiki-DfP8.png)
 
 - 输入文本并回车，可以看到下方接收区显示有内容。
 
-![10.png](https://www.linkzeelabs.com/wiki/uploads/images/gallery/2025-07/oY510.png)
+![10.png](/img/wiki-oY510.png)
 
 ### 1.2 使用 python 操作 UART
 
@@ -82,7 +82,7 @@ except KeyboardInterrupt:
     print("\nExit by user.")
 ```
 
-![11.png](https://www.linkzeelabs.com/wiki/uploads/images/gallery/2025-07/RJK11.png)
+![11.png](/img/wiki-RJK11.png)
 
 ## 2. SPI接口
 
@@ -204,13 +204,13 @@ C1901/C1902与C2401的连线形式不一样，请注意甄别。
 
 C2401包括的部分为图示蓝框的部分，C1901/1902为红框所示的部分。
 
-![CAN](https://www.linkzeelabs.com/wiki/uploads/images/gallery/2025-12/gemini-generated-image-ry4utnry4utnry4u.png)
+![CAN](/img/wiki-gemini-generated-image-ry4utnry4utnry4u.png)
 
 C1901/1902 未配置 CAN 收发芯片，仅输出CAN_TX, CAN_RX信号。
 
 C2401设置有 CAN 收发芯片，通过总线通讯时，需要将拨码开关1调整至 ON 接入120Ω电阻，输出CAN_H, CAN_L信号。
 
-![CAN](https://www.linkzeelabs.com/wiki/uploads/images/gallery/2025-12/9svimage.png)
+![CAN](/img/wiki-9svimage.png)
 
 ### CAN总线配置方法
 
@@ -275,7 +275,7 @@ CAN 网络在协议层面有以下 3 种状态：
 
 载板RTC电池连接器型号为MX1.25-2P，使用电池时，请确认好极性，禁止接反电池
 
-![RTC](https://www.linkzeelabs.com/wiki/uploads/images/gallery/2025-08/gfZimage.png)
+![RTC](/img/wiki-gfZimage.png)
 
 - 检查系统时间是否正确
 

@@ -5,7 +5,7 @@ outline: deep
 
 JetPack预装的opencv没有启用cuda，需要自行编译安装。
 
-![image](https://www.linkzeelabs.com/wiki/uploads/images/gallery/2025-07/g2Timage.png)
+![image](/img/wiki-g2Timage.png)
 
 ## 1. 脚本一键安装
 
@@ -108,7 +108,7 @@ source ~/.bashrc
 
 ## 三、验证测试
 
-![image](https://www.linkzeelabs.com/wiki/uploads/images/gallery/2025-07/bA0image.png)
+![image](/img/wiki-bA0image.png)
 
 测试代码:
 

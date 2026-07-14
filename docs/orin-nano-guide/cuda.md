@@ -12,7 +12,7 @@ sudo apt update
 sudo apt install nvidia-jetpack
 ```
 
-![image](https://www.linkzeelabs.com/wiki/uploads/images/gallery/2025-07/rUKimage.png)
+![image](/img/wiki-rUKimage.png)
 
 ## 对开发板进行压力测试
 
@@ -47,7 +47,7 @@ make
 sudo jtop
 ```
 
-![image](https://www.linkzeelabs.com/wiki/uploads/images/gallery/2025-07/f1dimage.png)
+![image](/img/wiki-f1dimage.png)
 
 Orin Nano 整机最大功率为30W.
 Orin NX 整机最大功率为40W.

@@ -11,19 +11,19 @@ EM05系列支持最大下行速率150 Mbps，最大上行速率50 Mbps,包含三
 
 要在Jetson系列上使用EM-05模块需要重新编译系统内核并刷入新编译的系统。
 
-#### 方法一：替换新内核
+## 方法一：替换新内核
 
-##### 1.1 拉取编译好的资料
+### 1.1 拉取编译好的资料
 
-##### 1.2 修改设备树配置文件
+### 1.2 修改设备树配置文件
 
-##### 1.3 移动内核和驱动到指定位置
+### 1.3 移动内核和驱动到指定位置
 
-##### 1.4 应用更改并重启验证
+### 1.4 应用更改并重启验证
 
-#### 方法二：编译刷入完整系统
+## 方法二：编译刷入完整系统
 
-##### 2.1 获取源码和工具链
+### 2.1 获取源码和工具链
 
 - 安装编译依赖工具
 
@@ -59,7 +59,7 @@ cd $HOME/nvidia/nvidia_sdk/JetPack_6.2.1_Linux_JETSON_ORIN_NANO_TARGETS/Linux_fo
 ./source_sync.sh -k -t <release-tag> #<release-tag>替换为你自己的发行版本如 jetson_36.4.3
 ```
 
-##### 2.2 修改内核源码
+### 2.2 修改内核源码
 
 本部分内容可参考[移远Linux&Andriod驱动技术手册](https://forums.quectel.com/uploads/short-url/95mRmCPDAFQTH1TzCIB2cuFr9Yo.pdf)
 
@@ -171,7 +171,7 @@ obj-${CONFIG_USB_NET_QMI_WWAN} += qmi_wwan_q.o
 obj-${CONFIG_USB_NET_QMI_WWAN} += qmi_wwan.o
 ```
 
-##### 2.3 编译内核
+### 2.3 编译内核
 
 此步骤可能需要进行半个小时以上
 
@@ -225,7 +225,7 @@ make dtbs
 cp kernel-devicetree/generic-dts/dtbs/* /Linux_for_Tegra/kernel/dtb/
 ```
 
-##### 2.4 刷入系统
+### 2.4 刷入系统
 
 - 进入刷机固件缓存目录
 
@@ -247,7 +247,7 @@ sudo ./tools/kernel_flash/l4t_initrd_flash.sh --external-device nvme0n1p1 -c too
 sudo ./flash.sh jetson-orin-nano-devkit-nvme internal
 ```
 
-##### 2.5 开机验证
+### 2.5 开机验证
 
 - 将Quectel_Qconnectmanager上传到开发板
 - 解压并编译
@@ -310,4 +310,4 @@ wwan0: flags=193<UP,RUNNING,NOARP>  mtu 1500
 
 连通性测试
 
-![ping_test.png](https://www.linkzeelabs.com/wiki/uploads/images/gallery/2025-08/scaled-1680-/ZwPping-test.png)
+![ping_test.png](/img/wiki-ZwPping-test.png)

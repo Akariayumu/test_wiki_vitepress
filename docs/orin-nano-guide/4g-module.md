@@ -308,4 +308,4 @@ wwan0: flags=193<UP,RUNNING,NOARP>  mtu 1500
 
 连通性测试
 
-![ping_test.png](https://www.linkzeelabs.com/wiki/uploads/images/gallery/2025-08/ZwPping-test.png)
+![ping_test.png](/img/wiki-ZwPping-test.png)

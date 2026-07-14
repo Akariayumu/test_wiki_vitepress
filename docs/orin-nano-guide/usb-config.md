@@ -166,11 +166,11 @@ lsusb -t
 
 - 未替换设备树前：
 
-![1](https://www.linkzeelabs.com/wiki/uploads/images/gallery/2025-07/1-1.png)
+![1](/img/wiki-1-1.png)
 
 - 替换设备树成功后：
 
-![2](https://www.linkzeelabs.com/wiki/uploads/images/gallery/2025-07/Bsa2.png)
+![2](/img/wiki-Bsa2.png)
 
 您也可以自行使用DISK工具或dd指令测试读写速率是否达到USB3.0的标准。
 

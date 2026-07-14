@@ -5,9 +5,9 @@ outline: deep
 
 # 五、其他外设
 
-### 1. UART接口
+## 1. UART接口
 
-##### 1.1使用 cutecom 操作UART
+### 1.1使用 cutecom 操作UART
 
 **cutecom** 是一个**跨平台的串口终端程序**，它提供了一个简洁直观的图形用户界面，允许用户通过串口接口发送和接收数据。运行以下命令以安装 **cutecom**
 
@@ -15,7 +15,7 @@ outline: deep
 sudo apt install cutecom
 ```
 
-[![1.png](https://www.linkzeelabs.com/wiki/uploads/images/gallery/2025-07/scaled-1680-/EKf1.png)](https://www.linkzeelabs.com/wiki/uploads/images/gallery/2025-07/EKf1.png)
+![1.png](/img/wiki-EKf1.png)
 
 官方默认开启的UART接口为**ttyTHS1** 即 40pin GPIO中的 **pin8 (TX)** 和**pin10(RX)**引脚。
 
@@ -34,13 +34,13 @@ sudo usermod -aG dialout $USER
 
 - 打开 **cutecom**，选择 **ttyTHS1** 并打开。
 
-[![8.png](https://www.linkzeelabs.com/wiki/uploads/images/gallery/2025-07/scaled-1680-/DfP8.png)](https://www.linkzeelabs.com/wiki/uploads/images/gallery/2025-07/DfP8.png)
+![8.png](/img/wiki-DfP8.png)
 
 - 输入文本并回车，可以看到下方接收区显示有内容。
 
-[![10.png](https://www.linkzeelabs.com/wiki/uploads/images/gallery/2025-07/scaled-1680-/oY510.png)](https://www.linkzeelabs.com/wiki/uploads/images/gallery/2025-07/oY510.png)
+![10.png](/img/wiki-oY510.png)
 
-##### 1.2 使用 python 操作 UART
+### 1.2 使用 python 操作 UART
 
 - 更改串口权限
 
@@ -86,9 +86,9 @@ except KeyboardInterrupt:
     print("\nExit by user.")
 ```
 
-[![11.png](https://www.linkzeelabs.com/wiki/uploads/images/gallery/2025-07/scaled-1680-/RJK11.png)](https://www.linkzeelabs.com/wiki/uploads/images/gallery/2025-07/RJK11.png)
+![11.png](/img/wiki-RJK11.png)
 
-### 2. SPI接口
+## 2. SPI接口
 
 - 查看开发板spi资源
 
@@ -98,7 +98,7 @@ spidev                 28672  0
 spi_tegra114           32768  0
 ```
 
-##### 2.1使用C/C++进行SPI通讯
+### 2.1使用C/C++进行SPI通讯
 
 以SPI0为例，使用条线短接19，20号针脚
 
@@ -133,7 +133,7 @@ TX | 11 22 33 __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ 
 RX | 11 22 33 __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __  | ."3
 ```
 
-##### 2.1使用python进行SPI通讯
+### 2.2 使用python进行SPI通讯
 
 - 安装spidev库
 
@@ -173,7 +173,7 @@ recived:[22]
 recived:[33]
 ```
 
-### 3. I²C接口
+## 3. I²C接口
 
 - 安装i2c工具
 
@@ -224,7 +224,7 @@ i2cdetect -y -r -a 7
 70: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 ```
 
-### 4. RTC接口
+## 4. RTC接口
 
 **实时时钟**（Real-Time Clock, **RTC**）是一种独立计时设备，可在系统断电或主电源关闭时持续提供精确的时间和日期信息。当开发板在**离线环境**下运行，并且**断电后仍需保持时间同步**时，就需要使用到RTC。
 

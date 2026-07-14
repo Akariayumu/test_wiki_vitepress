@@ -36,7 +36,7 @@ alias edk2_docker="docker run -it --rm -w \"\$(pwd)\" ${EDK2_BUILDROOT_ARGS} ${E
 edk2_docker echo hello
 ```
 
-![image](https://www.linkzeelabs.com/wiki/uploads/images/gallery/2025-10/2rmimage.png)
+![image](/img/wiki-2rmimage.png)
 
 ## 二、拉取源码
 
@@ -61,7 +61,7 @@ edk2_docker edkrepo clone nvidia-uefi-r36.4.4 NVIDIA-Platforms r36.4.4-updates
 cd nvidia-uefi-r36.4.4/edk2-nvidia/Silicon/NVIDIA/Assets/
 ```
 
-![image](https://www.linkzeelabs.com/wiki/uploads/images/gallery/2025-10/UKyimage.png)
+![image](/img/wiki-UKyimage.png)
 
 您可以选择直接替换掉这三个分辨率的图片，也可以在下面的配置文件中更改引用的LOGO文件路径
 
@@ -69,7 +69,7 @@ cd nvidia-uefi-r36.4.4/edk2-nvidia/Silicon/NVIDIA/Assets/
 cd nvidia-uefi-r36.4.0/edk2-nvidia/Platform/NVIDIA/NVIDIA.fvmain.fdf.inc
 ```
 
-![image](https://www.linkzeelabs.com/wiki/uploads/images/gallery/2025-10/F9Eimage.png)
+![image](/img/wiki-F9Eimage.png)
 
 应该尽可能地控制文件大小，最后的编译出的uefi_xxx.bin**不得超过3.5MB**，否则刷入后开发板将无法启动。
 
@@ -82,7 +82,7 @@ cd nvidia-uefi-r36.4.4/
 edk2_docker edk2-nvidia/Platform/NVIDIA/Jetson/build.sh
 ```
 
-![image](https://www.linkzeelabs.com/wiki/uploads/images/gallery/2025-10/j8Uimage.png)
+![image](/img/wiki-j8Uimage.png)
 
 ## 四、替换
 

@@ -13,7 +13,7 @@ Jetson-container是NVIDIA为Jetson设备打造的轻量Docker环境，预装CUDA
 
 Comfy-UI 是一款专业的节点式Stable Diffusion图形界面，拖拽连接即可构建文生图工作流，支持LoRA、ControlNet、视频扩散，低代码、易扩展等应用及特性。
 
-![image.png](https://www.linkzeelabs.com/wiki/uploads/images/gallery/2025-08/scaled-1680-/1uQimage.png)
+![image.png](/img/wiki-1uQimage.png)
 
 1. 下载编译[jetson-container](https://github.com/dusty-nv/jetson-containers/tree/master)环境
 
@@ -31,7 +31,7 @@ jetson-containers run dustynv/comfyui:r36.4.3
 
 3. 成功运行后命令行窗口输出如下
 
-![image.png](https://www.linkzeelabs.com/wiki/uploads/images/gallery/2025-08/scaled-1680-/wDnimage.png)
+![image.png](/img/wiki-wDnimage.png)
 
 4. 打开对应服务的GUI网页
 
@@ -39,7 +39,7 @@ jetson-containers run dustynv/comfyui:r36.4.3
 
 若在局域网内的其他设备则输入 http://<jetson设备IP>:8188
 
-![image.png](https://www.linkzeelabs.com/wiki/uploads/images/gallery/2025-08/scaled-1680-/52qimage.png)
+![image.png](/img/wiki-52qimage.png)
 
 5. 设定映射路径，将开发板里下载好的模型映射到容器内部目录
 
@@ -49,6 +49,6 @@ jetson-containers run ~/models/:/opt/ComfyUI/models/checkpoints dustynv/comfyui:
 
 6. 按照需求搭建工作流并调整参数生成图像
 
-![image.png](https://www.linkzeelabs.com/wiki/uploads/images/gallery/2025-08/scaled-1680-/1Naimage.png)
+![image.png](/img/wiki-1Naimage.png)
 
 关于ComfyUI的使用教程请参考其官网 [ComfyUI | 用AI生成视频、图像、音频](https://www.comfy.org/zh-cn/)

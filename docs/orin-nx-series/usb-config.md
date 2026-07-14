@@ -5,15 +5,15 @@ outline: deep
 
 # Orin Nano/NX USB配置说明
 
-### 一、Jetson Orin Nano配置方法
+## 一、Jetson Orin Nano配置方法
 
-#### 1. JetPack 5.1.5配置方法
+### 1. JetPack 5.1.5配置方法
 
-##### 1. 1刷入JetPack 5.1.5系统。
+#### 1. 1刷入JetPack 5.1.5系统。
 
 参考[官方固件刷机流程](https://www.linkzeelabs.com/wiki/books/jetson-orin-nano/page/75887)
 
-##### 1.2 将设备树文件下载到开发板
+#### 1.2 将设备树文件下载到开发板
 
 设备正常开机后，打开终端命令行，将**修改后的设备树文件**下载到开发板。
 
@@ -22,7 +22,7 @@ git clone https://gitee.com/kongyuantech/document.git
 cd document/AN002\ Orin\ Nano\ NX\ USB配置/5.1.4/
 ```
 
-##### 1.3 使用命令行替换设备树。
+#### 1.3 使用命令行替换设备树。
 
 选择执行以下命令替换**DTB设备树**文件并重启设备。
 
@@ -46,13 +46,13 @@ sudo chmod 644 /boot/dtb/kernel_tegra234-p3767-0003-p3768-0000-a0.dtb
 sudo reboot
 ```
 
-#### 2. JetPack 6.2.1配置方法
+### 2. JetPack 6.2.1配置方法
 
-##### 2.1 刷入JetPack 6.2.1系统。
+#### 2.1 刷入JetPack 6.2.1系统。
 
 参考[官方固件刷机流程](https://www.linkzeelabs.com/wiki/books/jetson-orin-nano/page/75887)
 
-##### 2.2 将设备树文件下载到开发板
+#### 2.2 将设备树文件下载到开发板
 
 - 设备正常开机后，打开终端命令行，将**修改后的设备树文件**下载到开发板。
 
@@ -61,7 +61,7 @@ git clone https://gitee.com/kongyuantech/document.git
 cd document/AN002\ Orin\ Nano\ NX\ USB配置/6.2/
 ```
 
-##### 1.3 使用命令行替换设备树。
+#### 1.3 使用命令行替换设备树。
 
 选择执行以下命令**增加DTB设备树**文件并重启设备。
 
@@ -81,15 +81,15 @@ sudo sed -i 's#console=tty0#console=tty0\n      FDT /boot/dtb/orin_nano_8g.dtb#g
 sudo reboot
 ```
 
-### 二、Jetson Orin NX配置方法
+## 二、Jetson Orin NX配置方法
 
-#### 1. JetPack 5.1.5配置方法
+### 1. JetPack 5.1.5配置方法
 
-##### 1. 1刷入JetPack 5.1.5系统。
+#### 1. 1刷入JetPack 5.1.5系统。
 
 参考[官方固件刷机流程](https://www.linkzeelabs.com/wiki/books/jetson-orin-nano/page/75887)
 
-##### 1.2 将设备树文件下载到开发板
+#### 1.2 将设备树文件下载到开发板
 
 - 设备正常开机后，打开终端命令行，将**修改后的设备树文件**下载到开发板。
 
@@ -98,7 +98,7 @@ git clone https://gitee.com/kongyuantech/document.git
 cd document/AN002\ Orin\ Nano\ NX\ USB配置/5.1.4/
 ```
 
-##### 1.3 使用命令行替换设备树。
+#### 1.3 使用命令行替换设备树。
 
 选择执行以下命令替换**DTB设备树**文件并重启设备。
 
@@ -122,13 +122,13 @@ sudo chmod 644 /boot/dtb/kernel_tegra234-p3767-0000-p3768-0000-a0.dtb
 sudo reboot
 ```
 
-#### 2. JetPack 6.2.1配置方法
+### 2. JetPack 6.2.1配置方法
 
-##### 2.1 刷入JetPack 6.2.1系统。
+#### 2.1 刷入JetPack 6.2.1系统。
 
 参考[官方固件刷机流程](https://www.linkzeelabs.com/wiki/books/jetson-orin-nano/page/75887)
 
-##### 2.2 将设备树文件下载到开发板
+#### 2.2 将设备树文件下载到开发板
 
 - 设备正常开机后，打开终端命令行，将**修改后的设备树文件**下载到开发板。
 
@@ -137,7 +137,7 @@ git clone https://gitee.com/kongyuantech/document.git
 cd document/AN002\ Orin\ Nano\ NX\ USB配置/6.2/
 ```
 
-##### 2.3 使用命令行替换设备树。
+#### 2.3 使用命令行替换设备树。
 
 选择执行以下命令**增加DTB设备树**文件并重启设备。
 
@@ -159,7 +159,7 @@ sudo reboot
 
 ---
 
-#### 检测配置结果
+### 检测配置结果
 
 替换设备树后，4个USB3.0端口（C1901为3个）可正常工作，Type-C端口系统默认处于关闭状态。
 
@@ -171,15 +171,15 @@ lsusb -t
 
 - 未替换设备树前：
 
-[![1-1.png](https://www.linkzeelabs.com/wiki/uploads/images/gallery/2025-07/scaled-1680-/1-1.png)](https://www.linkzeelabs.com/wiki/uploads/images/gallery/2025-07/1-1.png)
+![1-1.png](/img/wiki-1-1.png)
 
 - 替换设备树成功后：
 
-[![2.png](https://www.linkzeelabs.com/wiki/uploads/images/gallery/2025-07/scaled-1680-/Bsa2.png)](https://www.linkzeelabs.com/wiki/uploads/images/gallery/2025-07/Bsa2.png)
+![2.png](/img/wiki-Bsa2.png)
 
 您也可以自行使用DISK工具或dd指令测试读写速率是否达到USB3.0的标准。
 
-### 三、配置Type-C端口模式
+## 三、配置Type-C端口模式
 
 - 配置**Type-C端口**为**Device**模式
 

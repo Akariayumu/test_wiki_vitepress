@@ -142,7 +142,7 @@ while cap.isOpened():
         break
 ```
 
-![image](https://www.linkzeelabs.com/wiki/uploads/images/gallery/2025-07/bEUimage.png)
+![image](/img/wiki-bEUimage.png)
 
 更多信息可参考[Ultralytics YOLO11 - Ultralytics YOLO 文档](https://docs.ultralytics.com/zh/models/yolo11/)
 
