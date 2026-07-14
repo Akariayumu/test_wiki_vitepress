@@ -2,10 +2,6 @@
 title: 连接到 Jetson 系统
 ---
 
----
-title: 连接到 Jetson 系统
----
-
 # 连接到 Jetson 系统
 
 Jetson 拥有 HDMI/DP 视频输出接口、RJ45 网口、Type-C 接口和 UART 调试接口，下面介绍四种连接到 Jetson 开发板的方法。

@@ -2,10 +2,6 @@
 title: GPIO 控制
 ---
 
----
-title: GPIO 控制
----
-
 # GPIO 控制
 
 GPIO（General-purpose input/output）是一种通用型输入输出接口，其脚位可由使用者编程控制，可设置为输入（GPI）、输出（GPO）或双向（GPIO）。
