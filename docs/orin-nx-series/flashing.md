@@ -17,6 +17,12 @@ title: 刷机教程
 
 选项保持默认，输入激活码（自行搜索：vmware16密钥）。
 
+![1.2 安装 VMware](/img/wiki-snipaste-2025-06-09-14-51-05.png)
+
+![1.2 安装 VMware](/img/wiki-snipaste-2025-06-09-14-56-52.png)
+
+![1.2 安装 VMware](/img/wiki-snipaste-2025-06-09-14-59-23.png)
+
 ### 1.3 安装 Ubuntu 系统
 
 推荐使用 **20.04** 或 **22.04** 版本。下载 `ubuntu20.04_desktop_amd64.iso`，若下载速度较慢推荐使用 [清华源](https://mirrors.tuna.tsinghua.edu.cn/) 或 [中科大源](https://mirrors.ustc.edu.cn/)。
@@ -29,11 +35,31 @@ title: 刷机教程
 
 ---
 
+![1.3 安装 Ubuntu 系统](/img/wiki-snipaste-2025-06-11-15-21-48.png)
+
+![1.3 安装 Ubuntu 系统](/img/wiki-snipaste-2025-06-11-15-32-12.png)
+
+![1.3 安装 Ubuntu 系统](/img/wiki-snipaste-2025-06-11-15-33-59.png)
+
+![1.3 安装 Ubuntu 系统](/img/wiki-snipaste-2025-06-11-15-37-32.png)
+
+![1.3 安装 Ubuntu 系统](/img/wiki-snipaste-2025-06-11-15-38-12.png)
+
+![1.3 安装 Ubuntu 系统](/img/wiki-snipaste-2025-06-11-15-40-38.png)
+
+![1.3 安装 Ubuntu 系统](/img/wiki-snipaste-2025-06-11-15-41-54.png)
+
+![1.3 安装 Ubuntu 系统](/img/wiki-snipaste-2025-06-11-15-51-19.png)
+
+![1.3 安装 Ubuntu 系统](/img/wiki-snipaste-2025-06-11-15-58-36.png)
+
 ## 2. 安装 NVIDIA SDK Manager
 
 ### 2.1 下载安装包
 
 进入虚拟机浏览器，访问 [Jetson SDK](https://developer.nvidia.com/sdk-manager)，下载 `.deb` Ubuntu 安装包。
+
+![2.1 下载安装包](/img/wiki-1.png)
 
 ### 2.2 安装 SDK Manager
 
@@ -44,6 +70,40 @@ sudo apt install --fix-broken
 ```
 
 ---
+
+![2.2 安装 SDK Manager](/img/wiki-12.png)
+
+![2.2 安装 SDK Manager](/img/wiki-ZDbimage.png)
+
+![2.2 安装 SDK Manager](/img/wiki-f6Eimage.png)
+
+![2.2 安装 SDK Manager](/img/wiki-4.png)
+
+![2.2 安装 SDK Manager](/img/wiki-5.png)
+
+![2.2 安装 SDK Manager](/img/wiki-0q7a9416.jpg)
+
+![2.2 安装 SDK Manager](/img/wiki-14.png)
+
+![2.2 安装 SDK Manager](/img/wiki-B3Uimage.png)
+
+![2.2 安装 SDK Manager](/img/wiki-15.png)
+
+![2.2 安装 SDK Manager](/img/wiki-3k6image.png)
+
+![2.2 安装 SDK Manager](/img/wiki-XjOimage.png)
+
+![2.2 安装 SDK Manager](/img/wiki-JBF12.png)
+
+![2.2 安装 SDK Manager](/img/wiki-ftEimage.png)
+
+![2.2 安装 SDK Manager](/img/wiki-6.png)
+
+![2.2 安装 SDK Manager](/img/wiki-7.png)
+
+![2.2 安装 SDK Manager](/img/wiki-8.png)
+
+![2.2 安装 SDK Manager](/img/wiki-9.png)
 
 ## 3. 使用 NVIDIA SDK Manager 进行刷机
 

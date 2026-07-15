@@ -12,6 +12,10 @@ title: C1902 刷入系统
 
 将 USB 连接模式设置为「将设备连接到前台虚拟机」，避免刷机中途开发板重启导致失败。
 
+![1.1 设置 VMware 的 USB 模式](/img/wiki-4.png)
+
+![1.1 设置 VMware 的 USB 模式](/img/wiki-5.png)
+
 ### 1.2 进入恢复模式
 
 - 使用跳线帽短接开发板上的 **FC REC** 和 **GND** 针脚
@@ -21,12 +25,22 @@ title: C1902 刷入系统
 
 > 进入恢复模式后一段时间内不操作会重启进入系统，请注意操作时机。
 
+![1.2 进入恢复模式](/img/wiki-0q7a9416.jpg)
+
+![1.2 进入恢复模式](/img/wiki-14.png)
+
 ### 1.3 配置 SDK
 
 - 取消 **Host Machine**，并点击 **CONTINUE**
 - 只勾选 **Jetson Linux**
 
+![1.3 配置 SDK](/img/wiki-B3Uimage.png)
+
+![1.3 配置 SDK](/img/wiki-15.png)
+
 ### 1.4 等待下载完成
+
+![1.4 等待下载完成](/img/wiki-3k6image.png)
 
 ### 1.5 配置刷机参数
 
@@ -38,6 +52,16 @@ title: C1902 刷入系统
 > 耐心等待刷机完成，大约 10~20 分钟。刷入过程中开发板可能会多次与主机重新连接，请勿途中拔开数据线或切断开发板电源。可以在识别到开发板类型以后就拔掉跳线帽。
 >
 > 刷入完成后，拔掉跳线帽，上电正常进入系统桌面或初始化设置页面即刷机成功。
+
+![1.5 配置刷机参数](/img/wiki-XjOimage.png)
+
+![1.5 配置刷机参数](/img/wiki-JBF12.png)
+
+![1.5 配置刷机参数](/img/wiki-ftEimage.png)
+
+![1.5 配置刷机参数](/img/wiki-6.png)
+
+![1.5 配置刷机参数](/img/wiki-7.png)
 
 ## 2. 使用命令行刷入 SUPER 固件
 
@@ -69,9 +93,13 @@ sudo ./tools/kernel_flash/l4t_initrd_flash.sh --external-device nvme0n1p1 \
   --showlogs --network usb0 jetson-orin-nano-devkit-super internal
 ```
 
+![2.2 使用官方固件进行命令行刷机](/img/wiki-8.png)
+
 ### 2.3 验证是否处于 SUPER 模式
 
 开发板上电开机完成用户配置后，在桌面右上角可以选择电源模式。**25W & MAXN SUPER** 为 SUPER 模式独有，普通模式只有 7W 和 15W 两档。
+
+![2.3 验证是否处于 SUPER 模式](/img/wiki-9.png)
 
 ## 3. 备份与恢复现有固件
 
@@ -110,3 +138,5 @@ sudo ./tools/backup_restore/l4t_backup_restore.sh -r -e nvme0n1 jetson-orin-nano
 ```
 
 > 若使用第三方载板恢复备份，需要修改 `nvrestore_partitions.sh` 注释掉 292~296 行的内容。
+
+![3.1 备份固件](/img/wiki-VXwimage.png)

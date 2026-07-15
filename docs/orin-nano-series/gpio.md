@@ -6,6 +6,10 @@ title: GPIO 控制
 
 GPIO（General-purpose input/output）是一种通用型输入输出接口，其脚位可由使用者编程控制，可设置为输入（GPI）、输出（GPO）或双向（GPIO）。
 
+Jetson Orin Nano 系列的 40PIN GPIO 引脚定义如下：
+
+![Jetson Orin Nano 40PIN GPIO 引脚定义](/img/wiki-j12-pinout.jpeg)
+
 ## 1. JetPack 5 系统中使用 GPIO
 
 ### 1.1 使用命令行控制 GPIO

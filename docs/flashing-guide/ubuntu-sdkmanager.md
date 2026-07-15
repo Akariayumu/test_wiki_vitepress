@@ -20,6 +20,12 @@ title: 安装 Ubuntu 虚拟机和 SDK Manager
 
 输入激活码，请自行百度搜索：vmware16密钥
 
+![1.2 安装 VMware Workstation](/img/wiki-snipaste-2025-06-09-14-51-05.png)
+
+![1.2 安装 VMware Workstation](/img/wiki-snipaste-2025-06-09-14-56-52.png)
+
+![1.2 安装 VMware Workstation](/img/wiki-snipaste-2025-06-09-14-59-23.png)
+
 ### 1.3 安装 Ubuntu 系统
 
 推荐使用 20.04 和 22.04 版本，这里以 20.04 为例。
@@ -44,11 +50,31 @@ title: 安装 Ubuntu 虚拟机和 SDK Manager
 
 出现以下画面表示安装完成
 
+![1.3 安装 Ubuntu 系统](/img/wiki-snipaste-2025-06-11-15-21-48.png)
+
+![1.3 安装 Ubuntu 系统](/img/wiki-snipaste-2025-06-11-15-32-12.png)
+
+![1.3 安装 Ubuntu 系统](/img/wiki-snipaste-2025-06-11-15-33-59.png)
+
+![1.3 安装 Ubuntu 系统](/img/wiki-snipaste-2025-06-11-15-37-32.png)
+
+![1.3 安装 Ubuntu 系统](/img/wiki-snipaste-2025-06-11-15-38-12.png)
+
+![1.3 安装 Ubuntu 系统](/img/wiki-snipaste-2025-06-11-15-40-38.png)
+
+![1.3 安装 Ubuntu 系统](/img/wiki-snipaste-2025-06-11-15-41-54.png)
+
+![1.3 安装 Ubuntu 系统](/img/wiki-snipaste-2025-06-11-15-51-19.png)
+
+![1.3 安装 Ubuntu 系统](/img/wiki-snipaste-2025-06-11-15-58-36.png)
+
 ## 2. 安装 NVIDIA SDK Manager
 
 ### 2.1 下载安装包
 
 进入虚拟机打开浏览器，进入 Jetson SDK，下载 `.deb` Ubuntu 安装包。
+
+![2.1 下载安装包](/img/wiki-1.png)
 
 ### 2.2 安装 SDK Manager
 
@@ -59,3 +85,9 @@ sudo apt update
 sudo dpkg -i sdkmanager_2.3.0-12617_amd64.deb # 需要根据实际版本修改包名
 sudo apt install --fix-broken
 ```
+
+![2.2 安装 SDK Manager](/img/wiki-12.png)
+
+![2.2 安装 SDK Manager](/img/wiki-ZDbimage.png)
+
+![2.2 安装 SDK Manager](/img/wiki-f6Eimage.png)

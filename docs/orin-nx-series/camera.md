@@ -38,7 +38,19 @@ gst-launch-1.0 nvarguscamerasrc sensor-id=1 ! "video/x-raw(memory:NVMM), width=(
 | `framerate` | 帧率，例如 30/1（30 FPS） |
 | `sync=false` | 禁用音视频同步，减少延迟 |
 
+![1.1 使用 gst-launch 打开摄像头](/img/wiki-fXv4.png)
+
 ## 2. USB 摄像头
+
+![2. USB 摄像头](/img/wiki-IVR1.png)
+
+![2. USB 摄像头](/img/wiki-Goj3.png)
+
+![2. USB 摄像头](/img/wiki-HZH7.png)
+
+![2. USB 摄像头](/img/wiki-FWh8.png)
+
+![2. USB 摄像头](/img/wiki-avd6.png)
 
 ### 使用 Cheese
 
