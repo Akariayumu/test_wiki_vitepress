@@ -50,6 +50,7 @@ const rootSidebar = [
           { text: 'PyTorch 和 Torchvision', link: '/orin-nano-series/pytorch' },
           { text: '使用 TensorRT 加速', link: '/orin-nano-series/tensorrt' },
           { text: '安装使用 Ollama', link: '/orin-nano-series/ollama' },
+          { text: '部署 OpenClaw', link: '/orin-nano-series/openclaw' },
           { text: 'Jetson-container', link: '/orin-nano-series/jetson-container' },
           { text: '网卡驱动', link: '/orin-nano-series/network-driver' },
           { text: '4G 模块使用说明', link: '/orin-nano-series/4g-module' },
