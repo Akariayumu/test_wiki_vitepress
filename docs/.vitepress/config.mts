@@ -21,19 +21,24 @@ const rootSidebar = [
     ]
   },
   {
-    text: 'Orin Nano 系列',
+    text: 'Jetson Orin 使用教程',
     collapsed: false,
     items: [
       {
+        text: '产品介绍',
+        items: [
+          { text: 'Orin Nano 系列说明', link: '/orin-nano-series/intro' },
+          { text: 'Orin NX 系列说明', link: '/orin-nx-series/intro' },
+        ]
+      },
+      {
         text: '入门教程',
         items: [
-          { text: '一、产品介绍', link: '/orin-nano-series/intro' },
-          { text: '二、刷机教程', link: '/orin-nano-series/flashing' },
-          { text: '三、摄像头', link: '/orin-nano-series/camera' },
-          { text: '四、GPIO 控制', link: '/orin-nano-series/gpio' },
-          { text: '五、其他外设', link: '/orin-nano-series/peripherals' },
-          { text: 'USB 配置说明', link: '/orin-nano-series/usb-config' },
           { text: '连接到 Jetson 系统', link: '/orin-nano-series/connect-jetson' },
+          { text: '摄像头', link: '/orin-nano-series/camera' },
+          { text: 'GPIO 控制', link: '/orin-nano-series/gpio' },
+          { text: '其他外设', link: '/orin-nano-series/peripherals' },
+          { text: 'USB 配置说明', link: '/orin-nano-series/usb-config' },
         ]
       },
       {
@@ -43,6 +48,7 @@ const rootSidebar = [
           { text: '安装 CUDA', link: '/orin-nano-series/cuda' },
           { text: '编译 OpenCV with CUDA', link: '/orin-nano-series/opencv' },
           { text: 'PyTorch 和 Torchvision', link: '/orin-nano-series/pytorch' },
+          { text: '使用 TensorRT 加速', link: '/orin-nano-series/tensorrt' },
           { text: '安装使用 Ollama', link: '/orin-nano-series/ollama' },
           { text: 'Jetson-container', link: '/orin-nano-series/jetson-container' },
           { text: '网卡驱动', link: '/orin-nano-series/network-driver' },
@@ -51,36 +57,11 @@ const rootSidebar = [
           { text: '自定义启动 LOGO', link: '/orin-nano-series/boot-logo' },
         ]
       },
-    ]
-  },
-  {
-    text: 'Orin NX 系列',
-    collapsed: false,
-    items: [
       {
-        text: '入门教程',
+        text: '刷机教程',
         items: [
-          { text: '一、产品介绍', link: '/orin-nx-series/intro' },
-          { text: '二、刷机教程', link: '/orin-nx-series/flashing' },
-          { text: '三、摄像头', link: '/orin-nx-series/camera' },
-          { text: '四、GPIO 控制', link: '/orin-nx-series/gpio' },
-          { text: '五、其他外设', link: '/orin-nx-series/peripherals' },
-          { text: 'USB 配置说明', link: '/orin-nx-series/usb-config' },
-          { text: '连接到 Jetson 系统', link: '/orin-nx-series/connect-jetson' },
-        ]
-      },
-      {
-        text: '进阶教程',
-        items: [
-          { text: '安装 jtop', link: '/orin-nx-series/jtop' },
-          { text: '安装 CUDA', link: '/orin-nx-series/cuda' },
-          { text: '编译 OpenCV with CUDA', link: '/orin-nx-series/opencv' },
-          { text: 'PyTorch 和 Torchvision', link: '/orin-nx-series/pytorch' },
-          { text: '安装使用 Ollama', link: '/orin-nx-series/ollama' },
-          { text: 'Jetson-container', link: '/orin-nx-series/jetson-container' },
-          { text: '使用 TensorRT 加速', link: '/orin-nx-series/tensorrt' },
-          { text: '网卡驱动', link: '/orin-nx-series/network-driver' },
-          { text: '4G 模块使用说明', link: '/orin-nx-series/4g-module' },
+          { text: 'Orin Nano 刷机', link: '/orin-nano-series/flashing' },
+          { text: 'Orin NX 刷机', link: '/orin-nx-series/flashing' },
         ]
       },
     ]
@@ -166,8 +147,7 @@ const rootNav = [
   { text: '首页', link: '/' },
   { text: 'C1902', link: '/c1902/c1902' },
   { text: 'C2401', link: '/c2401/c2401' },
-  { text: 'Orin Nano', link: '/orin-nano-series/intro' },
-  { text: 'Orin NX', link: '/orin-nx-series/intro' },
+  { text: 'Jetson 教程', link: '/orin-nano-series/intro' },
   { text: 'GPIO', link: '/gpio-tutorial/jetpack6-gpio' },
   { text: '刷机', link: '/flashing-guide/ubuntu-sdkmanager' },
 ]
