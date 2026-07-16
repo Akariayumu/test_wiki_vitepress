@@ -161,7 +161,8 @@ const enNav = [
 ]
 
 export default defineConfig({
-  base: '/test_wiki_vitepress/',
+  // GitHub Pages 用仓库名作 base；自托管(nginx 根路径)构建时用 DEPLOY_BASE=/ 覆盖
+  base: process.env.DEPLOY_BASE || '/test_wiki_vitepress/',
   title: 'LinkZee Wiki',
   description: '控元科技 Jetson Orin 载板产品文档',
 
