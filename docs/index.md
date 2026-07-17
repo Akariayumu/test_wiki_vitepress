@@ -29,7 +29,7 @@ features:
     linkText: 开始学习
   - title: AI 开发
     details: CUDA、PyTorch、Ollama、TensorRT 环境搭建
-    link: /orin-nano-guide/cuda
+    link: /orin-nano-series/cuda
     linkText: 搭建环境
   - title: 刷机教程
     details: 各型号载板刷入系统完整指南

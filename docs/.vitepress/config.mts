@@ -52,6 +52,7 @@ const rootSidebar = [
           { text: '安装使用 Ollama', link: '/orin-nano-series/ollama' },
           { text: '部署 OpenClaw', link: '/orin-nano-series/openclaw' },
           { text: 'Jetson-container', link: '/orin-nano-series/jetson-container' },
+          { text: 'Jetson-container + Comfy-UI', link: '/orin-nano-series/comfyui' },
           { text: '网卡驱动', link: '/orin-nano-series/network-driver' },
           { text: '4G 模块使用说明', link: '/orin-nano-series/4g-module' },
           { text: '基础镜像制作', link: '/orin-nano-series/base-image' },
@@ -63,47 +64,6 @@ const rootSidebar = [
         items: [
           { text: 'Orin Nano 刷机', link: '/orin-nano-series/flashing' },
           { text: 'Orin NX 刷机', link: '/orin-nx-series/flashing' },
-        ]
-      },
-    ]
-  },
-  {
-    text: 'Orin Nano 指南',
-    collapsed: false,
-    items: [
-      {
-        text: '入门教程',
-        items: [
-          { text: '连接到 Jetson 系统', link: '/orin-nano-guide/connect-jetson' },
-          { text: '摄像头', link: '/orin-nano-guide/camera' },
-          { text: 'GPIO 控制', link: '/orin-nano-guide/gpio' },
-          { text: '其他外设', link: '/orin-nano-guide/peripherals' },
-        ]
-      },
-      {
-        text: 'JetPack 配置说明',
-        items: [
-          { text: '安装 jtop', link: '/orin-nano-guide/jtop' },
-          { text: '安装 CUDA', link: '/orin-nano-guide/cuda' },
-          { text: 'C1901/C1902 USB 配置', link: '/orin-nano-guide/usb-config' },
-          { text: '自定义启动 LOGO', link: '/orin-nano-guide/boot-logo' },
-          { text: '网卡驱动', link: '/orin-nano-guide/network-driver' },
-          { text: '4G 模块使用说明', link: '/orin-nano-guide/4g-module' },
-          { text: '基础镜像制作', link: '/orin-nano-guide/base-image' },
-        ]
-      },
-      {
-        text: 'AI 视觉教程',
-        items: [
-          { text: '编译 OpenCV with CUDA', link: '/orin-nano-guide/opencv' },
-          { text: 'PyTorch 和 Torchvision', link: '/orin-nano-guide/pytorch' },
-          { text: 'Jetson-container + Comfy-UI', link: '/orin-nano-guide/comfyui' },
-        ]
-      },
-      {
-        text: '大模型教程',
-        items: [
-          { text: '安装使用 Ollama', link: '/orin-nano-guide/ollama' },
         ]
       },
     ]
