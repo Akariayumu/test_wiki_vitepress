@@ -130,6 +130,12 @@ const rootSidebar = [
 // ===== English locale sidebar (only pages with EN content) =====
 const enSidebar = [
   {
+    text: 'C1901 Carrier Board',
+    items: [
+      { text: 'C1901 Introduction', link: '/en/c1901/c1901-introduction' },
+    ]
+  },
+  {
     text: 'C1902 Carrier Board',
     items: [
       { text: 'C1902 Introduction', link: '/en/c1902/c1902-introduction' },
@@ -139,6 +145,16 @@ const enSidebar = [
     text: 'C2401 Mini Kit',
     items: [
       { text: 'C2401 Introduction', link: '/en/c2401/c2401-introduction' },
+    ]
+  },
+  {
+    text: 'Flashing Guide',
+    items: [
+      { text: 'Install Ubuntu VM and SDK Manager', link: '/en/flashing-guide/ubuntu-sdkmanager' },
+      { text: 'Flash the Official Developer Kit', link: '/en/flashing-guide/devkit-flashing' },
+      { text: 'Flash the C1901', link: '/en/flashing-guide/c1901-flashing' },
+      { text: 'Flash the C1902', link: '/en/flashing-guide/c1902-flashing' },
+      { text: 'Flash the C2401', link: '/en/flashing-guide/c2401-flashing' },
     ]
   },
 ]
@@ -156,8 +172,10 @@ const rootNav = [
 // ===== English Nav =====
 const enNav = [
   { text: 'Home', link: '/en/' },
+  { text: 'C1901', link: '/en/c1901/c1901-introduction' },
   { text: 'C1902', link: '/en/c1902/c1902-introduction' },
   { text: 'C2401', link: '/en/c2401/c2401-introduction' },
+  { text: 'Flashing', link: '/en/flashing-guide/ubuntu-sdkmanager' },
 ]
 
 export default defineConfig({
