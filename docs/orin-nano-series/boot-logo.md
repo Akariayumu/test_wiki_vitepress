@@ -68,7 +68,7 @@ cd nvidia-uefi-r36.4.4/edk2-nvidia/Silicon/NVIDIA/Assets/
 您可以选择直接替换掉这三个分辨率的图片，也可以在下面的配置文件中更改引用的LOGO文件路径
 
 ```bash
-cd nvidia-uefi-r36.4.0/edk2-nvidia/Platform/NVIDIA/NVIDIA.fvmain.fdf.inc
+cd nvidia-uefi-r36.4.4/edk2-nvidia/Platform/NVIDIA/NVIDIA.fvmain.fdf.inc
 ```
 
 ![image.png](/img/boot-logo-config.png)

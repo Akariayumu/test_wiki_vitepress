@@ -9,28 +9,30 @@
 - base 使用默认值 `/test_wiki_vitepress/`（仓库名子路径）
 - 无需手动操作，也**不要**在 workflow 里设置 `DEPLOY_BASE`
 
-## 2. 自托管 nginx 服务器（手动）
+## 2. 自托管服务器（手动）
 
-服务器 `154.83.85.36`，nginx 在 **1234** 端口以**根路径**托管，站点根目录 `/var/www/linkzee-wiki/`。
+服务器 `154.83.85.36`，站点根目录 `/var/www/linkzee-wiki/`。
 
-### ⚠️ 关键：构建时必须带 `DEPLOY_BASE=/`
+- `www.linkzeelabs.com/wiki-new/`（前端机 47.113.114.54）**保留 `/wiki-new/` 前缀**反代到
+  154 的 1234 端口，因此必须用 `DEPLOY_BASE=/wiki-new/` 构建，并且文件要在
+  `/var/www/linkzee-wiki/wiki-new/` 子目录里真实存在一份。
 
-nginx 从根路径提供服务，而默认 base 是 `/test_wiki_vitepress/`。若不覆盖 base，
-页面里所有 `/test_wiki_vitepress/assets/...` 资源都会 404，页面变成无样式的裸 HTML。
+### ⚠️ 关键：构建时必须带 `DEPLOY_BASE=/wiki-new/`
 
 ```bash
-# 1. 构建（务必带 DEPLOY_BASE=/）
-DEPLOY_BASE=/ npm run docs:build
+# 1. 构建
+DEPLOY_BASE=/wiki-new/ npm run docs:build
 
-# 2. 同步到服务器（--delete 会清掉已删除的旧页面）
-rsync -avz --delete docs/.vitepress/dist/ root@154.83.85.36:/var/www/linkzee-wiki/
+# 2. 同步两份：根目录一份（供直接访问 1234），wiki-new/ 子目录一份（供反代）
+rsync -avz --delete --exclude '/wiki-new/' docs/.vitepress/dist/ root@154.83.85.36:/var/www/linkzee-wiki/
+rsync -avz --delete docs/.vitepress/dist/ root@154.83.85.36:/var/www/linkzee-wiki/wiki-new/
 ```
 
 部署后验证：
 
 ```bash
-curl -s -o /dev/null -w "%{http_code}\n" http://154.83.85.36:1234/            # 期望 200
-# 首页引用的资源应为 /assets/... 而非 /test_wiki_vitepress/assets/...
+curl -s -o /dev/null -w "%{http_code}\n" https://www.linkzeelabs.com/wiki-new/   # 期望 200
+curl -s https://www.linkzeelabs.com/wiki-new/ | grep -o '<title>[^<]*'           # 期望 LinkZee Wiki 而非 404
 ```
 
 浏览器若仍显示旧内容，`Ctrl+Shift+R` 强刷清缓存。
@@ -44,7 +46,7 @@ base: process.env.DEPLOY_BASE || '/test_wiki_vitepress/',
 ```
 
 - 不设变量 → `/test_wiki_vitepress/`（GitHub Pages）
-- `DEPLOY_BASE=/` → 根路径（nginx 服务器）
+- `DEPLOY_BASE=/wiki-new/` → 自托管服务器（经 `/wiki-new/` 前缀反代）
 
 ## nginx 配置参考
 

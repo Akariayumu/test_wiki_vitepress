@@ -6,27 +6,36 @@ hero:
   name: "LinkZee Wiki"
   text: "控元科技产品文档"
   tagline: Jetson Orin 载板完整文档站
+  image:
+    src: /img/logo.png
+    alt: KYtech 控元科技
   actions:
     - theme: brand
-      text: C1902 产品介绍
-      link: /c1902/c1902
-    - theme: alt
-      text: 刷机教程
-      link: /flashing-guide/ubuntu-sdkmanager
+      text: 快速开始
+      link: /quick-start
 
 features:
-  - title: C1902 载板
+  - icon:
+      src: /img/c1901-front.jpg
+      alt: C1901 载板
+    title: C1901 载板
+    details: Jetson Orin Nano/NX 载板，高性价比方案
+    link: /c1901/c1901
+    linkText: 查看产品介绍
+  - icon:
+      src: /img/c1902-front.jpg
+      alt: C1902 载板
+    title: C1902 载板
     details: Jetson Orin Nano/NX 第三方载板，与原厂完全兼容
     link: /c1902/c1902
     linkText: 查看产品介绍
-  - title: C2401 迷你套件
+  - icon:
+      src: /img/c2401-front.png
+      alt: C2401 迷你套件
+    title: C2401 迷你套件
     details: 高密度小尺寸载板，双网口、双 USB
     link: /c2401/c2401
     linkText: 查看产品介绍
-  - title: GPIO 教程
-    details: JetPack 5/6 完整 GPIO 控制教程
-    link: /gpio-tutorial/jetpack6-gpio
-    linkText: 开始学习
   - title: AI 开发
     details: CUDA、PyTorch、Ollama、TensorRT 环境搭建
     link: /orin-nano-series/cuda

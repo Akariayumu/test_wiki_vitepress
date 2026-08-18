@@ -98,6 +98,6 @@ After flashing, the C1901 reboots automatically into the system. The first boot 
 
 ## Next Steps
 
-- [C1901 Introduction](/en/c1901/c1901-introduction)
+- [C1901 Introduction](/en/c1901/c1901)
 
 > Source: [Kytech (Guangzhou) Co., Ltd — LinkZee Labs](https://www.linkzeelabs.com/wiki/books/flashing)

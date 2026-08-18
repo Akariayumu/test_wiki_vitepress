@@ -9,6 +9,23 @@ jtop 是英伟达专为 **Jetson 系列边缘计算设备** 开发的 **交互�
 
 ## 1 安装jtop
 
+### 1.1 一键脚本安装（推荐）
+
+官方提供了一键安装脚本，可以直接安装 jtop：
+
+```bash
+sudo -v
+curl -LsSf https://raw.githubusercontent.com/rbonghi/jetson_stats/master/scripts/install_jtop_torun_without_sudo.sh | bash
+```
+
+安装完成后，使用以下命令打开 jtop：
+
+```bash
+sudo jtop
+```
+
+### 1.2 使用 pip 安装
+
 - 安装jtop需要的依赖库
 
 ```bash
@@ -27,7 +44,7 @@ sudo systemctl restart jtop.service
 
 ## 2 jtop的使用
 
-- 安装完成后在控制台中输入`jtop`打开主界面
+- 安装完成后在控制台中输入`jtop`（一键脚本安装则输入`sudo jtop`）打开主界面
 
 ![image.png](/img/jtop-main.png)
 

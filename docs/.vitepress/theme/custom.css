@@ -1,0 +1,112 @@
+/* Mermaid 流程图：修正中文标签被节点边框遮挡的问题。
+   Mermaid 用英文字体测量文字宽度，中文实际更宽，导致节点框偏小、文字溢出被裁切。
+   这里让 HTML 标签不换行、留出内边距，并禁止 SVG 裁剪。 */
+.mermaid .nodeLabel,
+.mermaid .edgeLabel,
+.mermaid .cluster-label {
+  white-space: nowrap;
+  line-height: 1.5;
+}
+
+.mermaid .nodeLabel {
+  padding: 0 2px;
+}
+
+/* 关闭对 foreignObject/文本的裁剪，避免中文最后一个字被切掉 */
+.mermaid svg {
+  overflow: visible;
+}
+
+.mermaid foreignObject {
+  overflow: visible;
+}
+
+/* 首页 features 产品图：默认 icon 图片只有 48px，放大为卡片顶部的完整展示图 */
+.VPHomeFeatures .VPFeature .VPImage {
+  width: 100%;
+  height: 140px;
+  object-fit: contain;
+  margin-bottom: 16px;
+  border-radius: 8px;
+}
+
+/* 快速开始页：教程简介学习路径卡片 */
+.qs-path {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  margin: 16px 0;
+}
+
+.qs-step {
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 12px;
+  padding: 20px;
+  background-color: var(--vp-c-bg-soft);
+  transition: border-color 0.25s, background-color 0.25s;
+}
+
+.qs-step:hover {
+  border-color: var(--vp-c-brand-1);
+}
+
+.qs-step-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.qs-step-num {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background-color: var(--vp-c-brand-1);
+  color: var(--vp-c-white);
+  font-size: 14px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.qs-step-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--vp-c-text-1);
+}
+
+.qs-step-desc {
+  font-size: 14px;
+  color: var(--vp-c-text-2);
+  margin-bottom: 12px;
+  line-height: 1.6;
+}
+
+.qs-step-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.qs-step-links a {
+  font-size: 13px;
+  padding: 3px 10px;
+  border-radius: 6px;
+  background-color: var(--vp-c-bg);
+  border: 1px solid var(--vp-c-divider);
+  color: var(--vp-c-text-1);
+  text-decoration: none;
+  transition: border-color 0.25s, color 0.25s;
+}
+
+.qs-step-links a:hover {
+  border-color: var(--vp-c-brand-1);
+  color: var(--vp-c-brand-1);
+}
+
+/* 快速开始页：公司简介 logo 限宽 */
+.qs-logo img {
+  max-width: 360px;
+}

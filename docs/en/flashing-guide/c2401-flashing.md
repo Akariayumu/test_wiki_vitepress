@@ -98,6 +98,6 @@ After flashing, the C2401 reboots automatically into the system.
 
 ## Next Steps
 
-- [C2401 Introduction](/en/c2401/c2401-introduction)
+- [C2401 Introduction](/en/c2401/c2401)
 
 > Source: [Kytech (Guangzhou) Co., Ltd — LinkZee Labs](https://www.linkzeelabs.com/wiki/books/flashing)

@@ -11,7 +11,7 @@ title: Jetson Orin NX 系列说明
 | | Orin NX 8GB | Orin NX 16GB |
 |---|---|---|
 | AI 算力 (INT8) | **117** TOPS | **157** TOPS |
-| GPU | **1024** 核 CUDA 核心，**32** 个 Tensor Core，GPU@1020MHz | **1796** 核 CUDA 核心，**32** 个 Tensor Core，GPU@1020MHz |
+| GPU | **1024** 核 CUDA 核心，**32** 个 Tensor Core，GPU@1020MHz | **1024** 核 CUDA 核心，**32** 个 Tensor Core，GPU@1020MHz |
 | CPU | 8x A78 @ 2GHz | 8x A78 @ 2GHz |
 | 内存 | LPDDR5 **8GB** | LPDDR5 **16GB** |
 | 功率 | 10W \| 15W \| 25W \| 40W | 10W \| 15W \| 25W \| 40W |

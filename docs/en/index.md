@@ -9,18 +9,33 @@ hero:
   actions:
     - theme: brand
       text: C1902 Introduction
-      link: /en/c1902/c1902-introduction
+      link: /en/c1902/c1902
     - theme: alt
       text: Flashing Guide
       link: /en/flashing-guide/ubuntu-sdkmanager
 
 features:
-  - title: C1902 Carrier Board
+  - icon:
+      src: /img/c1901-front.jpg
+      alt: C1901 Carrier Board
+    title: C1901 Carrier Board
+    details: Cost-effective carrier board for Jetson Orin Nano/NX
+    link: /en/c1901/c1901
+    linkText: View product intro
+  - icon:
+      src: /img/c1902-front.jpg
+      alt: C1902 Carrier Board
+    title: C1902 Carrier Board
     details: Compatible with Orin Nano 4G/8G & Orin NX 8G/16G
-  - title: C2401 Mini Kit
+    link: /en/c1902/c1902
+    linkText: View product intro
+  - icon:
+      src: /img/c2401-front.png
+      alt: C2401 Mini Kit
+    title: C2401 Mini Kit
     details: Compact high-density design with dual Ethernet & USB
-  - title: GPIO Tutorial
-    details: Complete JetPack 5/6 GPIO programming guide
+    link: /en/c2401/c2401
+    linkText: View product intro
   - title: AI Development
     details: CUDA, PyTorch, Ollama, TensorRT environment setup
   - title: Flashing Guide
