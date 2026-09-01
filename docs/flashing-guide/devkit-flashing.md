@@ -31,7 +31,7 @@ outline: deep
 进入恢复模式后一段时间内不操作会重启进入系统，请注意操作时机。
 :::
 
-![0Q7A9416 拷贝.jpg](/img/wiki-0q7a9416.jpg)
+![0Q7A9416 拷贝.jpg](/img/wiki-0q7a9416.webp)
 
 ![14.png](/img/wiki-14.png)
 
@@ -75,7 +75,7 @@ Storage Device，系统刷入的介质，根据不同设备自行选择 (内存�
 
 ![6.png](/img/wiki-6.png)
 
-![7.png](/img/wiki-7.png)
+![7.png](/img/wiki-7.webp)
 
 ## 2.使用命令行刷入super固件
 

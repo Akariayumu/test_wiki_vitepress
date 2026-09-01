@@ -14,7 +14,7 @@ cutecom is a cross-platform serial terminal program that provides a simple and i
 sudo apt install cutecom
 ```
 
-![1.png](/img/wiki-EKf1.png)
+![1.png](/img/wiki-EKf1.webp)
 
 The UART interface enabled by default is ttyTHS1, which corresponds to pin 8 (TX) and pin 10 (RX) of the 40-pin GPIO header.
 
@@ -33,7 +33,7 @@ sudo usermod -aG dialout $USER
 
 - Open cutecom, select ttyTHS1 and open it.
 
-![8.png](/img/wiki-DfP8.png)
+![8.png](/img/wiki-DfP8.webp)
 
 - Enter text and press Enter; you can see the content displayed in the receive area below.
 
@@ -205,7 +205,7 @@ The wiring of the C1901/C1902 differs from that of the C2401; please distinguish
 
 The C2401 includes the part shown in the blue box in the figure, while the C1901/C1902 corresponds to the part shown in the red box.
 
-![CAN](/img/wiki-gemini-generated-image-ry4utnry4utnry4u.png)
+![CAN](/img/wiki-gemini-generated-image-ry4utnry4utnry4u.webp)
 
 The C1901/C1902 has no CAN transceiver chip and only outputs the CAN_TX and CAN_RX signals.
 

@@ -39,19 +39,19 @@ gst-launch-1.0 nvarguscamerasrc sensor-id=1 ! "video/x-raw(memory:NVMM), width=(
 | `framerate` | Frame rate, e.g. 30/1 (30 FPS) |
 | `sync=false` | Disables audio/video synchronization to reduce latency |
 
-![1.1 Opening the camera with gst-launch](/img/wiki-fXv4.png)
+![1.1 Opening the camera with gst-launch](/img/wiki-fXv4.webp)
 
 ## 2. USB Camera
 
-![2. USB Camera](/img/wiki-IVR1.png)
+![2. USB Camera](/img/wiki-IVR1.webp)
 
-![2. USB Camera](/img/wiki-Goj3.png)
+![2. USB Camera](/img/wiki-Goj3.webp)
 
-![2. USB Camera](/img/wiki-HZH7.png)
+![2. USB Camera](/img/wiki-HZH7.webp)
 
-![2. USB Camera](/img/wiki-FWh8.png)
+![2. USB Camera](/img/wiki-FWh8.webp)
 
-![2. USB Camera](/img/wiki-avd6.png)
+![2. USB Camera](/img/wiki-avd6.webp)
 
 ### Using Cheese
 

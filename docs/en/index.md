@@ -30,11 +30,18 @@ features:
     link: /en/c1902/c1902
     linkText: View product intro
   - icon:
-      src: /img/c2401-front.png
+      src: /img/c2401-front.webp
       alt: C2401 Mini Kit
     title: C2401 Mini Kit
     details: Compact high-density design with dual Ethernet & USB
     link: /en/c2401/c2401
+    linkText: View product intro
+  - icon:
+      src: /img/c1903-banner.webp
+      alt: C1903 Carrier Board / Kit
+    title: C1903 Carrier Board / Kit
+    details: Industrial-grade design with dual M.2, expanded USB, and GH1.25 peripheral interfaces
+    link: /en/c1903/c1903
     linkText: View product intro
   - title: AI Development
     details: CUDA, PyTorch, Ollama, TensorRT environment setup

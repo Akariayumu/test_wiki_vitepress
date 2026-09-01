@@ -84,11 +84,11 @@ flowchart TD
 2. **串口无屏**：用 USB-TTL 串口线接 Button Header（RXD=针脚 3、TXD=针脚 4、GND=针脚 7），打开串口终端，上电后反复按 `Esc` 进入 UEFI 菜单查看。
 3. **直接试引导**：直接尝试引导 JetPack 7 安装介质（较粗略，不推荐用于精确判断）。
 
-![UEFI 菜单中的固件版本](/img/jp7-uefi-firmware.png)
+![UEFI 菜单中的固件版本](/img/jp7-uefi-firmware.webp)
 
 *在 UEFI 设置菜单中查看固件版本*
 
-![串口线接 Button Header](/img/jp7-serial-cable.jpg)
+![串口线接 Button Header](/img/jp7-serial-cable.webp)
 
 *无屏时用 USB-TTL 串口线接 Button Header（RXD/TXD/GND）*
 

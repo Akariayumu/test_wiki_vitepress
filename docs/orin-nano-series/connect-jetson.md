@@ -103,7 +103,7 @@ sudo dpkg -i nomachine_9.1.24_6_arm64.deb
 
 ![4.1 使用 NoMachine](/img/wiki-Anoimage.png)
 
-![4.1 使用 NoMachine](/img/wiki-A8Rimage.png)
+![4.1 使用 NoMachine](/img/wiki-A8Rimage.webp)
 
 ![4.1 使用 NoMachine](/img/wiki-1LWimage.png)
 
@@ -145,10 +145,10 @@ sudo reboot
 
 > 参考英伟达官方说明：[Setting Up VNC | NVIDIA Developer](https://developer.nvidia.com/embedded/learn/tutorials/vnc-setup)
 
-![4.2 使用 VNC](/img/wiki-cDeimage.png)
+![4.2 使用 VNC](/img/wiki-cDeimage.webp)
 
 ![4.2 使用 VNC](/img/wiki-P73image.png)
 
 ![4.2 使用 VNC](/img/wiki-82Rimage.png)
 
-![4.2 使用 VNC](/img/wiki-bjaimage.png)
+![4.2 使用 VNC](/img/wiki-bjaimage.webp)

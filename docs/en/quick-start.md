@@ -25,6 +25,7 @@ We provide carrier boards and kits based on Jetson Orin Nano / Orin NX core modu
 | --- | --- | --- |
 | **C1901** | High cost-performance carrier board, streamlined and optimized from the reference design | [C1901 Product Introduction](/en/c1901/c1901) |
 | **C1902** | Third-party carrier board, fully compatible with the original, full-speed USB3.0 / Type-C | [C1902 Product Introduction](/en/c1902/c1902) |
+| **C1903** | Industrial-grade carrier board / kit with full-family SUPER mode, dual M.2, and expanded interfaces | [C1903 Product Introduction](/en/c1903/c1903) |
 | **C2401** | High-density, compact mini kit with dual Ethernet ports and dual USB | [C2401 Product Introduction](/en/c2401/c2401) |
 
 For core module selection, please refer to the [Orin Nano Series Overview](/en/orin-nano-series/intro) and the [Orin NX Series Overview](/en/orin-nx-series/intro).

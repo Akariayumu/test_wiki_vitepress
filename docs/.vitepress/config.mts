@@ -17,6 +17,12 @@ const rootSidebar = [
     ]
   },
   {
+    text: '载板适配开发',
+    items: [
+      { text: 'Pinmux 与设备树', link: '/hardware-bsp/pinmux-device-tree' },
+    ]
+  },
+  {
     text: 'C1901 载板',
     items: [
       { text: 'C1901 产品介绍', link: '/c1901/c1901' },
@@ -26,6 +32,12 @@ const rootSidebar = [
     text: 'C1902 载板',
     items: [
       { text: 'C1902 产品介绍', link: '/c1902/c1902' },
+    ]
+  },
+  {
+    text: 'C1903 载板/套件',
+    items: [
+      { text: 'C1903 规格书', link: '/c1903/c1903' },
     ]
   },
   {
@@ -101,6 +113,12 @@ const rootSidebar = [
       { text: 'JetPack 7 刷入系统 (ISO 安装)', link: '/flashing-guide/jetpack7-flashing' },
     ]
   },
+  {
+    text: 'FAQ / 故障排查',
+    items: [
+      { text: '常见问题与诊断', link: '/faq/' },
+    ]
+  },
 ]
 
 // ===== English locale sidebar (only pages with EN content) =====
@@ -119,6 +137,12 @@ const enSidebar = [
     ]
   },
   {
+    text: 'Carrier Board Development',
+    items: [
+      { text: 'Pinmux & Device Tree', link: '/en/hardware-bsp/pinmux-device-tree' },
+    ]
+  },
+  {
     text: 'C1901 Carrier Board',
     items: [
       { text: 'C1901 Introduction', link: '/en/c1901/c1901' },
@@ -128,6 +152,12 @@ const enSidebar = [
     text: 'C1902 Carrier Board',
     items: [
       { text: 'C1902 Introduction', link: '/en/c1902/c1902' },
+    ]
+  },
+  {
+    text: 'C1903 Carrier Board / Kit',
+    items: [
+      { text: 'C1903 Introduction', link: '/en/c1903/c1903' },
     ]
   },
   {
@@ -203,6 +233,12 @@ const enSidebar = [
       { text: 'Flash JetPack 7 (ISO Installer)', link: '/en/flashing-guide/jetpack7-flashing' },
     ]
   },
+  {
+    text: 'FAQ & Troubleshooting',
+    items: [
+      { text: 'Common Issues & Diagnostics', link: '/en/faq/' },
+    ]
+  },
 ]
 
 // ===== Chinese Nav =====
@@ -210,6 +246,7 @@ const rootNav = [
   { text: '首页', link: '/' },
   { text: '选型对比', link: '/products/compare' },
   { text: 'C1902', link: '/c1902/c1902' },
+  { text: 'C1903', link: '/c1903/c1903' },
   { text: 'C2401', link: '/c2401/c2401' },
   { text: 'Jetson 教程', link: '/orin-nano-series/intro' },
   { text: 'GPIO', link: '/gpio-tutorial/jetpack6-gpio' },
@@ -221,6 +258,7 @@ const enNav = [
   { text: 'Home', link: '/en/' },
   { text: 'Compare', link: '/en/products/compare' },
   { text: 'C1902', link: '/en/c1902/c1902' },
+  { text: 'C1903', link: '/en/c1903/c1903' },
   { text: 'C2401', link: '/en/c2401/c2401' },
   { text: 'Tutorials', link: '/en/orin-nano-series/intro' },
   { text: 'GPIO', link: '/en/gpio-tutorial/jetpack6-gpio' },

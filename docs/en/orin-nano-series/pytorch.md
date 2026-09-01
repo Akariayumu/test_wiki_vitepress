@@ -161,6 +161,6 @@ while cap.isOpened():
         break
 ```
 
-![image.png](/img/wiki-bEUimage.png)
+![image.png](/img/wiki-bEUimage.webp)
 
 For more information, see [Ultralytics YOLO11 - Ultralytics YOLO Docs](https://docs.ultralytics.com/zh/models/yolo11/)

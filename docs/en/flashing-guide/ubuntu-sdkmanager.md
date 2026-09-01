@@ -56,7 +56,7 @@ Set the memory to 8GB or more, and configure the processors based on your host.
 
 When done, power on the virtual machine and begin the Ubuntu installation.
 
-![Power On VM](/img/wiki-snipaste-2025-06-11-15-51-19.png)
+![Power On VM](/img/wiki-snipaste-2025-06-11-15-51-19.webp)
 
 Follow the prompts to complete the Ubuntu installation.
 
@@ -78,11 +78,11 @@ After installation, find and open SDK Manager from the application list.
 
 Log in with your NVIDIA account (register in advance).
 
-![Log in to SDK Manager](/img/wiki-ZDbimage.png)
+![Log in to SDK Manager](/img/wiki-ZDbimage.webp)
 
 Once logged in, you will see the SDK Manager main screen, ready to start flashing.
 
-![SDK Manager Main Screen](/img/wiki-f6Eimage.png)
+![SDK Manager Main Screen](/img/wiki-f6Eimage.webp)
 
 ## Next Steps
 

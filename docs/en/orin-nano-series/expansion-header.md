@@ -139,6 +139,8 @@ For more GPIO usage via CLI / Python / C, see [GPIO Control](/en/orin-nano-serie
 - Jetson-IO modifies the DTB and `extlinux.conf` under `/boot/`; after reflashing or replacing the DTB (e.g. [USB device tree replacement](/en/orin-nano-series/usb-config)), the configuration must be redone.
 - **Production advice**: Jetson-IO is meant for development. For production images, generate the configuration from the official pinmux spreadsheet and flash it with the firmware — see [NVIDIA Pinmux and GPIO Configuration](https://docs.nvidia.com/jetson/archives/r36.4.4/DeveloperGuide/HR/JetsonModuleAdaptationAndBringUp/JetsonOrinNxNanoSeries.html#changing-the-pinmux).
 
+For the complete spreadsheet, BCT, DTS/DTB/DTBO, validation, and recovery workflow, see [Pinmux & Device Tree](/en/hardware-bsp/pinmux-device-tree).
+
 ## References
 
 - [NVIDIA — Configuring the Jetson Expansion Headers](https://docs.nvidia.com/jetson/archives/r36.4.4/DeveloperGuide/HR/ConfiguringTheJetsonExpansionHeaders.html)

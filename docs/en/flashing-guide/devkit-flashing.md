@@ -14,7 +14,7 @@ This tutorial applies to the **Jetson Orin Nano/NX official Developer Kit**. For
 
 Before flashing, put the module into **Recovery Mode**.
 
-![Enter Recovery Mode](/img/wiki-0q7a9416.jpg)
+![Enter Recovery Mode](/img/wiki-0q7a9416.webp)
 
 Steps:
 
@@ -67,7 +67,7 @@ Click Flash to start flashing the system and wait for it to finish.
 
 After flashing, the module reboots automatically into the system.
 
-![Flashing Complete](/img/wiki-7.png)
+![Flashing Complete](/img/wiki-7.webp)
 
 ## Troubleshooting
 

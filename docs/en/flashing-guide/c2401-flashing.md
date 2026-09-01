@@ -16,7 +16,7 @@ This guide explains how to flash the system onto the **C2401 Mini Kit**.
 
 The C2401 enters recovery mode through the **Recovery button** on its side.
 
-![C2401 Recovery Mode](/img/wiki-0q7a2475-1.jpg)
+![C2401 Recovery Mode](/img/wiki-0q7a2475-1.webp)
 
 Steps:
 
@@ -68,7 +68,7 @@ Click Flash to start and wait for it to finish.
 
 After flashing, the C2401 reboots automatically into the system.
 
-![C2401 Complete](/img/wiki-7.png)
+![C2401 Complete](/img/wiki-7.webp)
 
 :::tip First Boot Configuration
 - Select language, time zone, and keyboard layout

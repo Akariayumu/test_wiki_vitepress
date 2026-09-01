@@ -20,9 +20,9 @@ title: Jetson Orin Nano Series Overview
 
 ## 2. Appearance
 
-![Jetson Orin Nano appearance](/img/wiki-dvS0q7a9024.jpg)
+![Jetson Orin Nano appearance](/img/wiki-dvS0q7a9024.webp)
 
-![Jetson Orin Nano appearance](/img/wiki-0q7a9030.jpg)
+![Jetson Orin Nano appearance](/img/wiki-0q7a9030.webp)
 
 ---
 
@@ -39,9 +39,9 @@ title: Jetson Orin Nano Series Overview
 | **Expansion Interface** | 40-pin expansion header: 3x UART, 2x SPI, 2x I2S (audio), 4x I2C, 1x CAN, DMIC, DSPK, PWM, GPIO<br/>12-pin debug interface<br/>4-pin fan header<br/>DC power jack |
 | **Wireless Connectivity** | Supports WLAN 802.11ac<br/>Supports Bluetooth 5.0 |
 
-![Jetson Orin Nano front](/img/wiki-2.jpg)
+![Jetson Orin Nano front](/img/wiki-2.webp)
 
-![Jetson Orin Nano back (labeled)](/img/wiki-HX6zVlu0Qt.jpg)
+![Jetson Orin Nano back (labeled)](/img/wiki-HX6zVlu0Qt.webp)
 
 The 12-pin debug interface is defined as follows:
 

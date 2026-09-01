@@ -103,7 +103,7 @@ sudo dpkg -i nomachine_9.1.24_6_arm64.deb
 
 ![4.1 Using NoMachine](/img/wiki-Anoimage.png)
 
-![4.1 Using NoMachine](/img/wiki-A8Rimage.png)
+![4.1 Using NoMachine](/img/wiki-A8Rimage.webp)
 
 ![4.1 Using NoMachine](/img/wiki-1LWimage.png)
 
@@ -145,10 +145,10 @@ Create a new connection in the VNC client on the host, enter the Jetson's LAN IP
 
 > Refer to NVIDIA's official documentation: [Setting Up VNC | NVIDIA Developer](https://developer.nvidia.com/embedded/learn/tutorials/vnc-setup)
 
-![4.2 Using VNC](/img/wiki-cDeimage.png)
+![4.2 Using VNC](/img/wiki-cDeimage.webp)
 
 ![4.2 Using VNC](/img/wiki-P73image.png)
 
 ![4.2 Using VNC](/img/wiki-82Rimage.png)
 
-![4.2 Using VNC](/img/wiki-bjaimage.png)
+![4.2 Using VNC](/img/wiki-bjaimage.webp)

@@ -30,12 +30,19 @@ features:
     link: /c1902/c1902
     linkText: 查看产品介绍
   - icon:
-      src: /img/c2401-front.png
+      src: /img/c2401-front.webp
       alt: C2401 迷你套件
     title: C2401 迷你套件
     details: 高密度小尺寸载板，双网口、双 USB
     link: /c2401/c2401
     linkText: 查看产品介绍
+  - icon:
+      src: /img/c1903-front.webp
+      alt: C1903 载板/套件
+    title: C1903 载板/套件
+    details: 小尺寸高密度载板，丰富 USB、M.2 与 GH1.25 扩展接口
+    link: /c1903/c1903
+    linkText: 查看规格书
   - title: AI 开发
     details: CUDA、PyTorch、Ollama、TensorRT 环境搭建
     link: /orin-nano-series/cuda

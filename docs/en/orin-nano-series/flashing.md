@@ -47,7 +47,7 @@ Version **20.04** or **22.04** is recommended. Download `ubuntu20.04_desktop_amd
 
 ![Finish configuration](/img/wiki-snipaste-2025-06-11-15-41-54.png)
 
-![Waiting for installation](/img/wiki-snipaste-2025-06-11-15-51-19.png)
+![Waiting for installation](/img/wiki-snipaste-2025-06-11-15-51-19.webp)
 
 ![Installation complete](/img/wiki-snipaste-2025-06-11-15-58-36.png)
 
@@ -71,9 +71,9 @@ sudo apt install --fix-broken
 
 ![Install SDK Manager](/img/wiki-12.png)
 
-![Log in to your NVIDIA account](/img/wiki-ZDbimage.png)
+![Log in to your NVIDIA account](/img/wiki-ZDbimage.webp)
 
-![SDK Manager main interface](/img/wiki-f6Eimage.png)
+![SDK Manager main interface](/img/wiki-f6Eimage.webp)
 
 ---
 
@@ -96,7 +96,7 @@ Set the USB connection mode to "Connect the device to the foreground virtual mac
 
 > If no operation is performed for a while after entering recovery mode, the board will reboot into the system, so pay attention to the timing of your operations.
 
-![Short FC REC and GND](/img/wiki-0q7a9416.jpg)
+![Short FC REC and GND](/img/wiki-0q7a9416.webp)
 
 ![SoM detected](/img/wiki-14.png)
 
@@ -130,7 +130,7 @@ Set the USB connection mode to "Connect the device to the foreground virtual mac
 
 ![Flashing in progress](/img/wiki-6.png)
 
-![Flashing complete](/img/wiki-7.png)
+![Flashing complete](/img/wiki-7.webp)
 
 ---
 

@@ -20,9 +20,9 @@ title: Jetson Orin Nano 系列说明
 
 ## 2. 外观
 
-![Jetson Orin Nano 外观](/img/wiki-dvS0q7a9024.jpg)
+![Jetson Orin Nano 外观](/img/wiki-dvS0q7a9024.webp)
 
-![Jetson Orin Nano 外观](/img/wiki-0q7a9030.jpg)
+![Jetson Orin Nano 外观](/img/wiki-0q7a9030.webp)
 
 ---
 
@@ -39,9 +39,9 @@ title: Jetson Orin Nano 系列说明
 | **扩展接口** | 40 针扩展接头：3x UART、2x SPI、2x I2S（音频）、4x I2C、1x CAN、DMIC、DSPK、PWM、GPIO<br/>12 针调试接口<br/>4 针风扇接头<br/>DC 电源接口 |
 | **无线连接** | 支持 WLAN 802.11ac<br/>支持蓝牙 5.0 |
 
-![Jetson Orin Nano 正面](/img/wiki-2.jpg)
+![Jetson Orin Nano 正面](/img/wiki-2.webp)
 
-![Jetson Orin Nano 背面（标注）](/img/wiki-HX6zVlu0Qt.jpg)
+![Jetson Orin Nano 背面（标注）](/img/wiki-HX6zVlu0Qt.webp)
 
 12Pin 调试接口定义如下：
 

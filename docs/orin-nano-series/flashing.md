@@ -47,7 +47,7 @@ title: 刷机教程
 
 ![完成配置](/img/wiki-snipaste-2025-06-11-15-41-54.png)
 
-![等待安装](/img/wiki-snipaste-2025-06-11-15-51-19.png)
+![等待安装](/img/wiki-snipaste-2025-06-11-15-51-19.webp)
 
 ![安装完成](/img/wiki-snipaste-2025-06-11-15-58-36.png)
 
@@ -71,9 +71,9 @@ sudo apt install --fix-broken
 
 ![安装 SDK Manager](/img/wiki-12.png)
 
-![登录 NVIDIA 账号](/img/wiki-ZDbimage.png)
+![登录 NVIDIA 账号](/img/wiki-ZDbimage.webp)
 
-![SDK Manager 主界面](/img/wiki-f6Eimage.png)
+![SDK Manager 主界面](/img/wiki-f6Eimage.webp)
 
 ---
 
@@ -96,7 +96,7 @@ sudo apt install --fix-broken
 
 > 进入恢复模式后一段时间内不操作会重启进入系统，请注意操作时机。
 
-![短接 FC REC 和 GND](/img/wiki-0q7a9416.jpg)
+![短接 FC REC 和 GND](/img/wiki-0q7a9416.webp)
 
 ![检测到核心卡](/img/wiki-14.png)
 
@@ -130,7 +130,7 @@ sudo apt install --fix-broken
 
 ![刷机进行中](/img/wiki-6.png)
 
-![刷机完成](/img/wiki-7.png)
+![刷机完成](/img/wiki-7.webp)
 
 ---
 

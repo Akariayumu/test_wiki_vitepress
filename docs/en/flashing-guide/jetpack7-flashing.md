@@ -84,11 +84,11 @@ Before flashing JetPack 7, confirm the device's UEFI/QSPI firmware is **≥ 36.0
 2. **Headless serial**: Connect a USB-to-TTL serial cable to the Button Header (RXD = pin 3, TXD = pin 4, GND = pin 7), open a serial console, power on, and press `Esc` repeatedly to enter the UEFI menu.
 3. **Boot media test**: Simply try booting the JetPack 7 install media (less precise; not recommended for an exact check).
 
-![Firmware version in the UEFI menu](/img/jp7-uefi-firmware.png)
+![Firmware version in the UEFI menu](/img/jp7-uefi-firmware.webp)
 
 *Reading the firmware version in the UEFI setup menu*
 
-![Serial cable on the Button Header](/img/jp7-serial-cable.jpg)
+![Serial cable on the Button Header](/img/jp7-serial-cable.webp)
 
 *Headless: a USB-to-TTL serial cable on the Button Header (RXD/TXD/GND)*
 

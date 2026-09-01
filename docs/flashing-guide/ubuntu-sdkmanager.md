@@ -64,7 +64,7 @@ title: 安装 Ubuntu 虚拟机和 SDK Manager
 
 ![1.3 安装 Ubuntu 系统](/img/wiki-snipaste-2025-06-11-15-41-54.png)
 
-![1.3 安装 Ubuntu 系统](/img/wiki-snipaste-2025-06-11-15-51-19.png)
+![1.3 安装 Ubuntu 系统](/img/wiki-snipaste-2025-06-11-15-51-19.webp)
 
 ![1.3 安装 Ubuntu 系统](/img/wiki-snipaste-2025-06-11-15-58-36.png)
 
@@ -88,6 +88,6 @@ sudo apt install --fix-broken
 
 ![2.2 安装 SDK Manager](/img/wiki-12.png)
 
-![2.2 安装 SDK Manager](/img/wiki-ZDbimage.png)
+![2.2 安装 SDK Manager](/img/wiki-ZDbimage.webp)
 
-![2.2 安装 SDK Manager](/img/wiki-f6Eimage.png)
+![2.2 安装 SDK Manager](/img/wiki-f6Eimage.webp)

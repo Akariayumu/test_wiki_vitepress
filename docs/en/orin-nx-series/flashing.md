@@ -49,7 +49,7 @@ Version **20.04** or **22.04** is recommended. Download `ubuntu20.04_desktop_amd
 
 ![1.3 Install Ubuntu](/img/wiki-snipaste-2025-06-11-15-41-54.png)
 
-![1.3 Install Ubuntu](/img/wiki-snipaste-2025-06-11-15-51-19.png)
+![1.3 Install Ubuntu](/img/wiki-snipaste-2025-06-11-15-51-19.webp)
 
 ![1.3 Install Ubuntu](/img/wiki-snipaste-2025-06-11-15-58-36.png)
 
@@ -73,15 +73,15 @@ sudo apt install --fix-broken
 
 ![2.2 Install SDK Manager](/img/wiki-12.png)
 
-![2.2 Install SDK Manager](/img/wiki-ZDbimage.png)
+![2.2 Install SDK Manager](/img/wiki-ZDbimage.webp)
 
-![2.2 Install SDK Manager](/img/wiki-f6Eimage.png)
+![2.2 Install SDK Manager](/img/wiki-f6Eimage.webp)
 
 ![2.2 Install SDK Manager](/img/wiki-4.png)
 
 ![2.2 Install SDK Manager](/img/wiki-5.png)
 
-![2.2 Install SDK Manager](/img/wiki-0q7a9416.jpg)
+![2.2 Install SDK Manager](/img/wiki-0q7a9416.webp)
 
 ![2.2 Install SDK Manager](/img/wiki-14.png)
 
@@ -99,7 +99,7 @@ sudo apt install --fix-broken
 
 ![2.2 Install SDK Manager](/img/wiki-6.png)
 
-![2.2 Install SDK Manager](/img/wiki-7.png)
+![2.2 Install SDK Manager](/img/wiki-7.webp)
 
 ![2.2 Install SDK Manager](/img/wiki-8.png)
 

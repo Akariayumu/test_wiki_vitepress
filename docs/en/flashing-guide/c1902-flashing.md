@@ -16,7 +16,7 @@ This guide explains how to flash the system onto the **C1902 carrier board**. C1
 
 The C1902 enters recovery mode through the **12-pin debug header**.
 
-![C1902 Recovery Mode](/img/wiki-0q7a9416.jpg)
+![C1902 Recovery Mode](/img/wiki-0q7a9416.webp)
 
 Steps:
 
@@ -68,7 +68,7 @@ Click Flash to start and wait for it to finish.
 
 After flashing, the C1902 reboots automatically into the system. The first boot requires initial system configuration.
 
-![C1902 Complete](/img/wiki-7.png)
+![C1902 Complete](/img/wiki-7.webp)
 
 :::tip First Boot Configuration
 - Select language, time zone, and keyboard layout

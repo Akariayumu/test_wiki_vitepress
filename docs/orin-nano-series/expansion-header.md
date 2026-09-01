@@ -139,6 +139,8 @@ gpioget $(gpiofind "PQ.06")     # 读取输入
 - Jetson-IO 修改的是 `/boot/` 下的 DTB 与 `extlinux.conf`，刷机/替换 DTB（如 [USB 设备树替换](/orin-nano-series/usb-config)）后需重新配置。
 - **量产建议**：Jetson-IO 适合开发调试；量产镜像应使用官方 pinmux 表格生成配置并随固件烧录，参考 [NVIDIA 官方 Pinmux and GPIO Configuration](https://docs.nvidia.com/jetson/archives/r36.4.4/DeveloperGuide/HR/JetsonModuleAdaptationAndBringUp/JetsonOrinNxNanoSeries.html#changing-the-pinmux)。
 
+完整的表格生成、BCT、DTS/DTB/DTBO、验证与回滚流程见 [Pinmux 与设备树](/hardware-bsp/pinmux-device-tree)。
+
 ## 参考
 
 - [NVIDIA 官方 — Configuring the Jetson Expansion Headers](https://docs.nvidia.com/jetson/archives/r36.4.4/DeveloperGuide/HR/ConfiguringTheJetsonExpansionHeaders.html)

@@ -14,7 +14,7 @@ cutecom 是一个跨平台的串口终端程序，它提供了一个简洁直观
 sudo apt install cutecom
 ```
 
-![1.png](/img/wiki-EKf1.png)
+![1.png](/img/wiki-EKf1.webp)
 
 官方默认开启的UART接口为 ttyTHS1 即 40pin GPIO中的 pin8 (TX) 和 pin10( RX) 引脚。
 
@@ -33,7 +33,7 @@ sudo usermod -aG dialout $USER
 
 - 打开 cutecom，选择 ttyTHS1 并打开。
 
-![8.png](/img/wiki-DfP8.png)
+![8.png](/img/wiki-DfP8.webp)
 
 - 输入文本并回车，可以看到下方接收区显示有内容。
 
@@ -205,7 +205,7 @@ C1901/C1902与C2401的连线形式不一样，请注意甄别。
 
 C2401包括的部分为图示蓝框的部分，C1901/1902为红框所示的部分。
 
-![CAN](/img/wiki-gemini-generated-image-ry4utnry4utnry4u.png)
+![CAN](/img/wiki-gemini-generated-image-ry4utnry4utnry4u.webp)
 
 C1901/1902 未配置 CAN 收发芯片，仅输出CAN_TX, CAN_RX信号。
 
