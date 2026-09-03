@@ -11,10 +11,10 @@
 
 ## 2. 自托管服务器（手动）
 
-服务器 `154.83.85.36`，站点根目录 `/var/www/linkzee-wiki/`。
+服务器 `8.138.149.15`，站点根目录 `/var/www/linkzee-wiki/`。
 
 - `www.linkzeelabs.com/wiki-new/`（前端机 47.113.114.54）**保留 `/wiki-new/` 前缀**反代到
-  154 的 1234 端口，因此必须用 `DEPLOY_BASE=/wiki-new/` 构建，并且文件要在
+  8.138.149.15 的 1234 端口，因此必须用 `DEPLOY_BASE=/wiki-new/` 构建，并且文件要在
   `/var/www/linkzee-wiki/wiki-new/` 子目录里真实存在一份。
 
 ### ⚠️ 关键：构建时必须带 `DEPLOY_BASE=/wiki-new/`
@@ -24,8 +24,8 @@
 DEPLOY_BASE=/wiki-new/ npm run docs:build
 
 # 2. 同步两份：根目录一份（供直接访问 1234），wiki-new/ 子目录一份（供反代）
-rsync -avz --delete --exclude '/wiki-new/' docs/.vitepress/dist/ root@154.83.85.36:/var/www/linkzee-wiki/
-rsync -avz --delete docs/.vitepress/dist/ root@154.83.85.36:/var/www/linkzee-wiki/wiki-new/
+rsync -avz --delete --exclude '/wiki-new/' docs/.vitepress/dist/ root@8.138.149.15:/var/www/linkzee-wiki/
+rsync -avz --delete docs/.vitepress/dist/ root@8.138.149.15:/var/www/linkzee-wiki/wiki-new/
 ```
 
 部署后验证：
