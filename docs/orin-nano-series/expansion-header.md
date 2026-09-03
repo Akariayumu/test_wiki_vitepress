@@ -34,9 +34,15 @@ Jetson Orin Nano / NX 的 40-pin 扩展头上，大部分引脚既可以当普�
 sudo /opt/nvidia/jetson-io/jetson-io.py
 ```
 
+![Jetson-IO 主界面](/img/expansion-header-01-jetson-io-main.png)
+
+> 以下界面与命令截图采集于 Jetson Orin Nano Super、JetPack 7.2.1（L4T R39.2.1）。不同 JetPack 版本的菜单项可能略有差异，操作路径相同。
+
 ### 主界面（选择接头）
 
 启动后显示主界面，列出本设备支持的扩展接头（40-pin Header、CSI 接头、M.2 Key E 等）。选择 **Configure 40-pin Header** 进入接头界面。
+
+![Jetson 40-pin Header 配置菜单](/img/expansion-header-02-header-menu.png)
 
 ### 接头界面
 
@@ -45,6 +51,8 @@ sudo /opt/nvidia/jetson-io/jetson-io.py
 - **Configure for compatible hardware**：从官方预置的硬件模块（如某些音频子卡）配置列表中选择，自动启用所需功能。
 - **Configure header pins manually**：手动指定要启用哪些功能（最常用）。
 
+![Jetson-IO 兼容硬件列表](/img/expansion-header-04-compatible-hardware.png)
+
 ### 手动配置引脚功能
 
 手动配置界面列出该接头支持的所有特殊功能，括号内标注对应引脚：
@@ -52,6 +60,8 @@ sudo /opt/nvidia/jetson-io/jetson-io.py
 - 用 ↑ / ↓ 方向键移动，**回车或空格**切换某个功能的启用状态；未启用的功能对应引脚即作为 GPIO 使用。
 - 选好后选 **Back** 返回，再选 **Save pin changes** 保存。
 - 也可以选 **Export as Device-Tree Overlay**，把当前配置导出为 DTBO 文件（保存在 `/boot/`，供量产或自定义镜像复用）。
+
+![Jetson-IO 手动功能选择列表](/img/expansion-header-03-manual-functions.png)
 
 ### 保存并生效
 
@@ -82,6 +92,14 @@ sudo /opt/nvidia/jetson-io/config-by-pin.py
 sudo /opt/nvidia/jetson-io/config-by-pin.py -p 7
 ```
 
+逐引脚配置查询示例：
+
+![config-by-pin.py 逐引脚配置输出](/img/expansion-header-05-pin-list.png)
+
+单引脚查询示例：
+
+![config-by-pin.py 单引脚查询输出](/img/expansion-header-06-single-pin.png)
+
 ### 按功能配置：config-by-function.py
 
 ```bash
@@ -98,6 +116,12 @@ sudo /opt/nvidia/jetson-io/config-by-function.py -o dt 1="i2s2 spi1"
 # 只导出 DTBO 叠加层（不改启动项）
 sudo /opt/nvidia/jetson-io/config-by-function.py -o dtbo spi1
 ```
+
+全部可配置功能与当前已启用功能的查询结果：
+
+![config-by-function.py 全部功能列表](/img/expansion-header-07-function-list-all.png)
+
+![config-by-function.py 当前启用功能](/img/expansion-header-08-function-list-enabled.png)
 
 ### 按硬件模块配置：config-by-hardware.py
 

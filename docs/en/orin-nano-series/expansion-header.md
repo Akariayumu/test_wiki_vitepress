@@ -34,9 +34,15 @@ Run on the device:
 sudo /opt/nvidia/jetson-io/jetson-io.py
 ```
 
+![Jetson-IO main screen](/img/expansion-header-01-jetson-io-main.png)
+
+> The following UI and command screenshots were captured on a Jetson Orin Nano Super running JetPack 7.2.1 (L4T R39.2.1). Menu labels may differ slightly between JetPack releases, but the workflow is the same.
+
 ### Main Screen (Selecting a Header)
 
 The main screen lists the expansion headers supported on your device (40-pin Header, CSI connector, M.2 Key E, etc.). Select **Configure 40-pin Header** to enter the header screen.
+
+![Jetson 40-pin Header configuration menu](/img/expansion-header-02-header-menu.png)
 
 ### Header Screen
 
@@ -45,6 +51,8 @@ The header screen shows the current configuration and offers two options:
 - **Configure for compatible hardware**: pick from NVIDIA's preset configurations for hardware modules (e.g. certain audio HATs); the required functions are enabled automatically.
 - **Configure header pins manually**: choose exactly which functions to enable (the most common path).
 
+![Jetson-IO compatible hardware list](/img/expansion-header-04-compatible-hardware.png)
+
 ### Configuring Pins Manually
 
 The manual configuration screen lists all special functions the header supports, with the associated pins in parentheses:
@@ -52,6 +60,8 @@ The manual configuration screen lists all special functions the header supports,
 - Move with the ↑ / ↓ arrow keys and press **Enter or Space** to toggle a function. Pins of disabled functions are available as GPIO.
 - When done, select **Back**, then **Save pin changes**.
 - You can also select **Export as Device-Tree Overlay** to export the configuration as a DTBO file (saved in `/boot/`, reusable for production or custom images).
+
+![Jetson-IO manual function selection](/img/expansion-header-03-manual-functions.png)
 
 ### Saving and Applying
 
@@ -82,6 +92,14 @@ sudo /opt/nvidia/jetson-io/config-by-pin.py
 sudo /opt/nvidia/jetson-io/config-by-pin.py -p 7
 ```
 
+Example pin-by-pin output:
+
+![config-by-pin.py pin list output](/img/expansion-header-05-pin-list.png)
+
+Example single-pin query:
+
+![config-by-pin.py single-pin query output](/img/expansion-header-06-single-pin.png)
+
 ### Configure by function: config-by-function.py
 
 ```bash
@@ -98,6 +116,12 @@ sudo /opt/nvidia/jetson-io/config-by-function.py -o dt 1="i2s2 spi1"
 # Export a DTBO overlay only (boot entries untouched)
 sudo /opt/nvidia/jetson-io/config-by-function.py -o dtbo spi1
 ```
+
+Examples showing all configurable functions and the currently enabled functions:
+
+![config-by-function.py all functions](/img/expansion-header-07-function-list-all.png)
+
+![config-by-function.py enabled functions](/img/expansion-header-08-function-list-enabled.png)
 
 ### Configure by hardware module: config-by-hardware.py
 
