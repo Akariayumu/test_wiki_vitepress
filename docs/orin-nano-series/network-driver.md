@@ -99,3 +99,7 @@ jetson@jetson-desktop:~$ sudo lshw -C network
        resources: irq:59 ioport:200000(size=256) memory:3228000000-322800ffff memory:3228010000-3228013fff
   *-network
 ```
+
+也可以组合使用 `lspci -nnk` 和 `ip -br link`，同时确认 PCI ID、实际加载的内核驱动和接口状态。下面是 JetPack 7.2.1 上 RTL8852CE 与 RTL8111/8168 的实机示例：
+
+![确认网卡 PCI ID、驱动与接口状态](/img/network-01-driver-loaded.webp)

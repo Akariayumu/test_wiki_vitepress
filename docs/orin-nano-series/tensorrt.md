@@ -23,6 +23,10 @@ dpkg -l | grep tensorrt
 ls /usr/src/tensorrt/bin/trtexec
 ```
 
+实机环境确认示例（JetPack 7.2.1 / TensorRT 10.16）：
+
+![TensorRT 版本与 trtexec 路径](/img/tensorrt-01-environment.webp)
+
 ## 2. 用 trtexec 快速转换与测速
 
 `trtexec` 是官方自带的命令行工具，适合快速验证模型能否转换、以及测延迟，**不需要写代码**。
@@ -44,6 +48,10 @@ yolo export model=yolo11s.pt format=onnx imgsz=640
 # 只测速（直接加载引擎，跑 200 次迭代）
 /usr/src/tensorrt/bin/trtexec --loadEngine=yolo11s_fp16.engine --iterations=200 --avgRuns=100
 ```
+
+下面是 Orin Nano Super 在 25W 模式下使用既有 YOLOv8n FP16 engine 运行 200 次迭代的实测摘要。不同模型、输入尺寸、功耗模式和 TensorRT 版本的结果不能直接横向比较。
+
+![TensorRT FP16 性能测试摘要](/img/tensorrt-02-fp16-benchmark-summary.webp)
 
 常用参数：
 

@@ -71,6 +71,10 @@ Type "help", "copyright", "credits" or "license" for more information.
 True
 ```
 
+Example from a JetPack 7.2.1 system, including a minimal CUDA tensor operation in addition to the version checks:
+
+![PyTorch CUDA availability verification](/img/pytorch-01-cuda-verification.webp)
+
 ## 2. Run YOLO11
 
 **YOLO** is a real-time object detection algorithm. It treats object detection as a single-stage regression problem by dividing an image into a grid and directly predicting bounding boxes and class probabilities, achieving high-speed and high-accuracy detection. Thanks to being open source, easy to use, and flexible to deploy, the YOLO family is widely used in fields such as autonomous driving, security surveillance, and industrial quality inspection.

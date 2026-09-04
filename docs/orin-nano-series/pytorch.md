@@ -71,6 +71,10 @@ Type "help", "copyright", "credits" or "license" for more information.
 True
 ```
 
+JetPack 7.2.1 实机验证示例，除版本检查外还执行了最小 CUDA 张量运算：
+
+![PyTorch CUDA 可用性验证](/img/pytorch-01-cuda-verification.webp)
+
 ## 2. 运行YOLO11
 
 **YOLO** 是一种实时目标检测算法，它将目标检测视为单阶段回归问题，通过将图像划分为网格并直接预测边界框与类别概率，实现高速且高精度的检测。YOLO系列因开源易用、部署灵活，广泛应用于自动驾驶、安防监控、工业质检等领域。

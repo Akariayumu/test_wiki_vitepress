@@ -52,6 +52,10 @@ sudo nvpmodel -q --verbose
 
 SUPER support depends on the L4T release, module, carrier board, and flashed configuration; it cannot be enabled only from the desktop menu. Use the matching board flashing guide and check the [product comparison](/en/products/compare).
 
+Example from an Orin Nano Super running JetPack 7.2.1 in 25W mode:
+
+![Checking nvpmodel, CPU, GPU, EMC, and fan state](/img/power-01-nvpmodel-and-clocks.webp)
+
 ### JetPack 7 ISO has no Install option
 
 The device firmware must meet the ISO installer requirement. Upgrade older firmware through JetPack 6.x first; see [JetPack 7 FAQ](/en/flashing-guide/jetpack7-flashing#common-issues).
@@ -67,6 +71,10 @@ sudo dmesg -T | grep -iE 'nvme|pcie'
 ```
 
 Power off and reseat the SSD, then check slot, length, and single-/double-sided restrictions. If the controller appears but logs link or timeout errors, retain `dmesg` and cross-test with a validated SSD and power supply.
+
+The following real-device example verifies the NVMe model, partition layout, and root filesystem location without exposing the drive serial number:
+
+![Verifying the NVMe drive and root filesystem](/img/storage-01-nvme-and-rootfs.webp)
 
 ### A USB device runs only at USB 2.0 speed
 

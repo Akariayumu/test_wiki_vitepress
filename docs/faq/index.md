@@ -64,6 +64,10 @@ sudo nvpmodel -q --verbose
 
 SUPER 模式取决于 JetPack/L4T、核心卡、载板和所刷配置，不能仅靠桌面菜单开启。请使用相应载板刷机页提供的配置，并核对[产品选型对比](/products/compare)中的支持范围。
 
+JetPack 7.2.1、Orin Nano Super 处于 25W 模式时的查询示例：
+
+![查询 nvpmodel、CPU、GPU、EMC 与风扇状态](/img/power-01-nvpmodel-and-clocks.webp)
+
 ### JetPack 7 ISO 没有 Install 选项
 
 设备固件必须满足 ISO 安装器要求。旧固件应先通过 JetPack 6.x 升级；参见 [JetPack 7 刷机教程](/flashing-guide/jetpack7-flashing#常见问题)。
@@ -79,6 +83,10 @@ sudo dmesg -T | grep -iE 'nvme|pcie'
 ```
 
 完全没有 PCIe/NVMe 记录时，断电后重新安装 SSD，确认槽位、长度和单双面限制；有控制器但出现超时或链路错误时，保留 `dmesg` 并换已验证 SSD、电源交叉测试。
+
+下面的实机示例同时确认了 NVMe 型号、分区和根文件系统位置，未显示设备序列号：
+
+![确认 NVMe 与根文件系统位置](/img/storage-01-nvme-and-rootfs.webp)
 
 ### USB 设备只有 USB 2.0 速度
 

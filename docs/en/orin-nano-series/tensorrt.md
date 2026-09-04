@@ -23,6 +23,10 @@ dpkg -l | grep tensorrt
 ls /usr/src/tensorrt/bin/trtexec
 ```
 
+Example from a real Jetson environment (JetPack 7.2.1 / TensorRT 10.16):
+
+![TensorRT version and trtexec path](/img/tensorrt-01-environment.webp)
+
 ## 2. Quick Conversion and Benchmarking with trtexec
 
 `trtexec` is the bundled CLI tool for quickly verifying that a model converts and measuring latency — **no code required**.
@@ -44,6 +48,10 @@ yolo export model=yolo11s.pt format=onnx imgsz=640
 # Benchmark only (load the engine, run 200 iterations)
 /usr/src/tensorrt/bin/trtexec --loadEngine=yolo11s_fp16.engine --iterations=200 --avgRuns=100
 ```
+
+The following summary was measured on an Orin Nano Super in 25W mode with an existing YOLOv8n FP16 engine over 200 iterations. Results from different models, input sizes, power modes, and TensorRT releases are not directly comparable.
+
+![TensorRT FP16 benchmark summary](/img/tensorrt-02-fp16-benchmark-summary.webp)
 
 Common options:
 

@@ -173,6 +173,10 @@ lsusb -t
 
 ![2](/img/wiki-Bsa2.png)
 
+在 JetPack 7.2.1 实机中，`5000M` 或 `10000M` 表示设备工作在 SuperSpeed 链路；下面示例中的 USB 3.0 Hub 上行链路为 `10000M`：
+
+![使用 lsusb 验证 USB SuperSpeed 链路](/img/usb-01-superspeed-verification.webp)
+
 您也可以自行使用DISK工具或dd指令测试读写速率是否达到USB3.0的标准。
 
 ## 三、配置Type-C端口模式

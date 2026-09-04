@@ -173,6 +173,10 @@ lsusb -t
 
 ![2](/img/wiki-Bsa2.png)
 
+On the JetPack 7.2.1 system below, `5000M` or `10000M` indicates a SuperSpeed link. The USB 3.0 hub in this example has a `10000M` upstream link:
+
+![Verifying a USB SuperSpeed link with lsusb](/img/usb-01-superspeed-verification.webp)
+
 You can also use the DISK tool or the `dd` command yourself to test whether the read/write speeds meet the USB 3.0 standard.
 
 ## 3. Configuring the Type-C Port Mode

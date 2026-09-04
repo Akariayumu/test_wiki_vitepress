@@ -99,3 +99,7 @@ jetson@jetson-desktop:~$ sudo lshw -C network
        resources: irq:59 ioport:200000(size=256) memory:3228000000-322800ffff memory:3228010000-3228013fff
   *-network
 ```
+
+You can also combine `lspci -nnk` with `ip -br link` to verify the PCI ID, active kernel driver, and interface state. The following JetPack 7.2.1 example shows an RTL8852CE and an RTL8111/8168 controller:
+
+![Checking network PCI IDs, drivers, and interface state](/img/network-01-driver-loaded.webp)
