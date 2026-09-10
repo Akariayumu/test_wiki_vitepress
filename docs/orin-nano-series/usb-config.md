@@ -244,5 +244,3 @@ sudo sed -i 's#exit 0#echo device > /sys/class/usb_role/usb2-0-role-switch/role\
 - JetPack 5.x：恢复 `/boot/dtb/` 中备份的同名 DTB；若无法启动，进入 Recovery 模式重新刷机。
 - JetPack 6.2/7.2：从备用启动项或串口进入系统，删除 `extlinux.conf` 中新增的 `FDT` 行；必要时恢复带时间戳的备份。
 - USB 3.2 正常但 Type-C 无反应：确认角色文件存在，并重新执行 Device 模式切换命令。
-
-源文件及更新记录：[board_dts / orin-nano-nx-usb-config](https://github.com/Akariayumu/board_dts/tree/master/orin-nano-nx-usb-config)。

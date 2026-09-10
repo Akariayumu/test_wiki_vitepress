@@ -9,6 +9,14 @@ outline: deep
 
 NVIDIA 为 Jetson 系列设备专门适配了对应的软件包，其版本依赖关系如下：
 
+:::info JetPack 7 的 SBSA 架构变化
+从 JetPack 7 系列开始，Jetson 软件与服务器基础系统架构（Server Base System Architecture，SBSA）保持一致。SBSA 统一了关键硬件与固件接口，有利于增强操作系统支持、简化软件移植，并让 Arm 服务器与 Jetson 之间的软件环境更一致。
+
+这也会影响 PyTorch 等软件包的选择：JetPack 7 不应继续沿用 JetPack 6 的专用 wheel 或安装地址，应优先选择与当前 JetPack、CUDA、Python 版本兼容的 Linux AArch64/SBSA 软件包。Jetson Thor 安装 NVIDIA 组件时，应选择官方标注的 **SBSA** 安装程序。
+
+参考：[NVIDIA JetPack SDK Downloads and Notes](https://developer.nvidia.com/embedded/jetpack/downloads)
+:::
+
 | PyTorch Version | NVIDIA Framework Container | NVIDIA Framework Wheel | JetPack Version |
 |---|---|---|---|
 | [2.8.0a0+5228986c39](https://github.com/pytorch/pytorch/commit/5228986c395dc79f90d2a2b991deea1eef188260) | 25.06 | - | 6.2 |
