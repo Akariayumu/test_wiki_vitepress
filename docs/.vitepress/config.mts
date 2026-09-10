@@ -81,7 +81,6 @@ const rootSidebar = [
           { text: 'Jetson-container + Comfy-UI', link: '/orin-nano-series/comfyui' },
           { text: '网卡驱动', link: '/orin-nano-series/network-driver' },
           { text: '4G 模块使用说明', link: '/orin-nano-series/4g-module' },
-          { text: '基础镜像制作', link: '/orin-nano-series/base-image' },
           { text: '自定义启动 LOGO', link: '/orin-nano-series/boot-logo' },
         ]
       },
@@ -201,7 +200,6 @@ const enSidebar = [
           { text: 'jetson-container + ComfyUI', link: '/en/orin-nano-series/comfyui' },
           { text: 'Network Card Driver', link: '/en/orin-nano-series/network-driver' },
           { text: '4G Module Guide', link: '/en/orin-nano-series/4g-module' },
-          { text: 'Build a Base Image', link: '/en/orin-nano-series/base-image' },
           { text: 'Custom Boot Logo', link: '/en/orin-nano-series/boot-logo' },
         ]
       },
