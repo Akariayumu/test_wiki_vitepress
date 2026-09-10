@@ -17,12 +17,7 @@ PyTorch 是常用的深度学习框架，可在 Jetson 上使用 CUDA 加速完�
 
 从 JetPack 7 系列开始，Jetson 软件与服务器基础系统架构（Server Base System Architecture，SBSA）保持一致。SBSA 统一关键硬件与固件接口，使 Arm 服务器与 Jetson 之间的操作系统支持、软件移植和部署方式更加一致。
 
-对 PyTorch 用户而言，最重要的变化是软件包不能只看 `aarch64`：
-
-- JetPack 7 应选择与当前 JetPack、CUDA、Python 和 SBSA 环境匹配的软件包或容器。
-- 不要在 JetPack 7 上继续使用下文 JetPack 6 的 `jp6/cu126` wheel。
-- Jetson Thor 安装 NVIDIA 组件时，应选择官方标注的 **SBSA** 安装程序。
-- 安装前应查看最新的 [PyTorch for Jetson 兼容矩阵](https://docs.nvidia.com/deeplearning/frameworks/install-pytorch-jetson-platform-release-notes/pytorch-jetson-rel.html)。
+简单来说，JetPack 7 可以像 Arm 服务器一样，直接通过 PyTorch 上游软件源使用 `pip` 安装 PyTorch，不再需要 JetPack 专用 wheel。需要注意，Jetson 使用的是 Arm64/SBSA 软件包，并不是 x86 软件包。
 
 NVIDIA 说明：[JetPack SDK Downloads and Notes](https://developer.nvidia.com/embedded/jetpack/downloads)。
 
@@ -30,13 +25,13 @@ NVIDIA 说明：[JetPack SDK Downloads and Notes](https://developer.nvidia.com/e
 
 | 使用场景 | 建议方案 |
 | --- | --- |
-| JetPack 7 新项目 | 优先使用 NVIDIA 兼容矩阵中对应版本的 PyTorch 容器或 SBSA 软件包 |
+| JetPack 7 新项目 | 直接通过 PyTorch 上游软件源安装 Arm64/SBSA 软件包 |
 | JetPack 6.2.1 现有项目 | 使用与 CUDA 12.6、Python 3.10 匹配的 Jetson wheel |
 | 需要多个 Python/框架版本 | 使用容器；其次使用 `venv` 或 Conda 隔离环境 |
 | 生产部署 | 固定 JetPack、CUDA、PyTorch、Torchvision 和镜像/包版本，不使用浮动的 `latest` |
 
 :::warning 版本必须成套匹配
-JetPack、CUDA、Python、PyTorch 和 Torchvision 任一项不匹配，都可能出现无法安装、导入时报缺少动态库，或 `torch.cuda.is_available()` 返回 `False`。不要直接照搬普通 x86 Ubuntu 的安装命令。
+JetPack、CUDA、Python、PyTorch 和 Torchvision 任一项不匹配，都可能出现无法安装、导入时报缺少动态库，或 `torch.cuda.is_available()` 返回 `False`。Jetson 不能安装 x86 软件包。
 :::
 
 ## 3. 安装前检查
@@ -60,18 +55,19 @@ python3 -m pip install --upgrade pip
 
 如果系统没有 `nvcc`，先完成 [CUDA 安装](/orin-nano-series/cuda)，再安装 PyTorch。
 
-## 4. JetPack 7：推荐安装思路
+## 4. JetPack 7：使用 pip 安装
 
-JetPack 7 的 PyTorch 版本更新较快，应以 NVIDIA 当前兼容矩阵为准，不在本文固定一个可能很快过期的下载地址。
+以配套 CUDA 13.2 的 JetPack 7.2 为例，先创建虚拟环境，再从 PyTorch 上游 CUDA 13.2 软件源安装：
 
-安装时按以下顺序确认：
+```bash
+python3 -m venv ~/venvs/jetson-ai
+source ~/venvs/jetson-ai/bin/activate
+python -m pip install --upgrade pip
+python -m pip install torch torchvision \
+  --index-url https://download.pytorch.org/whl/cu132
+```
 
-1. 在 [NVIDIA JetPack 下载与说明](https://developer.nvidia.com/embedded/jetpack/downloads)确认设备使用的 JetPack、Jetson Linux 和 CUDA 版本。
-2. 在 [PyTorch for Jetson 兼容矩阵](https://docs.nvidia.com/deeplearning/frameworks/install-pytorch-jetson-platform-release-notes/pytorch-jetson-rel.html)选择对应的 PyTorch/Framework Container 版本。
-3. 优先使用该版本的 NVIDIA PyTorch 容器；如使用 wheel，必须确认它明确支持当前 SBSA、CUDA 和 Python 环境。
-4. 安装后执行本文“验证安装”中的 CUDA 张量测试。
-
-容器方案更适合 JetPack 7，因为 CUDA、cuDNN、PyTorch 及其依赖可随镜像一起固定，能减少直接修改系统 Python 环境导致的版本冲突。
+其他 JetPack 7 版本应将 `cu132` 换成与系统 CUDA 匹配的软件源。安装后执行本文“验证安装”中的 CUDA 张量测试。
 
 ## 5. JetPack 6.2.1：安装已验证 wheel
 
