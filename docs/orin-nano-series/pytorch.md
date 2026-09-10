@@ -1,178 +1,217 @@
 ---
-title: 安装使用pytorch和torchvision
+title: PyTorch 与 Torchvision
 outline: deep
 ---
 
-# 安装使用pytorch和torchvision
+# PyTorch 与 Torchvision
 
-**PyTorch** 是 Python 中最流行、最易用的深度学习框架之一。它让开发者能够像操作普通 Python 代码一样，直观、灵活地设计和训练复杂的神经网络模型。其简洁的 API 设计和强大的 GPU 加速支持，使得从研究想法到实际部署的开发过程都极其高效便捷，广受开发者青睐。
+PyTorch 是常用的深度学习框架，可在 Jetson 上使用 CUDA 加速完成模型开发、推理和部署。
 
-NVIDIA 为 Jetson 系列设备专门适配了对应的软件包，其版本依赖关系如下：
+:::tip 新项目建议优先使用 JetPack 7
+如果项目需要 PyTorch、TensorRT、CUDA 等 AI 框架，并且所用 Jetson 型号及外设已支持 JetPack 7，建议优先选择 **JetPack 7 系列**。它采用更新的 Ubuntu、内核和 NVIDIA AI 计算栈，后续框架与工具也会优先围绕新平台更新。
 
-:::info JetPack 7 的 SBSA 架构变化
-从 JetPack 7 系列开始，Jetson 软件与服务器基础系统架构（Server Base System Architecture，SBSA）保持一致。SBSA 统一了关键硬件与固件接口，有利于增强操作系统支持、简化软件移植，并让 Arm 服务器与 Jetson 之间的软件环境更一致。
-
-这也会影响 PyTorch 等软件包的选择：JetPack 7 不应继续沿用 JetPack 6 的专用 wheel 或安装地址，应优先选择与当前 JetPack、CUDA、Python 版本兼容的 Linux AArch64/SBSA 软件包。Jetson Thor 安装 NVIDIA 组件时，应选择官方标注的 **SBSA** 安装程序。
-
-参考：[NVIDIA JetPack SDK Downloads and Notes](https://developer.nvidia.com/embedded/jetpack/downloads)
+只有在现有项目依赖 JetPack 6 专用 wheel、旧版 CUDA/TensorRT、特定驱动或尚未适配的外设时，才建议继续使用 JetPack 6。升级前应先核对硬件支持和软件兼容性。
 :::
 
-| PyTorch Version | NVIDIA Framework Container | NVIDIA Framework Wheel | JetPack Version |
-|---|---|---|---|
-| [2.8.0a0+5228986c39](https://github.com/pytorch/pytorch/commit/5228986c395dc79f90d2a2b991deea1eef188260) | 25.06 | - | 6.2 |
-| [2.8.0a0+5228986c39](https://github.com/pytorch/pytorch/commit/5228986c395dc79f90d2a2b991deea1eef188260) | 25.05 | - | 6.2 |
-| [2.7.0a0+79aa17489c](https://github.com/pytorch/pytorch/commit/79aa17489c3fc5ed6d5e972e9ffddf73e6dd0a5c) | 25.04 | - | 6.2 |
-| [2.7.0a0+7c8ec84dab](https://github.com/pytorch/pytorch/commit/7c8ec84dab7dc10d4ef90afc93a49b97bbd04503) | 25.03 | - | 6.2 |
-| [2.7.0a0+6c54963f75](https://github.com/pytorch/pytorch/commit/6c54963f75e9dfdae34c44f71081b5d3972b6b8d) | 25.02 | - | 6.2 |
-| [2.6.0a0+ecf3bae40a](https://github.com/pytorch/pytorch/commit/ecf3bae40a6f2f0f3b237bde1fc4b2492765ab13) | 25.01 | - | 6.1 |
-| [2.6.0a0+df5bbc09d1](https://github.com/pytorch/pytorch/commit/df5bbc09d191fff3bdb592c184176e84669a7157) | 24.12 | - | 6.1 |
-| [2.6.0a0+df5bbc0](https://github.com/pytorch/pytorch/commit/df5bbc09d191fff3bdb592c184176e84669a7157) | 24.11 | - | 6.1 |
-| [2.5.0a0+e000cf0ad9](https://github.com/pytorch/pytorch/commit/e000cf0ad980e5d140dc895a646174e9b945cf26) | 24.10 | - | 6.1 |
-| [2.5.0a0+b465a5843b](https://github.com/pytorch/pytorch/commit/b465a5843b92f33fe3e89ff7ee91c6833df6aec0) | 24.09 | 24.09 | 6.1 |
-| [2.5.0a0+872d972e41](https://github.com/pytorch/pytorch/commit/872d972e41596a9ac94dfd343f40bfc12b340a74) | 24.08 | - | 6.0 |
-| [2.4.0a0+3bcc3cddb5](https://github.com/pytorch/pytorch/commit/3bcc3cddb580bf0f0f1958cfe27001f236eac2c1) | 24.07 | 24.07 | 6.0 |
-| [2.4.0a0+f70bd71a48](https://github.com/pytorch/pytorch/commit/f70bd71a48) | 24.06 | 24.06 | 6.0 |
-| [2.4.0a0+07cecf4168](https://github.com/pytorch/pytorch/commit/07cecf4168503a5b3defef9b2ecaeb3e075f4761) | 24.05 | 24.05 | 6.0 |
-| [2.3.0a0+6ddf5cf85e](https://github.com/pytorch/pytorch/commit/6ddf5cf85e3c27c596175aba7bf5affb5426255f) | 24.04 | 24.04 | 6.0 Developer Preview |
-| [2.3.0a0+40ec155e58](https://github.com/pytorch/pytorch/commit/40ec155e58ee1a1921377ff921b55e61502e4fb3) | 24.03 | [24.03](https://developer.download.nvidia.com/compute/redist/jp/v60dp/pytorch/torch-2.3.0a0+40ec155e58.nv24.03.13384722-cp310-cp310-linux_aarch64.whl) | 6.0 Developer Preview |
-| [2.3.0a0+ebedce2](https://github.com/pytorch/pytorch/commit/ebedce24ab578036dd9257e4928eea9ee38d1192) | 24.02 | 24.02 | 6.0 Developer Preview |
-| [2.2.0a0+81ea7a4](https://github.com/pytorch/pytorch/commit/81ea7a48) | 23.12, 24.01 | 23.12, 24.01 | 6.0 Developer Preview |
-| [2.2.0a0+6a974bec](https://github.com/pytorch/pytorch/commit/6a974bec) | 23.11 | 23.11 | 6.0 Developer Preview |
-| [2.1.0a](https://github.com/pytorch/pytorch/commit/41361538a978eb03fa1e88bf5b8e4410db7a6927) | | 23.06 | 5.1.x |
-| [2.0.0](https://github.com/pytorch/pytorch/tree/v2.0.0) | | 23.05 | 5.1.x |
-| [2.0.0a0+fe05266f](https://github.com/pytorch/pytorch/commit/fe05266fda4f908130dea7cbac37e9264c0429a2) | | 23.04 | 5.1.x |
-| [2.0.0a0+8aa34602](https://github.com/pytorch/pytorch/commit/8aa34602f703896c16ae57f622ff4cb1c86c04dd) | | 23.03 | 5.1.x |
-| [1.14.0a0+44dac51c](https://github.com/pytorch/pytorch/commit/44dac51c36d01f63e64585e5e7a864cb8e37948a) | | 23.02, 23.01 | 5.1.x |
-| [1.13.0a0+936e930](https://github.com/pytorch/pytorch/commit/936e930) | | 22.11 | 5.0.2 |
-| [1.13.0a0+d0d6b1f](https://github.com/pytorch/pytorch/commit/d0d6b1f) | | 22.09, 22.10 | 5.0.2 |
-| [1.13.0a0+08820cb](https://github.com/pytorch/pytorch/commit/08820cb) | 22.07 | 22.07 | 5.0.2 |
-| [1.13.0a0+340c412](https://github.com/pytorch/pytorch/commit/340c412) | 22.06 | 22.06 | 5.0.1 |
-| [1.12.0a0+8a1a93a9](https://github.com/pytorch/pytorch/commit/8a1a93a9) | 22.05 | 22.05 | 5.0 |
-| [1.12.0a0+bd13bc66](https://github.com/pytorch/pytorch/commit/bd13bc66) | | 22.04 | 5.0 |
-| [1.12.0a0+2c916ef](https://github.com/pytorch/pytorch/commit/2c916ef) | | 22.03 | 5.0 |
-| [1.11.0a0+bfe5ad28](https://github.com/pytorch/pytorch/commit/bfe5ad28) | | 22.01 | 4.6.1 |
+## 1. 先理解 JetPack 7 的 SBSA 变化
 
-下面教程以 **JetPack6.2.1 cuda12.6** 版本为例
+从 JetPack 7 系列开始，Jetson 软件与服务器基础系统架构（Server Base System Architecture，SBSA）保持一致。SBSA 统一关键硬件与固件接口，使 Arm 服务器与 Jetson 之间的操作系统支持、软件移植和部署方式更加一致。
 
-## 1.安装torch工具包
+对 PyTorch 用户而言，最重要的变化是软件包不能只看 `aarch64`：
 
-### 1.1下载并安装torch, torchvison
+- JetPack 7 应选择与当前 JetPack、CUDA、Python 和 SBSA 环境匹配的软件包或容器。
+- 不要在 JetPack 7 上继续使用下文 JetPack 6 的 `jp6/cu126` wheel。
+- Jetson Thor 安装 NVIDIA 组件时，应选择官方标注的 **SBSA** 安装程序。
+- 安装前应查看最新的 [PyTorch for Jetson 兼容矩阵](https://docs.nvidia.com/deeplearning/frameworks/install-pytorch-jetson-platform-release-notes/pytorch-jetson-rel.html)。
 
+NVIDIA 说明：[JetPack SDK Downloads and Notes](https://developer.nvidia.com/embedded/jetpack/downloads)。
+
+## 2. 选择安装方式
+
+| 使用场景 | 建议方案 |
+| --- | --- |
+| JetPack 7 新项目 | 优先使用 NVIDIA 兼容矩阵中对应版本的 PyTorch 容器或 SBSA 软件包 |
+| JetPack 6.2.1 现有项目 | 使用与 CUDA 12.6、Python 3.10 匹配的 Jetson wheel |
+| 需要多个 Python/框架版本 | 使用容器；其次使用 `venv` 或 Conda 隔离环境 |
+| 生产部署 | 固定 JetPack、CUDA、PyTorch、Torchvision 和镜像/包版本，不使用浮动的 `latest` |
+
+:::warning 版本必须成套匹配
+JetPack、CUDA、Python、PyTorch 和 Torchvision 任一项不匹配，都可能出现无法安装、导入时报缺少动态库，或 `torch.cuda.is_available()` 返回 `False`。不要直接照搬普通 x86 Ubuntu 的安装命令。
+:::
+
+## 3. 安装前检查
+
+先确认系统和 CUDA 环境：
+
+```bash
+head -1 /etc/nv_tegra_release
+python3 --version
+nvcc --version
+nvidia-smi
 ```
-wget https://pypi.jetson-ai-lab.io/jp6/cu126/+f/62a/1beee9f2f1470/torch-2.8.0-cp310-cp310-linux_aarch64.whl 
+
+安装基础依赖：
+
+```bash
+sudo apt update
+sudo apt install -y python3-pip python3-venv libopenblas-dev
+python3 -m pip install --upgrade pip
+```
+
+如果系统没有 `nvcc`，先完成 [CUDA 安装](/orin-nano-series/cuda)，再安装 PyTorch。
+
+## 4. JetPack 7：推荐安装思路
+
+JetPack 7 的 PyTorch 版本更新较快，应以 NVIDIA 当前兼容矩阵为准，不在本文固定一个可能很快过期的下载地址。
+
+安装时按以下顺序确认：
+
+1. 在 [NVIDIA JetPack 下载与说明](https://developer.nvidia.com/embedded/jetpack/downloads)确认设备使用的 JetPack、Jetson Linux 和 CUDA 版本。
+2. 在 [PyTorch for Jetson 兼容矩阵](https://docs.nvidia.com/deeplearning/frameworks/install-pytorch-jetson-platform-release-notes/pytorch-jetson-rel.html)选择对应的 PyTorch/Framework Container 版本。
+3. 优先使用该版本的 NVIDIA PyTorch 容器；如使用 wheel，必须确认它明确支持当前 SBSA、CUDA 和 Python 环境。
+4. 安装后执行本文“验证安装”中的 CUDA 张量测试。
+
+容器方案更适合 JetPack 7，因为 CUDA、cuDNN、PyTorch 及其依赖可随镜像一起固定，能减少直接修改系统 Python 环境导致的版本冲突。
+
+## 5. JetPack 6.2.1：安装已验证 wheel
+
+以下命令仅适用于 **JetPack 6.2.1、CUDA 12.6、Python 3.10**。不要用于 JetPack 7。
+
+建议先创建独立环境：
+
+```bash
+python3 -m venv ~/venvs/jetson-ai
+source ~/venvs/jetson-ai/bin/activate
+python -m pip install --upgrade pip
+```
+
+下载并安装匹配的 PyTorch 与 Torchvision：
+
+```bash
+wget https://pypi.jetson-ai-lab.io/jp6/cu126/+f/62a/1beee9f2f1470/torch-2.8.0-cp310-cp310-linux_aarch64.whl
 wget https://pypi.jetson-ai-lab.io/jp6/cu126/+f/907/c4c1933789645/torchvision-0.23.0-cp310-cp310-linux_aarch64.whl
-pip install torch-2.8.0-cp310-cp310-linux_aarch64.whl torchvision-0.23.0-cp310-cp310-linux_aarch64.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
+python -m pip install \
+  torch-2.8.0-cp310-cp310-linux_aarch64.whl \
+  torchvision-0.23.0-cp310-cp310-linux_aarch64.whl
 ```
 
-### 1.2 检测是否正确安装
+:::info
+上述 wheel 来自 Jetson AI Lab 软件源，不是 JetPack 7 的 SBSA 安装包。用于正式项目时，应保存 wheel 或锁定依赖，避免上游文件变化影响重复部署。
+:::
 
-使用python执行下面三个语句
+## 6. 验证安装
 
-```shell
-jetson@jetson-desktop:~$ python
-Python 3.10.16 (main, Dec 11 2024, 16:18:56) [GCC 11.2.0] on linux
-Type "help", "copyright", "credits" or "license" for more information.
->>> import torch
->>> print(torch.__version__)
-2.8.0
->>> print(torch.cuda.is_available())
-True
+执行以下命令同时检查版本、CUDA 可用性和最小 GPU 运算：
+
+```bash
+python - <<'PY'
+import torch
+
+print("PyTorch:", torch.__version__)
+print("CUDA runtime:", torch.version.cuda)
+print("CUDA available:", torch.cuda.is_available())
+
+if not torch.cuda.is_available():
+    raise SystemExit("CUDA 不可用，请检查 JetPack、CUDA 与 PyTorch 是否匹配")
+
+x = torch.tensor([1.0, 2.0, 3.0], device="cuda")
+print("Device:", x.device)
+print("Result:", (x * 2).cpu().tolist())
+PY
 ```
 
-JetPack 7.2.1 实机验证示例，除版本检查外还执行了最小 CUDA 张量运算：
+正常结果应满足：
+
+- `CUDA available: True`
+- `Device: cuda:0`
+- `Result: [2.0, 4.0, 6.0]`
+
+JetPack 7.2.1 实机验证示例：
 
 ![PyTorch CUDA 可用性验证](/img/pytorch-01-cuda-verification.webp)
 
-## 2. 运行YOLO11
+## 7. 运行 YOLO11 摄像头推理
 
-**YOLO** 是一种实时目标检测算法，它将目标检测视为单阶段回归问题，通过将图像划分为网格并直接预测边界框与类别概率，实现高速且高精度的检测。YOLO系列因开源易用、部署灵活，广泛应用于自动驾驶、安防监控、工业质检等领域。
+确认 PyTorch CUDA 测试通过后，在同一环境中安装 Ultralytics：
 
-### 2.1 安装miniconda
-
-```
-curl -L https://repo.anaconda.com/miniconda/Miniconda3-py310_25.3.1-1-Linux-aarch64.sh | bash
-source ~/.bashrc
-conda --version
+```bash
+python -m pip install ultralytics
 ```
 
-### 2.2 conda换源
-
-```shell
-conda config --add channels https://mirrors.ustc.edu.cn/anaconda/pkgs/main/
-conda config --add channels https://mirrors.ustc.edu.cn/anaconda/pkgs/free/
-conda config --add channels https://mirrors.ustc.edu.cn/anaconda/cloud/conda-forge/
-conda config --add channels https://mirrors.ustc.edu.cn/anaconda/cloud/msys2/
-conda config --set show_channel_urls yes
-```
-
-### 2.3创建conda环境
-
-```shell
-conda create -n jetson-ai python=3.10
-```
-
-### 2.4 进入conda环境
-
-```
-conda activate jetson-ai
-```
-
-### 2.5 安装torch和torchvison
-
-```
-wget https://pypi.jetson-ai-lab.io/jp6/cu126/+f/62a/1beee9f2f1470/torch-2.8.0-cp310-cp310-linux_aarch64.whl 
-wget https://pypi.jetson-ai-lab.io/jp6/cu126/+f/907/c4c1933789645/torchvision-0.23.0-cp310-cp310-linux_aarch64.whl
-pip install torch-2.8.0-cp310-cp310-linux_aarch64.whl torchvision-0.23.0-cp310-cp310-linux_aarch64.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
-```
-
-### 2.6 安装ultralytics
-
-```shell
-pip install ultralytics -i https://pypi.tuna.tsinghua.edu.cn/simple
-```
-
-### 2.7 运行摄像头视频推理例程
-
-接入摄像头，并在上面创建的环境中运行如下程序。
+接入摄像头后运行以下示例：
 
 ```python
-import cv2
 import time
+
+import cv2
 from ultralytics import YOLO
-from ultralytics import YOLOWorld
 
-# Load the YOLO model
 model = YOLO("yolo11s.pt")
+cap = cv2.VideoCapture(0)
 
-# Open the video file
-video_path = 0
-cap = cv2.VideoCapture(video_path)
+if not cap.isOpened():
+    raise RuntimeError("无法打开摄像头")
 
-# Loop through the video frames
-while cap.isOpened():
-    
-    # Read a frame from the video
+while True:
     success, frame = cap.read()
-    start = time.time()
-    if success:
-        # Run YOLO inference on the frame
-        results = model(frame)
-        inf_time = time.time() - start
-        # Visualize the results on the frame
-        annotated_frame = results[0].plot()      
-        fps = 1.0 / inf_time if inf_time > 0 else 0
-        # show FPS
-        cv2.putText(annotated_frame, f"FPS: {fps:.2f}", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,255,0), 2)
-        cv2.imshow("YOLO Inference", annotated_frame)
-
-        # Break the loop if 'q' is pressed
-        if cv2.waitKey(1) & 0xFF == ord("q"):
-            break
-    else:
-        # Break the loop if the end of the video is reached
+    if not success:
         break
+
+    start = time.perf_counter()
+    results = model(frame)
+    elapsed = time.perf_counter() - start
+
+    annotated_frame = results[0].plot()
+    fps = 1.0 / elapsed if elapsed > 0 else 0.0
+    cv2.putText(
+        annotated_frame,
+        f"FPS: {fps:.2f}",
+        (10, 30),
+        cv2.FONT_HERSHEY_SIMPLEX,
+        1,
+        (0, 255, 0),
+        2,
+    )
+    cv2.imshow("YOLO11 Inference", annotated_frame)
+
+    if cv2.waitKey(1) & 0xFF == ord("q"):
+        break
+
+cap.release()
+cv2.destroyAllWindows()
 ```
 
-![image.png](/img/wiki-bEUimage.webp)
+首次运行时 Ultralytics 会下载模型权重，需要保持网络连接。按 `q` 退出窗口。
 
-更多信息可参考 [Ultralytics YOLO11 - Ultralytics YOLO 文档](https://docs.ultralytics.com/zh/models/yolo11/)
+![YOLO 摄像头推理](/img/wiki-bEUimage.webp)
+
+更多用法见 [Ultralytics YOLO11 文档](https://docs.ultralytics.com/zh/models/yolo11/)。
+
+## 8. 常见问题
+
+### `torch.cuda.is_available()` 返回 `False`
+
+先检查 `nvcc --version` 和 `nvidia-smi`，再核对 PyTorch 包是否对应当前 JetPack/CUDA。JetPack 7 上误装 `jp6` wheel 是常见原因之一。
+
+### 安装时提示 wheel 不受支持
+
+检查 Python 版本和 CPU 架构：
+
+```bash
+python3 --version
+uname -m
+```
+
+文件名中的 `cp310` 只支持 CPython 3.10，`linux_aarch64` 只支持 64 位 Arm Linux。
+
+### PyTorch 可用，但 Torchvision 导入失败
+
+PyTorch 与 Torchvision 也必须版本匹配。卸载冲突版本后，按同一兼容组合重新安装：
+
+```bash
+python -m pip uninstall -y torch torchvision
+```
+
+### 摄像头无法打开
+
+先用 `ls /dev/video*` 和 `v4l2-ctl --list-devices` 确认系统识别了摄像头，再参考 [摄像头教程](/orin-nano-series/camera)。
