@@ -157,8 +157,7 @@ gpioget $(gpiofind "PQ.06")     # 读取输入
 
 ## 载板兼容性说明
 
-- **C1902**：直接烧录官方 Developer Kit 固件，Jetson-IO 开箱即用。
-- **C1901 V1.3**：40Pin GPIO 功能正常，引脚定义及 Jetson-IO 使用方式与 C1902 通用。引脚 12/35/38/40 在 V1.3 已修复，历史版本不可用。
+- **C1901 / C1902**：40-pin 引脚定义及 Jetson-IO 使用方式通用，烧录官方 Developer Kit 固件后均可开箱即用。C1901 V1.3 已修复引脚 12/35/38/40；这些引脚在更早的硬件版本上不可用。
 - **C2401**：无标准 40-pin 排针，扩展走 30-pin 母座，引脚图见[产品介绍](/c2401/c2401)。
 - Jetson-IO 修改的是 `/boot/` 下的 DTB 与 `extlinux.conf`，刷机/替换 DTB（如 [USB 设备树替换](/orin-nano-series/usb-config)）后需重新配置。
 - **量产建议**：Jetson-IO 适合开发调试；量产镜像应使用官方 pinmux 表格生成配置并随固件烧录，参考 [NVIDIA 官方 Pinmux and GPIO Configuration](https://docs.nvidia.com/jetson/archives/r36.4.4/DeveloperGuide/HR/JetsonModuleAdaptationAndBringUp/JetsonOrinNxNanoSeries.html#changing-the-pinmux)。

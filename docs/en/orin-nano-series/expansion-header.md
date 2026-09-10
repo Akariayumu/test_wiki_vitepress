@@ -157,8 +157,7 @@ For more GPIO usage via CLI / Python / C, see [GPIO Control](/en/orin-nano-serie
 
 ## Carrier Board Compatibility
 
-- **C1902**: flashes the official Developer Kit firmware directly — Jetson-IO works out of the box.
-- **C1901 V1.3**: its 40-pin GPIO works normally, with the same pinout and Jetson-IO usage as C1902. Pins 12/35/38/40 were fixed in V1.3 and are unusable on earlier revisions.
+- **C1901 / C1902**: share the same 40-pin pinout and Jetson-IO workflow; both work out of the box after flashing the official Developer Kit firmware. C1901 V1.3 fixes pins 12/35/38/40, which are unavailable on earlier hardware revisions.
 - **C2401**: no standard 40-pin header; expansion goes through the 30-pin socket — see the [product page](/en/c2401/c2401) for the pinout.
 - Jetson-IO modifies the DTB and `extlinux.conf` under `/boot/`; after reflashing or replacing the DTB (e.g. [USB device tree replacement](/en/orin-nano-series/usb-config)), the configuration must be redone.
 - **Production advice**: Jetson-IO is meant for development. For production images, generate the configuration from the official pinmux spreadsheet and flash it with the firmware — see [NVIDIA Pinmux and GPIO Configuration](https://docs.nvidia.com/jetson/archives/r36.4.4/DeveloperGuide/HR/JetsonModuleAdaptationAndBringUp/JetsonOrinNxNanoSeries.html#changing-the-pinmux).
