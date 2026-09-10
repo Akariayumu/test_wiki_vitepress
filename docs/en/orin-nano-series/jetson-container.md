@@ -1,9 +1,9 @@
 ---
-title: Installing and Using Jetson-container
+title: Deploy ComfyUI with Jetson Containers
 outline: deep
 ---
 
-# Installing and Using Jetson-container
+# Deploy ComfyUI with Jetson Containers
 
 ::: info
 Before starting this section, make sure your network environment can pull docker images normally.

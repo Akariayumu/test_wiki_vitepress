@@ -1,9 +1,9 @@
 ---
-title: 安装使用Jetson-container
+title: 使用 Jetson Containers 部署 ComfyUI
 outline: deep
 ---
 
-# 安装使用Jetson-container
+# 使用 Jetson Containers 部署 ComfyUI
 
 ::: info
 开始本节内容前请确定您的网络环境能正常拉取docker镜像
