@@ -1,292 +1,246 @@
 ---
-title: USB Configuration
+title: Orin Nano/NX USB Configuration
 ---
 
-# USB Configuration
+# Orin Nano/NX USB Configuration
 
-## 1. Jetson Orin Nano Configuration
+After installing an official NVIDIA system on Jetson Orin Nano/NX, install the device tree matching the JetPack version and module model to enable the three USB 3.2 ports and Type-C port on C1901, C1902, C1903, and C2401 carrier boards.
 
-### 1. JetPack 5.1.5 Configuration
+The DTB files and version information in this guide come from [Akariayumu/board_dts](https://github.com/Akariayumu/board_dts/tree/master/orin-nano-nx-usb-config).
 
-#### 1.1 Flash the JetPack 5.1.5 System
+:::danger Read Before Proceeding
+- DTB files are strictly tied to the JetPack version and module model. Never mix versions or models.
+- An incorrect DTB or boot configuration may prevent the system from booting. Back up important data and the original configuration, and prepare a recovery-mode flashing environment first.
+- Only combinations marked as verified in `board_dts` are listed below. “—” means the repository has no matching file; do not substitute a file from another version.
+:::
 
-Refer to the [official firmware flashing guide](https://www.linkzeelabs.com/wiki/books/jetson-orin-nano/page/75887)
+## 1. Identify the Module and System Version
 
-#### 1.2 Download the Device Tree File to the Board
+Run on the Jetson:
 
-After the device boots normally, open a terminal and download the modified device tree file to the board.
-
-```shell
-git clone https://gitee.com/kongyuantech/document.git
-cd document/AN002\ Orin\ Nano\ NX\ USB配置/5.1.4/
+```bash
+cat /proc/device-tree/model; echo
+head -1 /etc/nv_tegra_release
 ```
 
-#### 1.3 Replace the Device Tree from the Command Line
+Use the following version-to-file mapping:
 
-Run the following commands to replace the DTB device tree file and reboot the device.
+| JetPack | L4T | Orin Nano 4GB | Orin Nano 8GB | Orin NX 8GB | Orin NX 16GB |
+| --- | --- | --- | --- | --- | --- |
+| 5.1.4 | R35.6.0 | `kernel_tegra234-p3767-0004-p3768-0000-a0.dtb` | `kernel_tegra234-p3767-0003-p3768-0000-a0.dtb` | `kernel_tegra234-p3767-0001-p3768-0000-a0.dtb` | `kernel_tegra234-p3767-0000-p3768-0000-a0.dtb` |
+| 5.1.5 (super) | R35.6.1 | `kernel_tegra234-p3767-0004-super-p3768-0000-a0.dtb` | `kernel_tegra234-p3767-0003-super-p3768-0000-a0.dtb` | `kernel_tegra234-p3767-0001-super-p3768-0000-a0.dtb` | `kernel_tegra234-p3767-0000-super-p3768-0000-a0.dtb` |
+| 6.2 | R36.4.3 | `orin_nano_4g.dtb` | `orin_nano_8g.dtb` | `orin_nx_8g.dtb` | `orin_nx_16g.dtb` |
+| 7.2 | R39.x | — | `orin_nano_8gb.dtb` | — | — |
 
-- **Jetson Orin Nano 4G**: use the following commands
+:::tip
+If the matching official system is not installed yet, first see [Flash with SDK Manager on an Ubuntu Host](/en/flashing-guide/ubuntu-sdkmanager).
+:::
 
-```shell
-sudo cp /boot/dtb/kernel_tegra234-p3767-0004-p3768-0000-a0.dtb /boot/dtb/kernel_tegra234-p3767-0004-p3768-0000-a0.dtb.backup # back up the original DTB file
-sudo cp kernel_tegra234-p3767-0004-p3768-0000-a0.dtb /boot/dtb
-sudo chown 0:0 /boot/dtb/kernel_tegra234-p3767-0004-p3768-0000-a0.dtb
-sudo chmod 644 /boot/dtb/kernel_tegra234-p3767-0004-p3768-0000-a0.dtb
+## 2. Download the Device Tree Repository
+
+After the device boots normally and has network access, run in the Jetson terminal:
+
+```bash
+git clone https://github.com/Akariayumu/board_dts.git
+cd board_dts/orin-nano-nx-usb-config
+```
+
+The remaining commands assume the current directory is `orin-nano-nx-usb-config`.
+
+## 3. JetPack 5.1.4
+
+JetPack 5.x automatically loads the matching filename from `/boot/dtb/` based on the module SKU, so the original DTB must be replaced. Enter the appropriate directory:
+
+```bash
+cd jetpack-5.1.4
+```
+
+Select the module and set exactly one filename:
+
+```bash
+# Orin Nano 4GB
+dtb=kernel_tegra234-p3767-0004-p3768-0000-a0.dtb
+
+# Orin Nano 8GB
+# dtb=kernel_tegra234-p3767-0003-p3768-0000-a0.dtb
+
+# Orin NX 8GB
+# dtb=kernel_tegra234-p3767-0001-p3768-0000-a0.dtb
+
+# Orin NX 16GB
+# dtb=kernel_tegra234-p3767-0000-p3768-0000-a0.dtb
+```
+
+Confirm the files exist, back up the original DTB, install the replacement, and reboot:
+
+```bash
+test -f "$dtb" || { echo "Cannot find $dtb"; exit 1; }
+test -f "/boot/dtb/$dtb" || { echo "Cannot find /boot/dtb/$dtb on the system"; exit 1; }
+sudo cp -a "/boot/dtb/$dtb" "/boot/dtb/$dtb.backup-$(date +%Y%m%d-%H%M%S)"
+sudo install -o root -g root -m 0644 "$dtb" "/boot/dtb/$dtb"
 sudo reboot
 ```
 
-- **Jetson Orin Nano 8G**: use the following commands
+## 4. JetPack 5.1.5 (super)
 
-```shell
-sudo cp /boot/dtb/kernel_tegra234-p3767-0003-p3768-0000-a0.dtb /boot/dtb/kernel_tegra234-p3767-0003-p3768-0000-a0.dtb.backup # back up the original DTB file
-sudo cp kernel_tegra234-p3767-0003-p3768-0000-a0.dtb /boot/dtb
-sudo chown 0:0 /boot/dtb/kernel_tegra234-p3767-0003-p3768-0000-a0.dtb
-sudo chmod 644 /boot/dtb/kernel_tegra234-p3767-0003-p3768-0000-a0.dtb
+Enter the JetPack 5.1.5 (super) directory:
+
+```bash
+cd jetpack-5.1.5-super
+```
+
+Select the module and set exactly one filename:
+
+```bash
+# Orin Nano 4GB
+dtb=kernel_tegra234-p3767-0004-super-p3768-0000-a0.dtb
+
+# Orin Nano 8GB
+# dtb=kernel_tegra234-p3767-0003-super-p3768-0000-a0.dtb
+
+# Orin NX 8GB
+# dtb=kernel_tegra234-p3767-0001-super-p3768-0000-a0.dtb
+
+# Orin NX 16GB
+# dtb=kernel_tegra234-p3767-0000-super-p3768-0000-a0.dtb
+```
+
+Back up, install, and reboot:
+
+```bash
+test -f "$dtb" || { echo "Cannot find $dtb"; exit 1; }
+test -f "/boot/dtb/$dtb" || { echo "Cannot find /boot/dtb/$dtb on the system"; exit 1; }
+sudo cp -a "/boot/dtb/$dtb" "/boot/dtb/$dtb.backup-$(date +%Y%m%d-%H%M%S)"
+sudo install -o root -g root -m 0644 "$dtb" "/boot/dtb/$dtb"
 sudo reboot
 ```
 
-### 2. JetPack 6.2.1 Configuration
+## 5. JetPack 6.2
 
-#### 2.1 Flash the JetPack 6.2.1 System
+JetPack 6.2 requires installing the new DTB under `/boot/dtb/` and specifying it with `FDT` in the `LABEL primary` boot entry in `/boot/extlinux/extlinux.conf`.
 
-Refer to the [official firmware flashing guide](https://www.linkzeelabs.com/wiki/books/jetson-orin-nano/page/75887)
+Enter the appropriate directory:
 
-#### 2.2 Download the Device Tree File to the Board
-
-After the device boots normally, open a terminal and download the modified device tree file to the board.
-
-```shell
-git clone https://gitee.com/kongyuantech/document.git
-cd document/AN002\ Orin\ Nano\ NX\ USB配置/6.2/
+```bash
+cd jetpack-6.2
 ```
 
-#### 2.3 Replace the Device Tree from the Command Line
+Select the module and set exactly one filename:
 
-Run the following commands to add the DTB device tree file and reboot the device.
+```bash
+# Orin Nano 4GB
+dtb=orin_nano_4g.dtb
 
-- **Jetson Orin Nano 4G**: run the following commands
+# Orin Nano 8GB
+# dtb=orin_nano_8g.dtb
 
-```shell
-sudo cp orin_nano_4g.dtb /boot/dtb
-sudo sed -i 's#console=tty0#console=tty0\n      FDT /boot/dtb/orin_nano_4g.dtb#g' /boot/extlinux/extlinux.conf
-sudo reboot
+# Orin NX 8GB
+# dtb=orin_nx_8g.dtb
+
+# Orin NX 16GB
+# dtb=orin_nx_16g.dtb
 ```
 
-- **Jetson Orin Nano 8G**: run the following commands
+Install the DTB and back up the boot configuration:
 
-```shell
-sudo cp orin_nano_8g.dtb /boot/dtb
-sudo sed -i 's#console=tty0#console=tty0\n      FDT /boot/dtb/orin_nano_8g.dtb#g' /boot/extlinux/extlinux.conf
-sudo reboot
-```
-
-## 2. Jetson Orin NX Configuration
-
-### 1. JetPack 5.1.5 Configuration
-
-#### 1.1 Flash the JetPack 5.1.5 System
-
-Refer to the [official firmware flashing guide](https://www.linkzeelabs.com/wiki/books/jetson-orin-nano/page/75887)
-
-#### 1.2 Download the Device Tree File to the Board
-
-After the device boots normally, open a terminal and download the modified device tree file to the board.
-
-```shell
-git clone https://gitee.com/kongyuantech/document.git
-cd document/AN002\ Orin\ Nano\ NX\ USB配置/5.1.4/
-```
-
-#### 1.3 Replace the Device Tree from the Command Line
-
-Run the following commands to replace the DTB device tree file and reboot the device.
-
-- **Jetson Orin NX 8G**: run the following commands
-
-```shell
-sudo cp /boot/dtb/kernel_tegra234-p3767-0001-p3768-0000-a0.dtb /boot/dtb/kernel_tegra234-p3767-0001-p3768-0000-a0.dtb.backup # back up the original DTB file
-sudo cp kernel_tegra234-p3767-0001-p3768-0000-a0.dtb /boot/dtb
-sudo chown 0:0 /boot/dtb/kernel_tegra234-p3767-0001-p3768-0000-a0.dtb
-sudo chmod 644 /boot/dtb/kernel_tegra234-p3767-0001-p3768-0000-a0.dtb
-sudo reboot
-```
-
-- **Jetson Orin NX 16G**: run the following commands
-
-```shell
-sudo cp /boot/dtb/kernel_tegra234-p3767-0000-p3768-0000-a0.dtb /boot/dtb/kernel_tegra234-p3767-0000-p3768-0000-a0.dtb.backup # back up the original DTB file
-sudo cp kernel_tegra234-p3767-0000-p3768-0000-a0.dtb /boot/dtb
-sudo chown 0:0 /boot/dtb/kernel_tegra234-p3767-0000-p3768-0000-a0.dtb
-sudo chmod 644 /boot/dtb/kernel_tegra234-p3767-0000-p3768-0000-a0.dtb
-sudo reboot
-```
-
-### 2. JetPack 6.2.1 Configuration
-
-#### 2.1 Flash the JetPack 6.2.1 System
-
-Refer to the [official firmware flashing guide](https://www.linkzeelabs.com/wiki/books/jetson-orin-nano/page/75887)
-
-#### 2.2 Download the Device Tree File to the Board
-
-After the device boots normally, open a terminal and download the modified device tree file to the board.
-
-```shell
-git clone https://gitee.com/kongyuantech/document.git
-cd document/AN002\ Orin\ Nano\ NX\ USB配置/6.2/
-```
-
-#### 2.3 Replace the Device Tree from the Command Line
-
-Run the following commands to add the DTB device tree file and reboot the device.
-
-- **Jetson Orin NX 8G**: use the following commands
-
-```shell
-sudo cp orin_nx_8g.dtb /boot/dtb
-sudo sed -i 's#console=tty0#console=tty0\n      FDT /boot/dtb/orin_nx_8g.dtb#g' /boot/extlinux/extlinux.conf
-sudo reboot
-```
-
-- **Jetson Orin NX 16G**: use the following commands
-
-```shell
-sudo cp orin_nx_16g.dtb /boot/dtb
-sudo sed -i 's#console=tty0#console=tty0\n      FDT /boot/dtb/orin_nx_16g.dtb#g' /boot/extlinux/extlinux.conf
-sudo reboot
-```
-
-## 3. JetPack 7.2.1 Configuration (Orin Nano/NX)
-
-JetPack 7.2.1 (Jetson Linux R39.2.1) can use the same module-specific DTB files provided above for JetPack 6.2.1:
-
-| Module | DTB file |
-|--------|----------|
-| Jetson Orin Nano 4GB | `orin_nano_4g.dtb` |
-| Jetson Orin Nano 8GB | `orin_nano_8g.dtb` |
-| Jetson Orin NX 8GB | `orin_nx_8g.dtb` |
-| Jetson Orin NX 16GB | `orin_nx_16g.dtb` |
-
-### 1. Download the Device Tree File
-
-```shell
-git clone https://gitee.com/kongyuantech/document.git
-cd document/AN002\ Orin\ Nano\ NX\ USB配置/6.2/
-```
-
-### 2. Install the DTB and Configure the Boot Entry
-
-JetPack 7 boots through UEFI, but NVIDIA Jetson Linux R39.2 still supports selecting a custom kernel DTB with the `FDT` tag in `/boot/extlinux/extlinux.conf`. The following procedure changes only the `LABEL primary` entry. It does not match or rewrite the long `APPEND` line, so `${cbootargs}`, `root=PARTUUID=...`, and all other kernel arguments remain unchanged.
-
-Set the filename for the installed module first. This example uses an **Orin Nano 8GB**:
-
-```shell
-usb_dtb_file=orin_nano_8g.dtb
-test -f "$usb_dtb_file" || { echo "Cannot find $usb_dtb_file"; exit 1; }
-
-# Install the DTB and make a timestamped backup of the current boot configuration
-sudo install -m 0644 "$usb_dtb_file" "/boot/dtb/$usb_dtb_file"
+```bash
+test -f "$dtb" || { echo "Cannot find $dtb"; exit 1; }
+sudo install -o root -g root -m 0644 "$dtb" "/boot/dtb/$dtb"
 sudo cp -a /boot/extlinux/extlinux.conf \
   "/boot/extlinux/extlinux.conf.backup-$(date +%Y%m%d-%H%M%S)"
-
-# Add FDT only to LABEL primary, or replace FDT if it is already present
-sudo awk -v fdt="/boot/dtb/$usb_dtb_file" '
-  function add_fdt() {
-    if (in_primary && !fdt_written) {
-      print "      FDT " fdt
-      fdt_written = 1
-    }
-  }
-  /^LABEL[[:space:]]+primary[[:space:]]*$/ {
-    in_primary = 1
-    fdt_written = 0
-    print
-    next
-  }
-  in_primary && /^LABEL[[:space:]]+/ {
-    add_fdt()
-    in_primary = 0
-  }
-  in_primary && /^[[:space:]]*FDT[[:space:]]+/ {
-    if (!fdt_written) {
-      print "      FDT " fdt
-      fdt_written = 1
-    }
-    next
-  }
-  { print }
-  END { add_fdt() }
-' /boot/extlinux/extlinux.conf | sudo tee /boot/extlinux/extlinux.conf.new >/dev/null
-
-# Inspect the generated entry before installing it; APPEND must remain unchanged
-sudo grep -A8 -E '^LABEL[[:space:]]+primary$' /boot/extlinux/extlinux.conf.new
-sudo grep -qE "^[[:space:]]+FDT[[:space:]]+/boot/dtb/${usb_dtb_file}$" \
-  /boot/extlinux/extlinux.conf.new && \
-  sudo install -m 0644 /boot/extlinux/extlinux.conf.new /boot/extlinux/extlinux.conf || \
-  { echo "FDT validation failed; extlinux.conf was not modified"; exit 1; }
-sudo rm -f /boot/extlinux/extlinux.conf.new
-sudo reboot
+sudo nano /boot/extlinux/extlinux.conf
 ```
 
-The resulting `primary` entry should resemble the following. Keep the original `APPEND` content from the device; never copy the example PARTUUID manually:
+Add an `FDT` line to the `LABEL primary` section. Do not modify or copy the `APPEND` contents from another device:
 
 ```text
 LABEL primary
       MENU LABEL primary kernel
       LINUX /boot/Image
       INITRD /boot/initrd
-      APPEND ${cbootargs} root=PARTUUID=<keep the original value> rw ...
-      FDT /boot/dtb/orin_nano_8g.dtb
+      APPEND ...keep the device's existing contents...
+      FDT /boot/dtb/orin_nano_4g.dtb
 ```
 
-:::warning
-- The DTB must match the module memory size. A mismatched file can prevent boot or break peripherals.
-- This procedure targets development systems without Secure Boot. With Secure Boot enabled, the DTB and `extlinux.conf` may need to be signed again with the active keys.
-- Keep the backup until the new DTB has booted successfully. If it fails, restore the original `extlinux.conf` and DTB from another boot entry or Recovery mode.
-:::
+Replace the example filename with the selected `$dtb`. Save, verify the configuration, and reboot:
 
-NVIDIA reference: [Jetson Linux R39.2 — UEFI Adaptation](https://docs.nvidia.com/jetson/archives/r39.2/DeveloperGuide/SD/Bootloader/UEFI.html).
+```bash
+grep -A8 -E '^LABEL[[:space:]]+primary$' /boot/extlinux/extlinux.conf
+sudo reboot
+```
 
-## 4. Verifying the Configuration
+## 6. JetPack 7.2
 
-After replacing the device tree, all 4 USB 3.0 ports (3 on the C1901) work properly. The Type-C port is disabled by default.
-You can use the following command to check the status of the USB ports.
+`board_dts` currently provides and verifies only **Orin Nano 8GB**, using `orin_nano_8gb.dtb`. Wait for the repository to provide files for other modules; do not use a JetPack 6.2 DTB.
 
-```shell
+```bash
+cd jetpack-7.2
+dtb=orin_nano_8gb.dtb
+test -f "$dtb" || { echo "Cannot find $dtb"; exit 1; }
+sudo install -o root -g root -m 0644 "$dtb" "/boot/dtb/$dtb"
+sudo cp -a /boot/extlinux/extlinux.conf \
+  "/boot/extlinux/extlinux.conf.backup-$(date +%Y%m%d-%H%M%S)"
+sudo nano /boot/extlinux/extlinux.conf
+```
+
+Add the following line to the `LABEL primary` section:
+
+```text
+      FDT /boot/dtb/orin_nano_8gb.dtb
+```
+
+Save, verify, and reboot:
+
+```bash
+grep -A8 -E '^LABEL[[:space:]]+primary$' /boot/extlinux/extlinux.conf
+sudo reboot
+```
+
+## 7. Verify USB 3.2
+
+After rebooting, connect a USB 3.x device and inspect the USB topology:
+
+```bash
 lsusb -t
 ```
 
-- Before replacing the device tree:
+`5000M` or `10000M` indicates a SuperSpeed link; `480M` is still USB 2.0.
 
-![1](/img/wiki-1-1.png)
+![Verify a USB SuperSpeed link with lsusb](/img/usb-01-superspeed-verification.webp)
 
-- After successfully replacing the device tree:
+If the device is still not detected, inspect the USB controller logs:
 
-![2](/img/wiki-Bsa2.png)
+```bash
+sudo dmesg | grep -i -e xusb -e tegra-xudc
+```
 
-On the JetPack 7.2.1 system below, `5000M` or `10000M` indicates a SuperSpeed link. The USB 3.0 hub in this example has a `10000M` upstream link:
+## 8. Configure Type-C Device Mode
 
-![Verifying a USB SuperSpeed link with lsusb](/img/usb-01-superspeed-verification.webp)
+Check the current role:
 
-You can also use the DISK tool or the `dd` command yourself to test whether the read/write speeds meet the USB 3.0 standard.
+```bash
+cat /sys/class/usb_role/usb2-0-role-switch/role
+```
 
-## 5. Configuring the Type-C Port Mode
+Temporarily switch to Device mode (reset after reboot):
 
-- Configure the Type-C port as Device mode
-
-Note: this command only enables the mode temporarily; it will be lost after a reboot.
-
-```shell
+```bash
 sudo bash -c 'echo device > /sys/class/usb_role/usb2-0-role-switch/role'
 ```
 
-Once set, connecting the device to a PC host via the Type-C port provides the following functions:
-- COM port, the device's terminal command line
-- Virtual network interface, the device's default IP address is: 192.168.55.1
-- NCM (Network Control Model), the device can access the network through the PC host; only supported on Linux and Mac
+When connected to a PC, the port can provide a serial terminal, a virtual network interface at the default address `192.168.55.1`, and NCM networking on Linux/macOS hosts.
 
-- Configure the Type-C port as Device mode by default at boot (permanent)
+To switch automatically at boot, modify NVIDIA's startup script as done by the upstream repository:
 
-```shell
-sudo sed -i 's#exit 0#echo device > /sys/class/usb_role/usb2-0-role-switch/role\nexit 0#g' /opt/nvidia/l4t-usb-device-mode/nv-l4t-usb-device-mode-start.sh
+```bash
+sudo cp -a /opt/nvidia/l4t-usb-device-mode/nv-l4t-usb-device-mode-start.sh \
+  /opt/nvidia/l4t-usb-device-mode/nv-l4t-usb-device-mode-start.sh.backup
+sudo sed -i 's#exit 0#echo device > /sys/class/usb_role/usb2-0-role-switch/role\nexit 0#g' \
+  /opt/nvidia/l4t-usb-device-mode/nv-l4t-usb-device-mode-start.sh
 ```
+
+## 9. Recovery
+
+- JetPack 5.x: Restore the same-named DTB backup under `/boot/dtb/`. If the system does not boot, enter recovery mode and reflash.
+- JetPack 6.2/7.2: Boot through a fallback entry or serial console, remove the added `FDT` line from `extlinux.conf`, and restore the timestamped backup if necessary.
+- USB 3.2 works but Type-C does not respond: Confirm the role file exists and run the Device-mode switching command again.

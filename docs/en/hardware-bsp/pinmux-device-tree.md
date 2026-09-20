@@ -98,9 +98,15 @@ Linux_for_Tegra/bootloader/generic/BCT/  <- pinmux.dtsi, padvoltage.dtsi
 Linux_for_Tegra/bootloader/              <- gpio.dtsi
 ```
 
-Reference them from the carrier-board `.conf`, then generate and flash the image with the validated board configuration. Directory names and variables can change between releases; follow the matching NVIDIA guide and actual `.conf`.
+Reference these files from the carrier-board `.conf`. Directory names and variables can change between L4T releases; follow the matching NVIDIA Developer Guide and the actual `.conf` file.
+
+### Flash with the BSP
+
+The Pinmux BCT is part of the boot firmware configuration. Generate and flash the image with a validated carrier-board flashing configuration; do not merely copy the generated `.dtsi` files to `/boot` on the target.
 
 ## Path 4: Linux Device Tree
+
+### Locate the Node
 
 In Jetson Linux r36, T23x device-tree sources live under the BSP source tree's `hardware/nvidia/t23x/` hierarchy. Trace includes from the existing top-level board DTS instead of guessing controller addresses.
 
@@ -118,7 +124,12 @@ This is structural only; replace the label, compatible string, address, clocks, 
 };
 ```
 
-Build with the NVIDIA process for the exact target L4T, deploy under a new filename with a fallback boot entry, and verify the runtime tree, driver logs, and bus device after reboot.
+### Build and Deployment Principles
+
+1. Make changes in BSP sources that exactly match the target L4T release.
+2. Generate the DTB/DTBO with NVIDIA's prescribed kernel/device-tree build process for that release.
+3. Do not overwrite the only bootable DTB; test with a new filename and a fallback boot entry.
+4. After rebooting, verify the result through `/proc/device-tree`, driver logs, and bus tools.
 
 ## Device Tree Overlay
 
