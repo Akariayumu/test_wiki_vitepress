@@ -4,100 +4,142 @@ title: Flash the C2401
 
 # Flash the C2401
 
-This guide explains how to flash the system onto the **C2401 Mini Kit**.
+> We recommend flashing from Linux or a Linux VM. See [Install a VMware VM](/en/flashing-guide/ubuntu-sdkmanager) for instructions on installing the VM and SDK Manager.
 
-:::tip Before You Start
-- Ubuntu VM and SDK Manager installed (see the [installation guide](/en/flashing-guide/ubuntu-sdkmanager))
-- A USB Type-C cable capable of data transfer
-- C2401 Mini Kit
-:::
+## 1. Flash with NVIDIA SDK Manager
 
-## 1. Enter Recovery Mode
+### 1.1 Configure the VMware USB Mode
 
-The C2401 enters recovery mode through the **Recovery button** on its side.
+Set the USB connection mode to "Connect the device to the foreground virtual machine" to prevent the flash from failing when the board reboots during the process.
 
-![C2401 Recovery Mode](/img/wiki-0q7a2475-1.webp)
+![1.1 Configure the VMware USB mode](/img/wiki-4.png)
 
-Steps:
+![1.1 Configure the VMware USB mode](/img/wiki-5.png)
 
-1. Disconnect the C2401 power.
-2. Press and hold the **RECOVERY** button.
-3. Connect the power.
-4. Connect the C2401 to the VM with a USB Type-C cable.
-5. Release the RECOVERY button.
+### 1.2 Enter Recovery Mode
 
-## 2. Detect the Device
+The C2401 provides two ways to enter recovery mode:
 
-Run in the Ubuntu terminal:
+**Method 1 (button):** With the power disconnected, press and hold the **REC button**, then connect power.
+
+**Method 2 (DIP switch):** Set **DIP switch 3** on the back of the carrier board to ON. The system will enter recovery mode automatically each time it powers on.
+
+> Recovery mode lasts for only 60 seconds. If no flashing operation is detected, the system automatically continues with the normal boot sequence.
+
+![1.2 Enter recovery mode](/img/wiki-0q7a2475-1.webp)
+
+![1.2 Enter recovery mode](/img/wiki-14.png)
+
+### 1.3 Configure the SDK
+
+- Uncheck **Host Machine**, then click **CONTINUE**
+- Select only **Jetson Linux**
+
+![1.3 Configure the SDK: uncheck Host Machine](/img/flash-jp721-cancel-host-machine.png)
+
+![1.3 Configure the SDK: select only Jetson Linux](/img/flash-jp721-jetson-linux-only.png)
+
+### 1.4 Wait for the Download to Complete
+
+![1.4 Wait for the download to complete](/img/flash-jp721-wait-download.png)
+
+### 1.5 Configure the Flash Parameters
+
+- **Pre-Config**: Set the username and password in advance
+- **Runtime**: Configure the username and password after first boot
+- **Storage Device**: Select the target medium (SSD)
+- Select **Developer Kit Version**
+
+> Wait patiently for the flash to finish; it takes about 10–20 minutes. The board may reconnect to the host several times. Do not disconnect the data cable or power off the board.
+>
+> After flashing, power on the board. The flash was successful if it boots into the desktop or initial setup screen.
+
+![1.5 Configure the flash parameters](/img/wiki-XjOimage.png)
+
+![1.5 Configure the flash parameters](/img/wiki-JBF12.png)
+
+![1.5 Configure the flash parameters](/img/wiki-ftEimage.png)
+
+![1.5 Configure the flash parameters](/img/wiki-6.png)
+
+![1.5 Configure the flash parameters](/img/wiki-7.webp)
+
+## 2. Flash SUPER Firmware from the Command Line
+
+> This operation requires the official firmware environment. First complete at least one full flash with SDK Manager to create the firmware cache.
+
+### 2.1 Enter Recovery Mode
+
+Press and hold the REC button, connect the board to the computer with a Type-C data cable, and connect board power to enter recovery mode.
+
+### 2.2 Flash with the Official Firmware
+
+> Close SDK Manager before proceeding. Flashing takes about 10–20 minutes.
+
+**Command for JetPack 6/7:**
+
+> The command parameters are identical; only the firmware directory differs. Use `JetPack_6.2.1_Linux_...` for JetPack 6.2.1 and `JetPack_7.2_Linux_...` for JetPack 7.2. The following example uses JetPack 7.2.
 
 ```bash
-lsusb | grep -i nvidia
+cd /home/ubuntu/nvidia/nvidia_sdk/JetPack_7.2_Linux_JETSON_ORIN_NANO_TARGETS/Linux_for_Tegra
+sudo ./tools/kernel_flash/l4t_initrd_flash.sh --external-device nvme0n1p1 \
+  -c tools/kernel_flash/flash_l4t_t234_nvme.xml -p "-c bootloader/generic/cfg/flash_t234_qspi.xml" \
+  --showlogs --network usb0 jetson-orin-nano-devkit-super internal
 ```
 
-![C2401 Detect Device](/img/wiki-14.png)
+**Command for JetPack 5.1.5:**
 
-If an NVIDIA device is detected, recovery mode was entered successfully.
+```bash
+cd /home/ubuntu/nvidia/nvidia_sdk/JetPack_5.1.5_Linux_JETSON_ORIN_NANO_TARGETS/Linux_for_Tegra
+sudo ./tools/kernel_flash/l4t_initrd_flash.sh --external-device nvme0n1p1 \
+  -c tools/kernel_flash/flash_l4t_external.xml -p "-c bootloader/t186ref/cfg/flash_t234_qspi.xml" \
+  --showlogs --network usb0 jetson-orin-nano-devkit-super internal
+```
 
-## 3. Flash with SDK Manager
+![2.2 Flash with the official firmware](/img/wiki-8.png)
 
-Open SDK Manager and select the corresponding module model.
+### 2.3 Verify SUPER Mode
 
-![C2401 Select Hardware](/img/wiki-B3Uimage.png)
+After powering on the board and completing user setup, select a power mode from the upper-right corner of the desktop. **25W & MAXN SUPER** is available only in SUPER mode; standard mode provides only 7W and 15W.
 
-:::warning Note
-The C2401 is an all-in-one Mini Kit; select the model that matches the built-in module.
-:::
+![2.3 Verify SUPER mode](/img/wiki-9.png)
 
-Uncheck Host Machine and keep only Target Hardware.
+## 3. Back Up and Restore Existing Firmware
 
-![C2401 Configure Options](/img/wiki-15.png)
+### 3.1 Back Up the Firmware
 
-After selecting the JetPack version, start the flashing flow.
+Press and hold the REC button, connect the board to the computer over Type-C, and connect power to enter recovery mode.
 
-![C2401 JetPack](/img/wiki-3k6image.png)
+Alternatively, while the board is running normally and connected to the host, run:
 
-In the flashing configuration window, select the storage medium and system version.
+```bash
+sudo reboot -f forced-recovery
+```
 
-![C2401 Flashing Configuration](/img/wiki-XjOimage.png)
+Enter the command-line directory in the firmware cache used for the original flash:
 
-Click Flash to start and wait for it to finish.
+```bash
+cd /home/ubuntu/nvidia/nvidia_sdk/JetPack_7.2_Linux_JETSON_ORIN_NANO_TARGETS/Linux_for_Tegra
+```
 
-![C2401 Flashing](/img/wiki-JBF12.png)
+Install the dependencies:
 
-## 4. Finish
+```bash
+sudo apt-get install qemu-user-static libxml2-utils abootimg sshpass nfs-kernel-server binutils
+```
 
-After flashing, the C2401 reboots automatically into the system.
+**Backup command:**
 
-![C2401 Complete](/img/wiki-7.webp)
+```bash
+sudo ./tools/backup_restore/l4t_backup_restore.sh -b -e nvme0n1 jetson-orin-nano-devkit-nvme
+```
 
-:::tip First Boot Configuration
-- Select language, time zone, and keyboard layout
-- Set a username and password
-- Once done, you reach the Ubuntu desktop
-:::
+**Restore command:**
 
-## Troubleshooting
+```bash
+sudo ./tools/backup_restore/l4t_backup_restore.sh -r -e nvme0n1 jetson-orin-nano-devkit-nvme
+```
 
-### Cannot Enter Recovery Mode
+> When restoring a backup on a third-party carrier board, edit `nvrestore_partitions.sh` and comment out lines 292–296.
 
-- Confirm the RECOVERY button is pressed firmly
-- Confirm the power supply is working
-- Check that the USB Type-C cable is a data cable
-
-### SDK Manager Cannot Detect the Device
-
-- In VMware, confirm the USB device is connected to the VM
-- Run lsusb to confirm the device is detected
-- Try a different USB port
-
-### Flashing Failed
-
-- Ensure enough disk space
-- Keep the USB connection stable during flashing
-- Re-enter recovery mode and retry
-
-## Next Steps
-
-- [C2401 Introduction](/en/c2401/c2401)
-
-> Source: [Kytech (Guangzhou) Co., Ltd — LinkZee Labs](https://www.linkzeelabs.com/wiki/books/flashing)
+![3.1 Back up the firmware](/img/wiki-VXwimage.png)

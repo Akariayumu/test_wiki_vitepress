@@ -34,13 +34,13 @@ title: C1902 刷入系统
 - 取消 **Host Machine**，并点击 **CONTINUE**
 - 只勾选 **Jetson Linux**
 
-![1.3 配置 SDK](/img/wiki-B3Uimage.png)
+![1.3 配置 SDK：取消 Host Machine](/img/flash-jp721-cancel-host-machine.png)
 
-![1.3 配置 SDK](/img/wiki-15.png)
+![1.3 配置 SDK：只勾选 Jetson Linux](/img/flash-jp721-jetson-linux-only.png)
 
 ### 1.4 等待下载完成
 
-![1.4 等待下载完成](/img/wiki-3k6image.png)
+![1.4 等待下载完成](/img/flash-jp721-wait-download.png)
 
 ### 1.5 配置刷机参数
 
@@ -75,10 +75,12 @@ title: C1902 刷入系统
 
 > 操作前请关闭正在运行的 SDK Manager 软件，刷入过程约为 10~20 分钟。
 
-**JetPack 6.2 版本刷入指令：**
+**JetPack 6/7 通用刷入指令：**
+
+> 命令参数相同，只需进入对应版本的固件目录：JetPack 6.2.1 使用 `JetPack_6.2.1_Linux_...`，JetPack 7.2 使用 `JetPack_7.2_Linux_...`。以下以 JetPack 7.2 为例。
 
 ```bash
-cd /home/ubuntu/nvidia/nvidia_sdk/JetPack_6.2.1_Linux_JETSON_ORIN_NANO_TARGETS/Linux_for_Tegra
+cd /home/ubuntu/nvidia/nvidia_sdk/JetPack_7.2_Linux_JETSON_ORIN_NANO_TARGETS/Linux_for_Tegra
 sudo ./tools/kernel_flash/l4t_initrd_flash.sh --external-device nvme0n1p1 \
   -c tools/kernel_flash/flash_l4t_t234_nvme.xml -p "-c bootloader/generic/cfg/flash_t234_qspi.xml" \
   --showlogs --network usb0 jetson-orin-nano-devkit-super internal
@@ -116,7 +118,7 @@ sudo reboot -f forced-recovery
 进入原刷机固件缓存下的命令行目录：
 
 ```bash
-cd /home/ubuntu/nvidia/nvidia_sdk/JetPack_6.2.1_Linux_JETSON_ORIN_NANO_TARGETS/Linux_for_Tegra
+cd /home/ubuntu/nvidia/nvidia_sdk/JetPack_7.2_Linux_JETSON_ORIN_NANO_TARGETS/Linux_for_Tegra
 ```
 
 安装依赖包：
