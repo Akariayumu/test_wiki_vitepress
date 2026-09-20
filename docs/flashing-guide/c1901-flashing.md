@@ -99,6 +99,8 @@ sudo ./tools/kernel_flash/l4t_initrd_flash.sh --external-device nvme0n1p1   -c t
 
 ![2.3 验证是否处于 SUPER 模式](/img/wiki-9.png)
 
+若电源模式列表中出现 **25W** 和 **MAXN SUPER**，说明 SUPER 固件已生效。若仍只有 **7W** 和 **15W**，请确认刷机命令使用了 `jetson-orin-nano-devkit-super` 配置，并重新完整刷入后重启检查。
+
 ## 3. 备份与恢复现有固件
 
 ### 3.1 备份固件

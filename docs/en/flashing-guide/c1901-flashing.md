@@ -103,6 +103,8 @@ After powering on the board and completing user setup, select a power mode from 
 
 ![2.3 Verify SUPER mode](/img/wiki-9.png)
 
+If **25W** and **MAXN SUPER** appear in the power-mode list, the SUPER firmware is active. If only **7W** and **15W** are available, confirm that the flash command uses the `jetson-orin-nano-devkit-super` configuration, perform a complete reflash, and check again after rebooting.
+
 ## 3. Back Up and Restore Existing Firmware
 
 ### 3.1 Back Up the Firmware
