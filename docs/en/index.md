@@ -30,6 +30,13 @@ features:
     link: /en/c1902/c1902
     linkText: View product intro
   - icon:
+      src: /img/c1902v2-front.webp
+      alt: C1902 V2 Carrier Board
+    title: C1902 V2 Carrier Board
+    details: Industrial-grade upgrade of the C1902 with a dedicated REC button
+    link: /en/c1902v2/c1902v2
+    linkText: View product intro
+  - icon:
       src: /img/c2401-front.webp
       alt: C2401 Mini Kit
     title: C2401 Mini Kit

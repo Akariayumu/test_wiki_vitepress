@@ -30,6 +30,13 @@ features:
     link: /c1902/c1902
     linkText: 查看产品介绍
   - icon:
+      src: /img/c1902v2-front.webp
+      alt: C1902 V2 载板
+    title: C1902 V2 载板
+    details: C1902 工业级升级版，新增 REC 恢复按钮
+    link: /c1902v2/c1902v2
+    linkText: 查看产品介绍
+  - icon:
       src: /img/c2401-front.webp
       alt: C2401 迷你套件
     title: C2401 迷你套件

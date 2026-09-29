@@ -32,6 +32,7 @@ const rootSidebar = [
     text: 'C1902 载板',
     items: [
       { text: 'C1902 产品介绍', link: '/c1902/c1902' },
+      { text: 'C1902 V2 产品介绍', link: '/c1902v2/c1902v2' },
     ]
   },
   {
@@ -150,6 +151,7 @@ const enSidebar = [
     text: 'C1902 Carrier Board',
     items: [
       { text: 'C1902 Introduction', link: '/en/c1902/c1902' },
+      { text: 'C1902 V2 Introduction', link: '/en/c1902v2/c1902v2' },
     ]
   },
   {
@@ -241,7 +243,13 @@ const enSidebar = [
 const rootNav = [
   { text: '首页', link: '/' },
   { text: '选型对比', link: '/products/compare' },
-  { text: 'C1902', link: '/c1902/c1902' },
+  {
+    text: 'C1902',
+    items: [
+      { text: 'C1902 V2', link: '/c1902v2/c1902v2' },
+      { text: 'C1902 (V1.x)', link: '/c1902/c1902' },
+    ]
+  },
   { text: 'C1903', link: '/c1903/c1903' },
   { text: 'C2401', link: '/c2401/c2401' },
   { text: 'Jetson 教程', link: '/orin-nano-series/intro' },
@@ -253,7 +261,13 @@ const rootNav = [
 const enNav = [
   { text: 'Home', link: '/en/' },
   { text: 'Compare', link: '/en/products/compare' },
-  { text: 'C1902', link: '/en/c1902/c1902' },
+  {
+    text: 'C1902',
+    items: [
+      { text: 'C1902 V2', link: '/en/c1902v2/c1902v2' },
+      { text: 'C1902 (V1.x)', link: '/en/c1902/c1902' },
+    ]
+  },
   { text: 'C1903', link: '/en/c1903/c1903' },
   { text: 'C2401', link: '/en/c2401/c2401' },
   { text: 'Tutorials', link: '/en/orin-nano-series/intro' },
