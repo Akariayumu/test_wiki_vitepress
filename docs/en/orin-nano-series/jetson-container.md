@@ -5,52 +5,83 @@ outline: deep
 
 # Deploy ComfyUI with Jetson Containers
 
-::: info
-Before starting this section, make sure your network environment can pull docker images normally.
+**`jetson-containers`** is a modular Docker container toolkit maintained by NVIDIA Jetson AI Lab for Jetson edge computing devices. It comes preconfigured with matching CUDA, cuDNN, and TensorRT environments for rapid deployment of generative AI and computer vision workloads.
+
+**ComfyUI** is a node-based graphical workflow interface for Stable Diffusion. You can build text-to-image and image-to-image pipelines by dragging and connecting nodes, with support for LoRA, ControlNet, and video diffusion models.
+
+This guide demonstrates deploying **ComfyUI** on a **Jetson Orin NX 16GB** running **JetPack 6.2.1**. For additional container options, see the [official `jetson-containers` ComfyUI package](https://github.com/dusty-nv/jetson-containers/tree/master/packages/diffusion/comfyui).
+
+::: info Network Prerequisite
+Before starting, ensure that your Jetson board has a stable internet connection capable of accessing GitHub and pulling Docker images.
 :::
 
-Jetson-container is a lightweight Docker environment built by NVIDIA for Jetson devices. It comes preinstalled with CUDA, cuDNN, and TensorRT for rapid deployment of AI edge applications.
+::: warning Storage Space Requirement
+ComfyUI container images and diffusion model checkpoints are large. Store your OS and Docker data root on an **NVMe SSD** and reserve at least **20–40 GB+ of free disk space**.
+:::
 
-This section demonstrates running **Comfy-UI** on a **Jetson Orin NX 16GB** with **JetPack 6.2.1**. You can also refer to the [official example](https://github.com/dusty-nv/jetson-containers/tree/master/packages/diffusion/comfyui).
+![ComfyUI node-based workflow interface](/img/jetson-container-comfyui.png)
 
-**Comfy-UI** is a professional node-based Stable Diffusion interface. Build text-to-image workflows by dragging and connecting nodes, with support for LoRA, ControlNet, video diffusion, and more — low-code and easily extensible.
+## 1. Install jetson-containers
 
-![image.png](/img/jetson-container-comfyui.png)
-
-## 1. Download and build the jetson-container environment
+On the Jetson terminal, clone the repository and install the `jetson-containers` CLI utilities (including `autotag`):
 
 ```bash
 git clone https://github.com/dusty-nv/jetson-containers.git
 cd jetson-containers
-bash jetson-containers/install.sh
+bash install.sh
 ```
 
-## 2. Pull the docker image and run it
+## 2. Pull and Run the ComfyUI Image
+
+Use `$(autotag comfyui)` to automatically select an image tag compatible with your installed JetPack / L4T release and start the container:
+
+```bash
+jetson-containers run $(autotag comfyui)
+```
+
+::: tip Pin a Specific Image Tag
+For reproducible deployments (for example, on **JetPack 6.2.1 / L4T R36.4.3**), you can specify an explicit tag instead:
 
 ```bash
 jetson-containers run dustynv/comfyui:r36.4.3
 ```
+:::
 
-## 3. After a successful run, the terminal output looks like this
+## 3. Check Terminal Startup Output
 
-![image.png](/img/jetson-container-run.png)
+Once the image is pulled and the server starts, the terminal prints `To see the GUI go to: http://0.0.0.0:8188`:
 
-## 4. Open the service's GUI web page
+![ComfyUI container startup terminal output](/img/jetson-container-run.png)
 
-If opening it on the Jetson device itself, visit [http://0.0.0.0:8188](http://0.0.0.0:8188)
+## 4. Open the ComfyUI Web Interface
 
-From another device on the same LAN, enter http://&lt;jetson device IP&gt;:8188
+Keep the container running in the terminal and open the ComfyUI web interface in a browser:
 
-![image.png](/img/jetson-container-webui.png)
+- **On the Jetson local desktop**: visit `http://127.0.0.1:8188`.
+- **From another computer on the same LAN**: visit `http://<Jetson-IP>:8188` (replace `<Jetson-IP>` with the actual LAN IP address of the Jetson board).
 
-## 5. Set a mount path to map the models downloaded on the board into the container's internal directory
+![Accessing the ComfyUI web interface in a browser](/img/jetson-container-webui.png)
+
+## 5. Mount a Local Model Directory
+
+By default, files inside an ephemeral container are not persisted after exit. Place downloaded model checkpoints (`.safetensors` / `.ckpt`) in a host directory on the Jetson (such as `~/models`) and mount it into the container's `checkpoints` directory with **`-v`**:
 
 ```bash
-jetson-containers run ~/models/:/opt/ComfyUI/models/checkpoints dustynv/comfyui:r36.4.3
+mkdir -p ~/models
+jetson-containers run \
+  -v ~/models/:/opt/ComfyUI/models/checkpoints \
+  $(autotag comfyui)
 ```
 
-## 6. Build a workflow as needed and adjust parameters to generate images
+If pinning an explicit image tag (such as `r36.4.3`), replace `$(autotag comfyui)` with `dustynv/comfyui:r36.4.3`.
 
-![image.png](/img/jetson-container-workflow.png)
+## 6. Build a Workflow and Generate Images
 
-For ComfyUI usage tutorials, please refer to its official website: [ComfyUI | Generate videos, images, and audio with AI](https://www.comfy.org/zh-cn/)
+Refresh or reopen the ComfyUI web page, select a mounted model checkpoint in the `Load Checkpoint` node, configure your workflow parameters, and click **Queue Prompt** to generate images:
+
+![Image generation workflow in ComfyUI](/img/jetson-container-workflow.png)
+
+## References
+
+- [ComfyUI Official Website](https://www.comfy.org/)
+- [jetson-containers GitHub Repository](https://github.com/dusty-nv/jetson-containers)

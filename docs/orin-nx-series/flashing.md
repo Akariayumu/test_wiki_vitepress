@@ -1,198 +1,83 @@
 ---
-title: 刷机教程
+title: Orin NX 刷机导览
+outline: deep
 ---
 
-# 刷机教程
-
-## 1. 安装 Ubuntu 虚拟机
-
-详见 [安装 Ubuntu 虚拟机和 SDK Manager](/flashing-guide/ubuntu-sdkmanager)。
-
-### 1.1 下载 VMware Workstation
-
-百度网盘：`VMware-workstation-full-16.2.5-20904516.exe`
-链接: https://pan.baidu.com/s/1xopblFgG29dYZXoNfwa5ZA 提取码: frjy
-
-### 1.2 安装 VMware
-
-选项保持默认，输入激活码（自行搜索：vmware16密钥）。
-
-![1.2 安装 VMware](/img/wiki-snipaste-2025-06-09-14-51-05.png)
-
-![1.2 安装 VMware](/img/wiki-snipaste-2025-06-09-14-56-52.png)
-
-![1.2 安装 VMware](/img/wiki-snipaste-2025-06-09-14-59-23.png)
-
-### 1.3 安装 Ubuntu 系统
-
-推荐使用 **20.04** 或 **22.04** 版本。下载 `ubuntu20.04_desktop_amd64.iso`，若下载速度较慢推荐使用 [清华源](https://mirrors.tuna.tsinghua.edu.cn/) 或 [中科大源](https://mirrors.ustc.edu.cn/)。
-
-1. 打开 VMware → 新建虚拟机 → 典型配置
-2. 选择下载的 ISO 镜像
-3. 输入用户名与密码
-4. 选择存放路径，建议最少 300G 存储空间
-5. 等待安装完成
-
----
-
-![1.3 安装 Ubuntu 系统](/img/wiki-snipaste-2025-06-11-15-21-48.png)
-
-![1.3 安装 Ubuntu 系统](/img/wiki-snipaste-2025-06-11-15-32-12.png)
-
-![1.3 安装 Ubuntu 系统](/img/wiki-snipaste-2025-06-11-15-33-59.png)
-
-![1.3 安装 Ubuntu 系统](/img/wiki-snipaste-2025-06-11-15-37-32.png)
-
-![1.3 安装 Ubuntu 系统](/img/wiki-snipaste-2025-06-11-15-38-12.png)
-
-![1.3 安装 Ubuntu 系统](/img/wiki-snipaste-2025-06-11-15-40-38.png)
-
-![1.3 安装 Ubuntu 系统](/img/wiki-snipaste-2025-06-11-15-41-54.png)
-
-![1.3 安装 Ubuntu 系统](/img/wiki-snipaste-2025-06-11-15-51-19.webp)
-
-![1.3 安装 Ubuntu 系统](/img/wiki-snipaste-2025-06-11-15-58-36.png)
-
-## 2. 安装 NVIDIA SDK Manager
-
-### 2.1 下载安装包
-
-进入虚拟机浏览器，访问 [Jetson SDK](https://developer.nvidia.com/sdk-manager)，下载 `.deb` Ubuntu 安装包。
-
-![2.1 下载安装包](/img/wiki-1.png)
-
-### 2.2 安装 SDK Manager
-
-```bash
-sudo apt update
-sudo dpkg -i sdkmanager_2.3.0-12617_amd64.deb  # 根据实际版本修改包名
-sudo apt install --fix-broken
-```
-
----
-
-![2.2 安装 SDK Manager](/img/wiki-12.png)
-
-![2.2 安装 SDK Manager](/img/wiki-ZDbimage.webp)
-
-![2.2 安装 SDK Manager](/img/wiki-f6Eimage.webp)
-
-![2.2 安装 SDK Manager](/img/wiki-4.png)
-
-![2.2 安装 SDK Manager](/img/wiki-5.png)
-
-![2.2 安装 SDK Manager](/img/wiki-0q7a9416.webp)
-
-![2.2 安装 SDK Manager](/img/wiki-14.png)
-
-![2.2 安装 SDK Manager](/img/wiki-B3Uimage.png)
-
-![2.2 安装 SDK Manager](/img/wiki-15.png)
-
-![2.2 安装 SDK Manager](/img/wiki-3k6image.png)
-
-![2.2 安装 SDK Manager](/img/wiki-XjOimage.png)
-
-![2.2 安装 SDK Manager](/img/wiki-JBF12.png)
-
-![2.2 安装 SDK Manager](/img/wiki-ftEimage.png)
-
-![2.2 安装 SDK Manager](/img/wiki-6.png)
-
-![2.2 安装 SDK Manager](/img/wiki-7.webp)
-
-![2.2 安装 SDK Manager](/img/wiki-8.png)
-
-![2.2 安装 SDK Manager](/img/wiki-9.png)
-
-## 3. 使用 NVIDIA SDK Manager 进行刷机
-
-### 3.1 设置 VMware 的 USB 模式
-
-将 USB 连接模式设置为「将设备连接到前台虚拟机」，避免刷机中途开发板重启导致失败。
-
-### 3.2 进入恢复模式
-
-- 使用跳线帽短接开发板上的 **FC REC** 和 **GND** 针脚
-- 使用 USB to Type-C 数据线将开发板连接到电脑
-- 接通开发板的 DC 电源
-- 成功进入恢复模式后，SDK Manager 会自动检测到核心卡类型
-
-> 进入恢复模式后一段时间内不操作会重启进入系统，请注意操作时机。
-
-### 3.3 配置 SDK
-
-- 取消 **Host Machine**，点击 **CONTINUE**
-- 只勾选 **Jetson Linux**
-
-### 3.4 等待下载完成
-
-### 3.5 配置刷机参数
-
-- **Pre-Config**：预设账号密码
-- **Runtime**：开机后自行配置账号密码
-- **Storage Device**：系统刷入的介质（内存卡 / 固态硬盘 / U盘）
-- 选择 **Developer Kit Version**
-
-> 耐心等待刷机完成（10~20 分钟），请勿途中拔开数据线或切断开发板电源。
-
----
-
-## 4. 使用命令行刷入 SUPER 固件
-
-> 需先通过 SDK Manager 完成至少一次完整烧录以创建固件缓存。
-
-### 4.1 进入恢复模式
-
-跳线帽短接 FC REC 和 GND，Type-C 连接电脑，接通电源。
-
-### 4.2 命令行刷机
-
-> 关闭正在运行的 SDK Manager 软件，刷入过程约 10~20 分钟。
-
-**JetPack 6.2：**
-
-```bash
-cd ~/nvidia/nvidia_sdk/JetPack_6.2.1_Linux_JETSON_ORIN_NANO_TARGETS/Linux_for_Tegra
-sudo ./tools/kernel_flash/l4t_initrd_flash.sh --external-device nvme0n1p1   -c tools/kernel_flash/flash_l4t_t234_nvme.xml -p "-c bootloader/generic/cfg/flash_t234_qspi.xml"   --showlogs --network usb0 jetson-orin-nano-devkit-super internal
-```
-
-**JetPack 5.1.5：**
-
-```bash
-cd ~/nvidia/nvidia_sdk/JetPack_5.1.5_Linux_JETSON_ORIN_NANO_TARGETS/Linux_for_Tegra
-sudo ./tools/kernel_flash/l4t_initrd_flash.sh --external-device nvme0n1p1   -c tools/kernel_flash/flash_l4t_external.xml -p "-c bootloader/t186ref/cfg/flash_t234_qspi.xml"   --showlogs --network usb0 jetson-orin-nano-devkit-super internal
-```
-
-### 4.3 验证 SUPER 模式
-
-开机后在桌面右上角选择电源模式。**25W & MAXN SUPER** 为 SUPER 模式独有，普通模式只有 7W 和 15W 两档。
-
----
-
-## 5. 备份与恢复现有固件
-
-### 5.1 备份固件
-
-进入恢复模式（跳线帽短接 FC REC + GND，Type-C 连接），或在系统中执行：
-
-```bash
-sudo reboot -f forced-recovery
-```
-
-```bash
-cd ~/nvidia/nvidia_sdk/JetPack_6.2.1_Linux_JETSON_ORIN_NANO_TARGETS/Linux_for_Tegra
-sudo apt-get install qemu-user-static libxml2-utils abootimg sshpass nfs-kernel-server binutils
-```
-
-**备份：**
-```bash
-sudo ./tools/backup_restore/l4t_backup_restore.sh -b -e nvme0n1 jetson-orin-nano-devkit-nvme
-```
-
-**恢复：**
-```bash
-sudo ./tools/backup_restore/l4t_backup_restore.sh -r -e nvme0n1 jetson-orin-nano-devkit-nvme
-```
-
-> 若使用第三方载板恢复备份，需修改 `nvrestore_partitions.sh` 注释掉 292~296 行。
+# Orin NX 刷机导览
+
+本页汇总 **Jetson Orin NX（8GB / 16GB）** 核心卡的外部存储介质要求、功耗档位与 **SUPER 模式**载板供电兼容矩阵、JetPack 与宿主机系统匹配关系，并按载板型号提供分步刷机教程入口。
+
+::: warning 重要硬件前提：Orin NX 无 microSD 卡槽与板载 eMMC
+**Jetson Orin NX（8GB / 16GB）全系核心卡均未配备 microSD 卡槽，也不含板载 eMMC 存储。** 刷机前必须在载板的 M.2 Key M 插槽安装 **NVMe SSD**（强烈推荐单面颗粒固态硬盘）或接入 **USB 存储设备**作为系统盘，无法使用 microSD 卡启动。
+:::
+
+## 1. 存储介质支持说明
+
+| 核心卡型号 | 板载 microSD 卡槽 | 板载 eMMC | 支持的系统刷入介质 | 选型与安装建议 |
+| --- | --- | --- | --- | --- |
+| **Jetson Orin NX 8GB** | **无** | **无** | **`NVMe SSD`** / **`USB 存储`** | 推荐使用 **单面 M.2 Key M NVMe SSD**（2280 或 2230 规格视载板而定） |
+| **Jetson Orin NX 16GB** | **无** | **无** | **`NVMe SSD`** / **`USB 存储`** | 推荐使用 **单面 M.2 Key M NVMe SSD**；双面 SSD 可能与载板背部元器件干涉 |
+
+## 2. 功耗档位与 SUPER 模式载板兼容矩阵
+
+与 Orin Nano（标准 `7W / 15W`、SUPER `25W`）不同，**Jetson Orin NX 拥有更高的功耗档位与峰值算力**：
+
+| 运行模式 | 可选功耗档位 | Orin NX 8GB 峰值算力 | Orin NX 16GB 峰值算力 | 固件配置名（L4T） |
+| --- | --- | --- | --- | --- |
+| **标准模式** | `10W` / `15W` / `25W` | 70 TOPS | 100 TOPS | `jetson-orin-nano-devkit` |
+| **SUPER 模式** | `10W` / `15W` / `25W` / **`40W`** / **`MAXN SUPER`** | **117 TOPS** | **157 TOPS** | `jetson-orin-nano-devkit-super` |
+
+::: warning Orin NX SUPER 模式载板供电限制（必看）
+Orin NX 开启 **`40W` / `MAXN SUPER`** 时整板瞬态功耗显著高于标准模式，对载板核心供电电路与外接电源功率有严格要求：
+- **支持 Orin NX SUPER 模式的载板**：仅限 **`C1902（V1.1 及以上）`**、**`C1902 V2`**、**`C1903`**（请搭配 **`≥ 60W`** 的 12V DC 电源并确保主动散热风扇正常运转）。
+- **不支持 Orin NX SUPER 模式的载板**：**NVIDIA 官方开发者套件载板**、**`C1901`**、**`C1902 V1.0`**、**`C2401`**。在这些载板上搭配 Orin NX 时，**请务必刷入标准固件**（使用 `10W / 15W / 25W` 档位），切勿刷入 SUPER 固件，以免高负载下触发供电保护或异常断电重启。
+:::
+
+各载板搭配 **Jetson Orin NX** 时的模式支持汇总如下：
+
+| 载板型号 | Orin NX 标准模式（`10W / 15W / 25W`） | Orin NX SUPER 模式（`40W / MAXN SUPER`） | 推荐供电规格 |
+| --- | --- | --- | --- |
+| **C1902 V2** | 支持 | **支持** | 12V（9V–19V）DC5525，`≥ 60W` |
+| **C1903** | 支持 | **支持** | 12V（9.5V–19V）DC5525，`≥ 60W` |
+| **C1902（V1.1 / V1.1.1）** | 支持 | **支持** | 12V（9V–19V）DC5525，`≥ 60W` |
+| **C1902（V1.0）** | 支持 | 不支持（请刷标准固件） | 12V（9V–19V）DC5521，`≥ 45W` |
+| **NVIDIA 官方开发者套件** | 支持 | 不支持（请刷标准固件） | 原装 19V DC 电源 |
+| **C1901** | 支持 | 不支持（请刷标准固件） | 12V（9V–19V）DC5521，`≥ 45W` |
+| **C2401** | 支持 | 不支持（请刷标准固件） | 12V（10V–30V）XT30，`≥ 60W` |
+
+## 3. JetPack 版本与宿主机 Ubuntu 匹配表
+
+使用 NVIDIA SDK Manager 或命令行 `l4t_initrd_flash.sh` 烧录系统时，宿主机（物理机或 VMware 虚拟机）的 **x86_64 Ubuntu Desktop** 版本必须与目标 JetPack 版本匹配：
+
+| 目标 JetPack 版本 | 对应 L4T 版本 | Jetson 目标系统 | 宿主机 Ubuntu 版本要求 | 推荐安装方式 |
+| --- | --- | --- | --- | --- |
+| **JetPack 5.1.x**（如 5.1.4 / 5.1.5） | R35.x | Ubuntu 20.04 | **Ubuntu 20.04 LTS** | SDK Manager / 命令行 `initrd` 烧录 |
+| **JetPack 6.x**（如 6.2 / 6.2.1） | R36.x | Ubuntu 22.04 | **Ubuntu 20.04 / 22.04 LTS** | SDK Manager / 命令行 `initrd` 烧录 |
+| **JetPack 7.x**（如 7.2） | R39.x | Ubuntu 24.04 | **Ubuntu 22.04 / 24.04 LTS**（或免虚拟机） | **Jetson ISO 启动 U 盘直装**（需板载固件 `≥ 36.0`），或 SDK Manager / 命令行烧录 |
+
+::: tip 宿主机目录与环境提示
+- 如需新建虚拟机，推荐安装 **Ubuntu 22.04 Desktop** 并分配 **`≥ 120 GB`** 磁盘空间（如需整机备份建议 **`≥ 200 GB`**），详见 [安装 Ubuntu 虚拟机和 SDK Manager](/flashing-guide/ubuntu-sdkmanager)。
+- 在宿主机执行命令行刷机或备份恢复时，若此前在 SDK Manager 中选择的目标设备为 Orin NX，其缓存路径中的目标目录通常为 `~/nvidia/nvidia_sdk/JetPack_<版本>_Linux_JETSON_ORIN_NX_TARGETS/Linux_for_Tegra`（而非 `JETSON_ORIN_NANO_TARGETS`），请以 `~/nvidia/nvidia_sdk/` 下的实际目录名为准。
+:::
+
+## 4. 按载板选择刷机教程
+
+请根据您手中的载板型号，点击进入对应的完整刷机教程：
+
+| 载板型号 | 进入恢复模式（Force Recovery）方式 | Orin NX 固件建议 | 适用刷机教程 |
+| --- | --- | --- | --- |
+| **宿主机环境搭建（必读前置）** | — | — | [安装 Ubuntu 虚拟机和 SDK Manager](/flashing-guide/ubuntu-sdkmanager) |
+| **C1902 V2** | 断电按住板载 **`REC` 按钮**再上电（亦兼容 12-pin 排针短接） | 支持标准固件与 **SUPER 固件** | [C1902 / C1902 V2 刷入系统](/flashing-guide/c1902-flashing) |
+| **C1902（V1.x）** | 跳线帽短接顶部 12-pin 排针的 `FC REC`（Pin 10）与 `GND`（Pin 9 / 11）后上电 | V1.1+ 支持 **SUPER 固件**；V1.0 请刷标准固件 | [C1902 / C1902 V2 刷入系统](/flashing-guide/c1902-flashing) |
+| **C1903** | 断电按住正面 **`REC` 按钮**上电，或将背面**拨码开关 3** 拨至 `ON` 上电（识别后务必拨回 `OFF`） | 支持标准固件与 **SUPER 固件** | [C1903 刷入系统](/flashing-guide/c1903-flashing) |
+| **NVIDIA 官方开发者套件** | 跳线帽短接核心卡下方 12-pin 排针的 `FC REC`（Pin 10）与 `GND`（Pin 9 / 11）后上电 | 请刷标准固件（第 1 节） | [官方开发者套件刷入系统](/flashing-guide/devkit-flashing) |
+| **C1901** | 跳线帽短接 12-pin 排针的 `FC REC`（Pin 10）与 `GND`（Pin 9 / 11）后上电 | 请刷标准固件（第 1 节） | [C1901 刷入系统](/flashing-guide/c1901-flashing) |
+| **C2401** | 断电按住正面 **`REC` 按钮**上电，或将背面**拨码开关 3** 拨至 `ON` 上电（识别后务必拨回 `OFF`） | 请刷标准固件（第 1 节） | [C2401 刷入系统](/flashing-guide/c2401-flashing) |
+| **全系载板升级 JetPack 7（免虚拟机 ISO 法）** | 设备需已具备 JetPack 6.x（`≥ 36.0`）UEFI 固件，通过 U 盘引导写入 NVMe SSD | 视载板供电能力启用 SUPER 档位 | [JetPack 7 刷入系统（Orin Nano / NX）](/flashing-guide/jetpack7-flashing) |
+
+## 5. 刷机后常用配置指引
+
+- **USB 3.2 与设备树配置**：使用 `C1901`、`C1902`、`C1903`（正面 `#6` 10Gbps USB 口）或 `C2401`（30-pin 扩展 USB 口）刷入官方固件后，请参考 [Orin Nano / NX USB 配置](/orin-nano-series/usb-config) 安装匹配核心卡 SKU（`Orin NX 8GB` / `16GB`）与 JetPack 版本的设备树。
+- **有线与无线网卡驱动**：`C2401` 板载 RTL8125 2.5G 网口，或在 JetPack 6+ 上使用 Intel AX200 / AX210 无线网卡时，请参考 [网卡驱动](/orin-nano-series/network-driver)。
+- **系统状态与功耗模式监控**：参考 [安装 jtop](/orin-nano-series/jtop) 查看实时频率、温升及当前功耗模式（`10W` / `15W` / `25W` / `40W` / `MAXN SUPER`）。
+- **故障排查**：如遇 NVMe 未识别、恢复模式无法枚举或启动异常，请查阅 [FAQ 与故障排查](/faq/)。

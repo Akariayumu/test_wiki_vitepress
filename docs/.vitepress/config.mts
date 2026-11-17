@@ -6,7 +6,7 @@ const rootSidebar = [
   {
     text: '快速开始',
     items: [
-      { text: '快速开始', link: '/quick-start' },
+      { text: '平台与教程概览', link: '/quick-start' },
     ]
   },
   {
@@ -20,6 +20,7 @@ const rootSidebar = [
     text: '载板适配开发',
     items: [
       { text: 'Pinmux 与设备树', link: '/hardware-bsp/pinmux-device-tree' },
+      { text: '内核与基础镜像构建', link: '/hardware-bsp/kernel-and-bsp-build' },
     ]
   },
   {
@@ -36,9 +37,9 @@ const rootSidebar = [
     ]
   },
   {
-    text: 'C1903 载板/套件',
+    text: 'C1903 载板 / 套件',
     items: [
-      { text: 'C1903 规格书', link: '/c1903/c1903' },
+      { text: 'C1903 产品介绍', link: '/c1903/c1903' },
     ]
   },
   {
@@ -80,7 +81,7 @@ const rootSidebar = [
           { text: '安装 jtop', link: '/orin-nano-series/jtop' },
           { text: '安装 CUDA', link: '/orin-nano-series/cuda' },
           { text: '编译 OpenCV with CUDA', link: '/orin-nano-series/opencv' },
-          { text: 'PyTorch 和 Torchvision', link: '/orin-nano-series/pytorch' },
+          { text: 'PyTorch 与 Torchvision', link: '/orin-nano-series/pytorch' },
           { text: '使用 TensorRT 加速', link: '/orin-nano-series/tensorrt' },
           { text: '安装使用 Ollama', link: '/orin-nano-series/ollama' },
           { text: '部署 OpenClaw', link: '/orin-nano-series/openclaw' },
@@ -91,10 +92,10 @@ const rootSidebar = [
         ]
       },
       {
-        text: '刷机教程',
+        text: '核心卡刷机导览',
         items: [
-          { text: 'Orin Nano 刷机', link: '/orin-nano-series/flashing' },
-          { text: 'Orin NX 刷机', link: '/orin-nx-series/flashing' },
+          { text: 'Orin Nano 刷机导览', link: '/orin-nano-series/flashing' },
+          { text: 'Orin NX 刷机导览', link: '/orin-nx-series/flashing' },
         ]
       },
     ]
@@ -102,7 +103,7 @@ const rootSidebar = [
   {
     text: 'GPIO 教程',
     items: [
-      { text: '40-pin 扩展头配置 (Jetson-IO)', link: '/orin-nano-series/expansion-header' },
+      { text: '40-pin 扩展头配置（Jetson-IO）', link: '/orin-nano-series/expansion-header' },
       { text: 'JetPack 6 GPIO 配置说明', link: '/gpio-tutorial/jetpack6-gpio' },
       { text: 'JetPack 5 GPIO 配置说明', link: '/gpio-tutorial/jetpack5-gpio' },
     ]
@@ -113,25 +114,26 @@ const rootSidebar = [
       { text: '安装 Ubuntu 虚拟机和 SDK Manager', link: '/flashing-guide/ubuntu-sdkmanager' },
       { text: '官方开发者套件刷入系统', link: '/flashing-guide/devkit-flashing' },
       { text: 'C1901 刷入系统', link: '/flashing-guide/c1901-flashing' },
-      { text: 'C1902 刷入系统', link: '/flashing-guide/c1902-flashing' },
+      { text: 'C1902 / C1902 V2 刷入系统', link: '/flashing-guide/c1902-flashing' },
+      { text: 'C1903 刷入系统', link: '/flashing-guide/c1903-flashing' },
       { text: 'C2401 刷入系统', link: '/flashing-guide/c2401-flashing' },
-      { text: 'JetPack 7 刷入系统 (ISO 安装)', link: '/flashing-guide/jetpack7-flashing' },
+      { text: 'JetPack 7 刷入系统（ISO 安装）', link: '/flashing-guide/jetpack7-flashing' },
     ]
   },
   {
     text: 'FAQ / 故障排查',
     items: [
-      { text: '常见问题与诊断', link: '/faq/' },
+      { text: 'FAQ 与故障排查', link: '/faq/' },
     ]
   },
 ]
 
-// ===== English locale sidebar (only pages with EN content) =====
+// ===== English locale sidebar =====
 const enSidebar = [
   {
     text: 'Quick Start',
     items: [
-      { text: 'Quick Start', link: '/en/quick-start' },
+      { text: 'Overview', link: '/en/quick-start' },
     ]
   },
   {
@@ -145,6 +147,7 @@ const enSidebar = [
     text: 'Carrier Board Development',
     items: [
       { text: 'Pinmux & Device Tree', link: '/en/hardware-bsp/pinmux-device-tree' },
+      { text: 'Kernel & Base Image Build', link: '/en/hardware-bsp/kernel-and-bsp-build' },
     ]
   },
   {
@@ -170,6 +173,12 @@ const enSidebar = [
     text: 'C2401 Mini Kit',
     items: [
       { text: 'C2401 Introduction', link: '/en/c2401/c2401' },
+    ]
+  },
+  {
+    text: 'C2402 Carrier Board',
+    items: [
+      { text: 'C2402 Introduction (Pre-release)', link: '/en/c2402/c2402' },
     ]
   },
   {
@@ -210,16 +219,16 @@ const enSidebar = [
         ]
       },
       {
-        text: 'Flashing',
+        text: 'Module Flashing Overview',
         items: [
-          { text: 'Flash Orin Nano', link: '/en/orin-nano-series/flashing' },
-          { text: 'Flash Orin NX', link: '/en/orin-nx-series/flashing' },
+          { text: 'Orin Nano Flashing Overview', link: '/en/orin-nano-series/flashing' },
+          { text: 'Orin NX Flashing Overview', link: '/en/orin-nx-series/flashing' },
         ]
       },
     ]
   },
   {
-    text: 'GPIO Tutorial',
+    text: 'GPIO Tutorials',
     items: [
       { text: '40-pin Expansion Header (Jetson-IO)', link: '/en/orin-nano-series/expansion-header' },
       { text: 'JetPack 6 GPIO Configuration', link: '/en/gpio-tutorial/jetpack6-gpio' },
@@ -230,17 +239,18 @@ const enSidebar = [
     text: 'Flashing Guide',
     items: [
       { text: 'Install Ubuntu VM and SDK Manager', link: '/en/flashing-guide/ubuntu-sdkmanager' },
-      { text: 'Flash the Official Developer Kit', link: '/en/flashing-guide/devkit-flashing' },
-      { text: 'Flash the C1901', link: '/en/flashing-guide/c1901-flashing' },
-      { text: 'Flash the C1902', link: '/en/flashing-guide/c1902-flashing' },
-      { text: 'Flash the C2401', link: '/en/flashing-guide/c2401-flashing' },
+      { text: 'Flash Official Developer Kit', link: '/en/flashing-guide/devkit-flashing' },
+      { text: 'Flash C1901', link: '/en/flashing-guide/c1901-flashing' },
+      { text: 'Flash C1902 / C1902 V2', link: '/en/flashing-guide/c1902-flashing' },
+      { text: 'Flash C1903', link: '/en/flashing-guide/c1903-flashing' },
+      { text: 'Flash C2401', link: '/en/flashing-guide/c2401-flashing' },
       { text: 'Flash JetPack 7 (ISO Installer)', link: '/en/flashing-guide/jetpack7-flashing' },
     ]
   },
   {
     text: 'FAQ & Troubleshooting',
     items: [
-      { text: 'Common Issues & Diagnostics', link: '/en/faq/' },
+      { text: 'FAQ & Troubleshooting', link: '/en/faq/' },
     ]
   },
 ]
@@ -248,45 +258,53 @@ const enSidebar = [
 // ===== Chinese Nav =====
 const rootNav = [
   { text: '首页', link: '/' },
+  { text: '快速开始', link: '/quick-start' },
   { text: '选型对比', link: '/products/compare' },
   {
-    text: 'C1902',
+    text: '载板与套件',
     items: [
-      { text: 'C1902 V2', link: '/c1902v2/c1902v2' },
-      { text: 'C1902 (V1.x)', link: '/c1902/c1902' },
+      { text: 'C1901 载板', link: '/c1901/c1901' },
+      { text: 'C1902 V2 载板', link: '/c1902v2/c1902v2' },
+      { text: 'C1902 (V1.x) 载板', link: '/c1902/c1902' },
+      { text: 'C1903 载板 / 套件', link: '/c1903/c1903' },
+      { text: 'C2401 迷你套件', link: '/c2401/c2401' },
+      { text: 'C2402 载板（预发布）', link: '/c2402/c2402' },
     ]
   },
-  { text: 'C1903', link: '/c1903/c1903' },
-  { text: 'C2401', link: '/c2401/c2401' },
-  { text: 'C2402', link: '/c2402/c2402' },
   { text: 'Jetson 教程', link: '/orin-nano-series/intro' },
   { text: 'GPIO', link: '/gpio-tutorial/jetpack6-gpio' },
   { text: '刷机', link: '/flashing-guide/ubuntu-sdkmanager' },
+  { text: 'FAQ', link: '/faq/' },
 ]
 
 // ===== English Nav =====
 const enNav = [
   { text: 'Home', link: '/en/' },
+  { text: 'Quick Start', link: '/en/quick-start' },
   { text: 'Compare', link: '/en/products/compare' },
   {
-    text: 'C1902',
+    text: 'Boards & Kits',
     items: [
-      { text: 'C1902 V2', link: '/en/c1902v2/c1902v2' },
-      { text: 'C1902 (V1.x)', link: '/en/c1902/c1902' },
+      { text: 'C1901 Carrier Board', link: '/en/c1901/c1901' },
+      { text: 'C1902 V2 Carrier Board', link: '/en/c1902v2/c1902v2' },
+      { text: 'C1902 (V1.x) Carrier Board', link: '/en/c1902/c1902' },
+      { text: 'C1903 Carrier Board / Kit', link: '/en/c1903/c1903' },
+      { text: 'C2401 Mini Kit', link: '/en/c2401/c2401' },
+      { text: 'C2402 Carrier Board (Pre-release)', link: '/en/c2402/c2402' },
     ]
   },
-  { text: 'C1903', link: '/en/c1903/c1903' },
-  { text: 'C2401', link: '/en/c2401/c2401' },
   { text: 'Tutorials', link: '/en/orin-nano-series/intro' },
   { text: 'GPIO', link: '/en/gpio-tutorial/jetpack6-gpio' },
   { text: 'Flashing', link: '/en/flashing-guide/ubuntu-sdkmanager' },
+  { text: 'FAQ', link: '/en/faq/' },
 ]
 
 export default withMermaid(defineConfig({
   // GitHub Pages 用仓库名作 base；自托管(nginx 根路径)构建时用 DEPLOY_BASE=/ 覆盖
   base: process.env.DEPLOY_BASE || '/test_wiki_vitepress/',
   title: 'LinkZee Wiki',
-  description: '控元科技 Jetson Orin 载板产品文档',
+  description: '控元科技(KYtech) LinkZee NVIDIA Jetson Orin 载板与套件技术文档',
+  srcExclude: ['**/orin-nano-series/comfyui.md', '**/orin-nano-series/base-image.md'],
 
   locales: {
     root: {
@@ -301,6 +319,7 @@ export default withMermaid(defineConfig({
       label: 'English',
       lang: 'en-US',
       link: '/en/',
+      description: 'KYtech LinkZee NVIDIA Jetson Orin Carrier Board & Kit Documentation',
       themeConfig: {
         nav: enNav,
         sidebar: enSidebar,

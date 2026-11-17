@@ -7,7 +7,7 @@ outline: deep
 
 PyTorch is a widely used deep-learning framework. On Jetson, it can use CUDA acceleration for model development, inference, and deployment.
 
-:::tip Prefer JetPack 7 for new projects
+::: tip Prefer JetPack 7 for new projects
 If your project needs AI frameworks such as PyTorch, TensorRT, and CUDA, and your Jetson model and peripherals support JetPack 7, prefer the **JetPack 7 series**. It uses newer Ubuntu, kernel, and NVIDIA AI computing stacks, and future frameworks and tools will target this platform first.
 
 Continue using JetPack 6 only when an existing project depends on JetPack 6-specific wheels, older CUDA/TensorRT, particular drivers, or peripherals not yet supported on JetPack 7. Check hardware support and software compatibility before upgrading.
@@ -30,7 +30,7 @@ See NVIDIA's [JetPack SDK Downloads and Notes](https://developer.nvidia.com/embe
 | Multiple Python/framework versions | Use containers; otherwise isolate with `venv` or Conda |
 | Production deployment | Pin JetPack, CUDA, PyTorch, Torchvision, and image/package versions; do not use a floating `latest` tag |
 
-:::warning All versions must match
+::: warning All versions must match
 A mismatch among JetPack, CUDA, Python, PyTorch, and Torchvision can cause installation failures, missing shared libraries during import, or `torch.cuda.is_available()` returning `False`. Do not install x86 packages on Jetson.
 :::
 
@@ -50,7 +50,6 @@ Install the basic dependencies:
 ```bash
 sudo apt update
 sudo apt install -y python3-pip python3-venv libopenblas-dev
-python3 -m pip install --upgrade pip
 ```
 
 If `nvcc` is unavailable, complete [CUDA installation](/en/orin-nano-series/cuda) before installing PyTorch.
@@ -67,7 +66,7 @@ python -m pip install torch torchvision \
   --index-url https://download.pytorch.org/whl/cu132
 ```
 
-For other JetPack 7 releases, replace `cu132` with the repository matching the system CUDA version. After installation, run the CUDA tensor test in “Verify the Installation.”
+For other JetPack 7 releases, replace `cu132` with the repository matching the system CUDA version. After installation, run the CUDA tensor test in [Verify the Installation](#_6-verify-the-installation).
 
 ## 5. JetPack 6.2.1: Install Verified Wheels
 
@@ -91,7 +90,7 @@ python -m pip install \
   torchvision-0.23.0-cp310-cp310-linux_aarch64.whl
 ```
 
-:::info
+::: info
 These wheels come from the Jetson AI Lab repository; they are not JetPack 7 SBSA packages. For production projects, retain the wheels or lock dependencies so upstream changes do not affect reproducible deployments.
 :::
 
@@ -102,8 +101,10 @@ Run the following to check versions, CUDA availability, and a minimal GPU operat
 ```bash
 python - <<'PY'
 import torch
+import torchvision
 
 print("PyTorch:", torch.__version__)
+print("Torchvision:", torchvision.__version__)
 print("CUDA runtime:", torch.version.cuda)
 print("CUDA available:", torch.cuda.is_available())
 
@@ -178,6 +179,10 @@ cv2.destroyAllWindows()
 ```
 
 Ultralytics downloads the model weights on the first run, so keep the device online. Press `q` to close the window.
+
+::: info Headless SSH Note
+`cv2.imshow()` requires a local graphical desktop environment (or X11 forwarding). In a headless SSH session without a display, `cv2.imshow()` will fail to open a window; use `cv2.imwrite()` to save annotated frames or stream output instead.
+:::
 
 ![YOLO camera inference](/img/wiki-bEUimage.webp)
 

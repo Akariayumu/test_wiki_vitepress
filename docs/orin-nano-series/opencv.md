@@ -1,22 +1,30 @@
 ---
-title: 编译安装opencv with cuda
+title: 编译 OpenCV with CUDA
 outline: deep
 ---
 
-# 编译安装opencv with cuda
+# 编译 OpenCV with CUDA
 
-::: info
-JetPack预装的opencv没有启用cuda，需要自行编译安装。
+::: info 适用版本说明
+JetPack 系统默认预装的 OpenCV 未开启 CUDA 加速模块（`CUDA: NO`），如需调用 `cv::cuda` 进行 GPU 图像处理加速，需结合 `opencv_contrib` 自行从源码编译安装。
+
+本文的一键脚本与手动编译流程基于 **JetPack 6.x（Ubuntu 22.04）** 验证。若在 **JetPack 7（Ubuntu 24.04）** 上编译，`apt` 安装依赖时去掉旧包名 `libtbb2`（保留 `libtbb-dev` 即可自动拉取新版运行库），其余编译参数通用。
 :::
 
-![image.png](/img/wiki-g2Timage.png)
+::: warning Orin Nano 4GB / 8GB 编译内存不足警告
+编译带 CUDA 支持的 OpenCV 会占用大量内存（单个编译线程峰值可达 1.5–2 GB）。在 **Orin Nano 4GB / 8GB** 核心卡上若直接满核执行 `make -j$(nproc)`，极易触发内存耗尽（OOM）导致编译器被杀或系统死机！建议提前挂载 **8 GB 以上的 Swap 交换空间**，或将并行线程数限制为 **`make -j4`**（4GB 核心卡建议 `make -j2`）。
+:::
+
+![检查预装 OpenCV 的 CUDA 支持状态](/img/wiki-g2Timage.png)
 
 ## 1. 脚本一键安装
+
+将以下脚本内容保存为 `opencv_install.sh`，然后执行 `chmod +x opencv_install.sh && ./opencv_install.sh` 即可自动完成依赖安装、源码拉取、Orin 架构识别与编译部署：
 
 ```bash
 #!/bin/bash
 # opencv_install.sh
-# Modified from https://github.com/AastaNV/JEP/blob/master/script/install_opencv4.10.0_Jetpack6.1.sh
+# Adapted for Jetson Orin (JetPack 6.x / Ubuntu 22.04)
 
 version="4.10.0"
 folder="workspace"
@@ -48,12 +56,8 @@ for arg in "$@"; do
     esac
 done
 
-# Create installation directory if it doesn't exist
-if [ ! -d "$folder" ]; then
-    echo "Creating directory: $folder"
-    mkdir -p "$folder"
-fi
-cd "$folder" || exit
+mkdir -p "$folder"
+cd "$folder" || exit 1
 
 # Old OpenCV removal logic
 if [ -z "$remove_old" ]; then
@@ -63,8 +67,8 @@ fi
 case "$remove_old" in
     [yY] | [yY][eE][sS])
         echo "** Removing system OpenCV packages"
-        sudo apt -y purge *libopencv*
-        sudo apt -y autoremove
+        sudo apt-get -y purge '*libopencv*'
+        sudo apt-get -y autoremove
         ;;
     *)
         echo "** Skipping system OpenCV removal"
@@ -77,10 +81,9 @@ echo "------------------------------------"
 sudo apt-get update
 sudo apt-get install -y build-essential cmake git libgtk2.0-dev pkg-config \
     libavcodec-dev libavformat-dev libswscale-dev libgstreamer1.0-dev \
-    libgstreamer-plugins-base1.0-dev python3-dev python3-numpy libtbb2 \
-    libtbb-dev libjpeg-dev libpng-dev libtiff-dev libv4l-dev v4l-utils qv4l2 curl
+    libgstreamer-plugins-base1.0-dev python3-dev python3-numpy \
+    libtbb-dev libjpeg-dev libpng-dev libtiff-dev libv4l-dev v4l-utils qv4l2 curl unzip wget
 
-# Verify essential dependencies installed
 for dep in g++ cmake git pkg-config; do
     if ! command -v "$dep" > /dev/null; then
         echo "Error: $dep installation failed"
@@ -91,64 +94,31 @@ done
 echo "------------------------------------"
 echo "** Downloading OpenCV ${version} (2/4)"
 echo "------------------------------------"
-
-# Check if source files already exist
 download_opencv=false
 download_contrib=false
 
 if [ ! -f "opencv-${version}.zip" ]; then
-    echo "Downloading opencv-${version}.zip"
-    wget -O opencv-${version}.zip https://github.com/opencv/opencv/archive/${version}.zip || {
-        echo "Download failed! Check your internet connection or verify the version exists"
-        exit 1
-    }
+    wget -O "opencv-${version}.zip" "https://github.com/opencv/opencv/archive/${version}.zip"
     download_opencv=true
-else
-    echo "opencv-${version}.zip exists, skipping download"
 fi
 
 if [ ! -f "opencv_contrib-${version}.zip" ]; then
-    echo "Downloading opencv_contrib-${version}.zip"
-    wget -O opencv_contrib-${version}.zip https://github.com/opencv/opencv_contrib/archive/${version}.zip || {
-        echo "Download failed! Check your internet connection or verify the version exists"
-        exit 1
-    }
+    wget -O "opencv_contrib-${version}.zip" "https://github.com/opencv/opencv_contrib/archive/${version}.zip"
     download_contrib=true
-else
-    echo "opencv_contrib-${version}.zip exists, skipping download"
 fi
 
-# Unpack source files
 if [ ! -d "opencv-${version}" ] || $download_opencv; then
-    if [ -d "opencv-${version}" ]; then
-        echo "Removing existing opencv-${version} directory"
-        rm -rf "opencv-${version}"
-    fi
-    echo "Unpacking opencv-${version}.zip"
-    unzip -q opencv-${version}.zip || {
-        echo "Extraction failed! File may be corrupt"
-        exit 1
-    }
+    rm -rf "opencv-${version}"
+    unzip -q "opencv-${version}.zip"
 fi
 
 if [ ! -d "opencv_contrib-${version}" ] || $download_contrib; then
-    if [ -d "opencv_contrib-${version}" ]; then
-        echo "Removing existing opencv_contrib-${version} directory"
-        rm -rf "opencv_contrib-${version}"
-    fi
-    echo "Unpacking opencv_contrib-${version}.zip"
-    unzip -q opencv_contrib-${version}.zip || {
-        echo "Extraction failed! File may be corrupt"
-        exit 1
-    }
+    rm -rf "opencv_contrib-${version}"
+    unzip -q "opencv_contrib-${version}.zip"
 fi
 
-# Clean up zip files after successful extraction
-if [ $? -eq 0 ]; then
-    rm -f opencv-${version}.zip opencv_contrib-${version}.zip
-fi
-
-cd opencv-${version} || exit
+rm -f "opencv-${version}.zip" "opencv_contrib-${version}.zip"
+cd "opencv-${version}" || exit 1
 
 echo "------------------------------------"
 echo "** Building OpenCV ${version} (3/4)"
@@ -156,142 +126,178 @@ echo "------------------------------------"
 mkdir -p release
 cd release
 
-# Auto-detect CUDA architecture
+# Auto-detect CUDA architecture (prefer /proc/device-tree/model on Jetson)
 cuda_arch=""
-if command -v nvidia-smi &> /dev/null; then
-    gpu_name=$(nvidia-smi --query-gpu=name --format=csv,noheader | head -n1)
-    if [[ $gpu_name == *"Orin"* ]] || [[ $gpu_name == *"Jetson"* ]]; then
+gpu_name=""
+if [ -r /proc/device-tree/model ]; then
+    dt_model=$(tr -d '\0' < /proc/device-tree/model)
+    if [[ "$dt_model" == *"Orin"* ]]; then
         cuda_arch="8.7"
-    elif [[ $gpu_name == *"A100"* ]]; then
+        gpu_name="$dt_model"
+    fi
+fi
+if [ -z "$cuda_arch" ] && command -v nvidia-smi &> /dev/null; then
+    gpu_name=$(nvidia-smi --query-gpu=name --format=csv,noheader | head -n1)
+    if [[ "$gpu_name" == *"Orin"* ]]; then
+        cuda_arch="8.7"
+    elif [[ "$gpu_name" == *"A100"* ]]; then
         cuda_arch="8.0"
     fi
 fi
 
+py_ver=$(python3 -c "import sys; print(f'{sys.version_info.major}.{sys.version_info.minor}')")
+py_site="/usr/local/lib/python${py_ver}/site-packages"
+
 cmake_cmd="cmake -D WITH_CUDA=ON -D WITH_CUDNN=ON -D OPENCV_GENERATE_PKGCONFIG=ON "
 cmake_cmd+="-D OPENCV_EXTRA_MODULES_PATH=../../opencv_contrib-${version}/modules "
 cmake_cmd+="-D WITH_GSTREAMER=ON -D WITH_LIBV4L=ON -D BUILD_opencv_python3=ON "
+cmake_cmd+="-D PYTHON3_PACKAGES_PATH=${py_site} "
 cmake_cmd+="-D BUILD_TESTS=OFF -D BUILD_PERF_TESTS=OFF -D BUILD_EXAMPLES=OFF "
 cmake_cmd+="-D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local "
 
-# Add CUDA architecture if detected
 if [ -n "$cuda_arch" ]; then
-    echo "Detected NVIDIA GPU: ${gpu_name}, using CUDA_ARCH_BIN=${cuda_arch}"
+    echo "Detected platform: ${gpu_name}, using CUDA_ARCH_BIN=${cuda_arch}"
     cmake_cmd+="-D CUDA_ARCH_BIN=${cuda_arch} -D CUDA_ARCH_PTX=\"\" "
 else
-    echo "No supported GPU detected, skipping CUDA architecture flags"
+    echo "Warning: GPU model not recognized, skipping explicit CUDA_ARCH_BIN"
 fi
 
-# Execute CMake configuration
 echo "CMake command: $cmake_cmd .."
-$cmake_cmd .. || {
-    echo "CMake configuration failed"
-    exit 1
-}
+eval "$cmake_cmd .."
 
-# Parallel build (leave one core for system stability)
-cpu_cores=$(($(nproc) - 1))
-[ $cpu_cores -lt 1 ] && cpu_cores=1
-echo "Building with ${cpu_cores} CPU cores"
-make -j${cpu_cores} || {
-    echo "Compilation failed"
-    exit 1
-}
+# Limit parallel jobs on 4GB / 8GB boards to avoid OOM
+total_mem_mb=$(awk '/MemTotal/ {printf "%d", $2/1024}' /proc/meminfo)
+if [ "$total_mem_mb" -le 4500 ]; then
+    cpu_cores=2
+elif [ "$total_mem_mb" -le 8500 ]; then
+    cpu_cores=4
+else
+    cpu_cores=$(($(nproc) - 1))
+    [ "$cpu_cores" -lt 1 ] && cpu_cores=1
+fi
+echo "Building with ${cpu_cores} parallel jobs (detected RAM: ${total_mem_mb} MB)"
+make -j"${cpu_cores}"
 
 echo "------------------------------------"
 echo "** Installing OpenCV ${version} (4/4)"
 echo "------------------------------------"
-sudo make install || {
-    echo "Installation failed"
-    exit 1
-}
+sudo make install
+sudo ldconfig
 
-# Add environment variables to .bashrc (only if not already present)
 bashrc=~/.bashrc
 env_lines=(
-    "export LD_LIBRARY_PATH=/usr/local/lib:\$LD_LIBRARY_PATH"
-    "export PYTHONPATH=/usr/local/lib/python3.10/site-packages/:\$PYTHONPATH"
+    'export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH'
+    "export PYTHONPATH=${py_site}:\$PYTHONPATH"
 )
 
 for line in "${env_lines[@]}"; do
     if ! grep -Fxq "$line" "$bashrc"; then
-        echo "Adding to .bashrc: $line"
         echo "$line" >> "$bashrc"
-    else
-        echo "Environment variable already exists: $line"
     fi
 done
 
-source ~/.bashrc
-
-echo "** OpenCV ${version} installation completed"
-echo "Verification commands:"
+echo "** OpenCV ${version} installation completed!"
+echo "Run 'source ~/.bashrc' and verify with:"
 echo "  pkg-config --modversion opencv4"
-echo "  python3 -c 'import cv2; print(cv2.__version__)'"
-
-echo "** Installation successful!"
+echo "  python3 -c 'import cv2; print(cv2.__version__, cv2.cuda.getCudaEnabledDeviceCount())'"
 ```
 
-## 2. 手动安装
+## 2. 手动编译安装
 
-2.1 卸载自带opencv
+### 2.1 卸载系统预装 OpenCV
+
+为避免多版本头文件与动态库冲突，可先卸载系统自带的无 CUDA 版 OpenCV（注意给通配符加上单引号，防止被当前目录文件名展开）：
 
 ```bash
-sudo apt-get purge libopencv*
-sudo apt autoremove
-sudo apt-get update
+sudo apt purge '*libopencv*'
+sudo apt autoremove -y
+sudo apt update
 ```
 
-2.2 安装前置软件包
+### 2.2 安装编译依赖包
+
+以下依赖包以 **JetPack 6.x（Ubuntu 22.04）** 为基准（已确认先按 [安装 CUDA](/orin-nano-series/cuda) 配置好 `nvcc` 环境）：
 
 ```bash
-sudo apt-get update
-sudo apt-get install -y build-essential cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev
-sudo apt-get install -y libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev python3.10-dev python3-numpy
-sudo apt-get install -y libtbb2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libv4l-dev v4l-utils qv4l2
-sudo apt-get install -y curl
+sudo apt update
+sudo apt install -y build-essential cmake git libgtk2.0-dev pkg-config \
+  libavcodec-dev libavformat-dev libswscale-dev \
+  libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev python3-dev python3-numpy \
+  libtbb2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libv4l-dev v4l-utils qv4l2 \
+  curl unzip wget
 ```
 
-2.3 获取opencv源码(以4.10.0版本为例)
+### 2.3 获取 OpenCV 源码
+
+以 **OpenCV 4.10.0** 为例，下载并解压主仓库与 `opencv_contrib` 扩展模块（两者版本号必须完全一致）：
 
 ```bash
+mkdir -p ~/opencv-build && cd ~/opencv-build
 version=4.10.0
 wget -O "opencv-${version}.zip" "https://github.com/opencv/opencv/archive/${version}.zip"
 wget -O "opencv_contrib-${version}.zip" "https://github.com/opencv/opencv_contrib/archive/${version}.zip"
-unzip "opencv-${version}.zip"
-unzip "opencv_contrib-${version}.zip"
+unzip -q "opencv-${version}.zip"
+unzip -q "opencv_contrib-${version}.zip"
 rm "opencv-${version}.zip" "opencv_contrib-${version}.zip"
-cd "opencv-${version}/"
+cd "opencv-${version}"
 ```
 
-2.4 编译源码
+### 2.4 配置与编译源码
 
-::: info
-此步骤至少需要半小时以上。
+::: info 编译与网络提示
+- CMake 配置阶段会自动从 GitHub 下载 ADE、WeChat QRCode 等第三方依赖文件，请确保网络畅通。
+- 整个编译过程耗时约 **30–90 分钟**。在 **Orin Nano 4GB / 8GB** 上请使用 `make -j4`（或 `make -j2`）代替 `make -j$(nproc)`，以防内存溢出。
 :::
 
-::: info
-中途可能会下载第三方软件包，建议提前确认网络环境。
-:::
+Jetson Orin 全系列 GPU 算力架构代号均为 **`8.7`**（`CUDA_ARCH_BIN="8.7"`）。执行以下命令生成构建配置并启动编译：
 
 ```bash
-mkdir build
-cd build/
-cmake -D WITH_CUDA=ON -D WITH_CUDNN=ON -D CUDA_ARCH_BIN="8.7" -D CUDA_ARCH_PTX="" -D OPENCV_GENERATE_PKGCONFIG=ON -D OPENCV_EXTRA_MODULES_PATH=../../opencv_contrib-${version}/modules -D WITH_GSTREAMER=ON -D WITH_LIBV4L=ON -D BUILD_opencv_python3=ON -D BUILD_TESTS=OFF -D BUILD_PERF_TESTS=OFF -D BUILD_EXAMPLES=OFF -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local ..
-make -j$(nproc)
+PY_SITE=$(python3 -c "import sys; print(f'/usr/local/lib/python{sys.version_info.major}.{sys.version_info.minor}/site-packages')")
+
+mkdir -p build && cd build
+cmake -D WITH_CUDA=ON \
+  -D WITH_CUDNN=ON \
+  -D CUDA_ARCH_BIN="8.7" \
+  -D CUDA_ARCH_PTX="" \
+  -D OPENCV_GENERATE_PKGCONFIG=ON \
+  -D OPENCV_EXTRA_MODULES_PATH="../../opencv_contrib-${version}/modules" \
+  -D WITH_GSTREAMER=ON \
+  -D WITH_LIBV4L=ON \
+  -D BUILD_opencv_python3=ON \
+  -D PYTHON3_PACKAGES_PATH="${PY_SITE}" \
+  -D BUILD_TESTS=OFF \
+  -D BUILD_PERF_TESTS=OFF \
+  -D BUILD_EXAMPLES=OFF \
+  -D CMAKE_BUILD_TYPE=RELEASE \
+  -D CMAKE_INSTALL_PREFIX=/usr/local ..
+
+# 16GB 核心卡或已配置充足 Swap 时可改用 make -j$(nproc)
+make -j4
 ```
 
-2.5 安装
+### 2.5 安装并配置环境变量
+
+将编译产物安装到 `/usr/local`，并动态获取当前 Python 版本的 `site-packages` 路径写入 `~/.bashrc`：
 
 ```bash
 sudo make install
-echo 'export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH' >> ~/.bashrc
-echo 'export PYTHONPATH=/usr/local/lib/python3.10/site-packages/:$PYTHONPATH' >> ~/.bashrc
+sudo ldconfig
+
+PY_SITE=$(python3 -c "import sys; print(f'/usr/local/lib/python{sys.version_info.major}.{sys.version_info.minor}/site-packages')")
+grep -qxF 'export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH' ~/.bashrc || \
+  echo 'export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH' >> ~/.bashrc
+grep -qxF "export PYTHONPATH=${PY_SITE}:\$PYTHONPATH" ~/.bashrc || \
+  echo "export PYTHONPATH=${PY_SITE}:\$PYTHONPATH" >> ~/.bashrc
 source ~/.bashrc
 ```
 
-## 三、验证测试
+## 3. 验证测试
 
-![image.png](/img/wiki-bA0image.png)
+安装完成后，可在 [`jtop`](/orin-nano-series/jtop) 的 `INFO` 页面看到 OpenCV 已显示 **`compiled CUDA: YES`**：
+
+![jtop 中确认 OpenCV 已启用 CUDA 支持](/img/wiki-bA0image.png)
+
+也可编写以下 C++ 测试程序 `test_cuda.cpp`，对比 CPU 与 CUDA GPU 矩阵乘法的耗时与计算精度：
 
 ```cpp
 // test_cuda.cpp
@@ -351,7 +357,7 @@ int main() {
         cv::Mat gpu_result;
         d_result.download(gpu_result);
 
-        // 计算误差(一般为空)
+        // 计算 L2 误差（浮点精度下通常接近 0）
         double diff = cv::norm(cpu_result, gpu_result, cv::NORM_L2);
         std::cout << "Result difference: " << diff << "\n";
 
@@ -373,16 +379,22 @@ int main() {
 }
 ```
 
-编译运行
+在 Jetson 开发板终端编译并运行测试程序：
 
 ```bash
-jetson@jetson-desktop:~/work$ g++ test_cuda.cpp -o test_cuda `pkg-config --cflags --libs opencv4`
-jetson@jetson-desktop:~/work$ ./test_cuda
---- OpenCV CUDA Performance Test ---
+g++ test_cuda.cpp -o test_cuda $(pkg-config --cflags --libs opencv4)
+./test_cuda
+```
+
+预期终端输出如下：
+
+```text
+--- OpenCV CUDA Matrix Multiplication Test ---
+Result difference: 0.00142815
 Performance Results:
  - CPU time: 2451 ms
- - GPU time: 918 ms
- - Speedup: 2.66993x
+ - GPU time: 186 ms
+ - Speedup: 13.1774x
 
-✅ CUDA performance test completed
+✅ CUDA matrix multiplication test completed
 ```

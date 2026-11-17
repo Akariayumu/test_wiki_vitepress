@@ -5,55 +5,80 @@ outline: deep
 
 # Install jtop
 
-jtop is an **interactive system monitoring tool** developed by NVIDIA specifically for the **Jetson series of edge computing devices.**
+**`jtop`** is an **interactive system monitoring and management utility** provided by the open-source **[`jetson-stats`](https://github.com/rbonghi/jetson_stats)** project, designed specifically for NVIDIA Jetson edge computing devices. It displays real-time CPU, GPU, memory, power consumption, temperature, fan speed, and JetPack software stack versions.
 
-## 1 Install jtop
+## 1. Install jtop
 
-### 1.1 One-click script installation (recommended)
+### 1.1 Install via One-Click Script (Recommended)
 
-The official one-click installation script can install jtop directly:
+The official script from the `jetson-stats` repository installs `jetson-stats`, enables the `jtop.service` background daemon, and adds your user to the `jtop` group so you can run `jtop` without `sudo`.
+
+On the Jetson terminal, run:
 
 ```bash
 sudo -v
 curl -LsSf https://raw.githubusercontent.com/rbonghi/jetson_stats/master/scripts/install_jtop_torun_without_sudo.sh | bash
 ```
 
-After the installation is complete, open jtop with the following command:
+After installation completes, **log out and log back in** (or run `newgrp jtop` in the current shell to refresh group membership), then launch `jtop` directly without `sudo`:
 
 ```bash
-sudo jtop
+newgrp jtop
+jtop
 ```
 
-### 1.2 Install with pip
+### 1.2 Install Manually with pip
 
-- Install the dependencies required by jtop
+1. Install `python3` and `python3-pip`:
 
 ```bash
 sudo apt update
-sudo apt install python3
-sudo apt install python3-pip
+sudo apt install -y python3 python3-pip
 ```
 
-- Install jtop
+2. Install `jetson-stats` from PyPI and restart the systemd service:
 
 ```bash
-sudo pip3 install -U pip -i https://pypi.tuna.tsinghua.edu.cn/simple
-sudo pip3 install jetson-stats -i https://pypi.tuna.tsinghua.edu.cn/simple
+sudo pip3 install jetson-stats
 sudo systemctl restart jtop.service
 ```
 
-## 2 Using jtop
+::: warning JetPack 7 (Ubuntu 24.04) PEP 668 Note
+Ubuntu 24.04 enforces PEP 668 (`externally-managed-environment`) on system Python packages. Because `jtop.service` runs as a system daemon, append `--break-system-packages` when installing globally with `pip3` on **JetPack 7** (do **not** run `sudo pip3 install -U pip`, which can break the `apt`-managed `pip` installation):
 
-- After installation, type `jtop` in the console (or `sudo jtop` if installed via the one-click script) to open the main interface
+```bash
+sudo pip3 install --break-system-packages jetson-stats
+sudo systemctl restart jtop.service
+```
+:::
 
-![image.png](/img/jtop-main.png)
+::: tip Run Without sudo
+After a manual `pip` installation, either launch with `sudo jtop` or add your user to the `jtop` group and refresh your session (`newgrp jtop` or re-login) to run `jtop` without `sudo`:
 
-### 2.1 Monitor the working status of each module
+```bash
+sudo usermod -aG jtop "$USER"
+newgrp jtop
+```
+:::
 
-### 2.2 Control the fan
+## 2. Use jtop
 
-![1.png](/img/jtop-fan.png)
+Run `jtop` in the terminal (or `sudo jtop` if your user has not been added to the `jtop` group) to open the interactive interface. Use number keys `1`–`7`, the Left/Right arrow keys, or the mouse to switch between tabs, and press `q` to quit.
 
-### 2.3 View built-in software information
+### 2.1 Monitor Module Status
 
-![image.png](/img/jtop-info.png)
+The default **`1ALL`** overview tab (along with the dedicated `2GPU`, `3CPU`, and `4MEM` tabs) displays real-time hardware utilization and sensor telemetry, including per-core CPU load and frequencies, GPU utilization, unified RAM and Swap usage, NVMe storage status, thermal zone temperatures, active `nvpmodel` profile, and board power draw:
+
+![jtop main system overview interface](/img/jtop-main.png)
+
+### 2.2 Control Fan and Power Mode
+
+Switch to the **`5CTRL`** tab to interactively adjust the cooling fan profile (such as `auto` thermal control or `manual` PWM duty cycle), switch `nvpmodel` power modes, or toggle `jetson_clocks` maximum clock locking:
+
+![jtop CTRL fan and power control interface](/img/jtop-fan.png)
+
+### 2.3 View Built-in Software Information
+
+Switch to the **`6INFO`** tab to check the module model, serial number, JetPack / L4T release, Linux kernel version, and installed versions of CUDA, cuDNN, TensorRT, OpenCV, VPI, and Vulkan:
+
+![jtop INFO software and hardware version interface](/img/jtop-info.png)

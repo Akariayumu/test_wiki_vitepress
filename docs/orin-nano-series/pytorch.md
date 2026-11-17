@@ -1,13 +1,13 @@
 ---
-title: PyTorch 与 Torchvision
+title: PyTorch 和 Torchvision
 outline: deep
 ---
 
-# PyTorch 与 Torchvision
+# PyTorch 和 Torchvision
 
 PyTorch 是常用的深度学习框架，可在 Jetson 上使用 CUDA 加速完成模型开发、推理和部署。
 
-:::tip 新项目建议优先使用 JetPack 7
+::: tip 新项目建议优先使用 JetPack 7
 如果项目需要 PyTorch、TensorRT、CUDA 等 AI 框架，并且所用 Jetson 型号及外设已支持 JetPack 7，建议优先选择 **JetPack 7 系列**。它采用更新的 Ubuntu、内核和 NVIDIA AI 计算栈，后续框架与工具也会优先围绕新平台更新。
 
 只有在现有项目依赖 JetPack 6 专用 wheel、旧版 CUDA/TensorRT、特定驱动或尚未适配的外设时，才建议继续使用 JetPack 6。升级前应先核对硬件支持和软件兼容性。
@@ -30,7 +30,7 @@ NVIDIA 说明：[JetPack SDK Downloads and Notes](https://developer.nvidia.com/e
 | 需要多个 Python/框架版本 | 使用容器；其次使用 `venv` 或 Conda 隔离环境 |
 | 生产部署 | 固定 JetPack、CUDA、PyTorch、Torchvision 和镜像/包版本，不使用浮动的 `latest` |
 
-:::warning 版本必须成套匹配
+::: warning 版本必须成套匹配
 JetPack、CUDA、Python、PyTorch 和 Torchvision 任一项不匹配，都可能出现无法安装、导入时报缺少动态库，或 `torch.cuda.is_available()` 返回 `False`。Jetson 不能安装 x86 软件包。
 :::
 
@@ -50,7 +50,6 @@ nvidia-smi
 ```bash
 sudo apt update
 sudo apt install -y python3-pip python3-venv libopenblas-dev
-python3 -m pip install --upgrade pip
 ```
 
 如果系统没有 `nvcc`，先完成 [CUDA 安装](/orin-nano-series/cuda)，再安装 PyTorch。
@@ -67,7 +66,7 @@ python -m pip install torch torchvision \
   --index-url https://download.pytorch.org/whl/cu132
 ```
 
-其他 JetPack 7 版本应将 `cu132` 换成与系统 CUDA 匹配的软件源。安装后执行本文“验证安装”中的 CUDA 张量测试。
+其他 JetPack 7 版本应将 `cu132` 换成与系统 CUDA 匹配的软件源。安装后执行本文 [验证安装](#_6-验证安装) 中的 CUDA 张量测试。
 
 ## 5. JetPack 6.2.1：安装已验证 wheel
 
@@ -91,7 +90,7 @@ python -m pip install \
   torchvision-0.23.0-cp310-cp310-linux_aarch64.whl
 ```
 
-:::info
+::: info
 上述 wheel 来自 Jetson AI Lab 软件源，不是 JetPack 7 的 SBSA 安装包。用于正式项目时，应保存 wheel 或锁定依赖，避免上游文件变化影响重复部署。
 :::
 
@@ -102,8 +101,10 @@ python -m pip install \
 ```bash
 python - <<'PY'
 import torch
+import torchvision
 
 print("PyTorch:", torch.__version__)
+print("Torchvision:", torchvision.__version__)
 print("CUDA runtime:", torch.version.cuda)
 print("CUDA available:", torch.cuda.is_available())
 
@@ -178,6 +179,10 @@ cv2.destroyAllWindows()
 ```
 
 首次运行时 Ultralytics 会下载模型权重，需要保持网络连接。按 `q` 退出窗口。
+
+::: info 无头（Headless）SSH 环境提示
+示例代码中的 `cv2.imshow()` 依赖本地图形桌面环境（或已配置的 X11 转发）。若仅通过无显示器的纯命令行 SSH 连接开发板，直接调用 `cv2.imshow()` 会报错退出；无头模式下请改为调用 `cv2.imwrite()` 保存推理图片或通过视频流输出。
+:::
 
 ![YOLO 摄像头推理](/img/wiki-bEUimage.webp)
 

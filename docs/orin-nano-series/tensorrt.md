@@ -1,5 +1,5 @@
 ---
-title: 使用TensorRT加速
+title: 使用 TensorRT 加速
 outline: deep
 ---
 
@@ -9,7 +9,7 @@ outline: deep
 
 典型流程为：**训练框架（PyTorch 等）→ 导出 ONNX → TensorRT 构建引擎（`.engine`）→ C++ 或 Python 加载引擎推理**。
 
-:::tip
+::: tip
 以下教程以 **JetPack 6.2.x（TensorRT 10.x）** 为例。TensorRT 10 移除了旧版 `enqueueV2` / `execute_async_v2` 等接口，本文示例均为新版 API。
 :::
 
@@ -62,24 +62,35 @@ yolo export model=yolo11s.pt format=onnx imgsz=640
 | `--minShapes / --optShapes / --maxShapes` | 动态输入尺寸时使用 |
 | `--verbose` | 打印详细构建信息，排查转换失败时很有用 |
 
-> Ultralytics 也可以一行导出 TensorRT 引擎：`yolo export model=yolo11s.pt format=engine half=True device=0`，导出后可直接在 [YOLO 推理例程](/orin-nano-series/pytorch#_2-运行yolo11) 中把 `YOLO("yolo11s.pt")` 换成 `YOLO("yolo11s.engine")`。
+::: tip 一键导出引擎
+Ultralytics 也支持一行命令直接导出 TensorRT 引擎：`yolo export model=yolo11s.pt format=engine half=True device=0`。导出后可直接在 [YOLO 推理例程](/orin-nano-series/pytorch#_7-运行-yolo11-摄像头推理) 中将 `YOLO("yolo11s.pt")` 替换为 `YOLO("yolo11s.engine")`。
+:::
 
 ## 3. Python 绑定
 
-### 3.1 安装
+### 3.1 安装与虚拟环境配置
+
+通过 `apt` 安装的 `python3-libnvinfer` 位于系统 Python 目录（`/usr/lib/python3/dist-packages`）。若使用 Python 虚拟环境（尤其是在启用了 PEP 668 限制的 **JetPack 7 / Ubuntu 24.04** 上），创建 `venv` 时**必须添加 `--system-site-packages` 参数**，否则虚拟环境内无法导入系统的 `tensorrt` 模块。此外，`pip` 编译安装 `pycuda` 时依赖 `python3-dev` 头文件，并要求 `nvcc` 已加入 `PATH`（参见 [安装 CUDA](/orin-nano-series/cuda)）。
 
 ```bash
-# TensorRT Python 绑定（JetPack 源）
-sudo apt install python3-libnvinfer python3-libnvinfer-dev
+# 1. 安装系统 TensorRT Python 绑定与编译依赖
+sudo apt update
+sudo apt install -y python3-libnvinfer python3-libnvinfer-dev python3-dev python3-venv
 
-# 显存拷贝需要 pycuda
-pip install pycuda
+# 2. 创建允许继承系统包的虚拟环境并激活
+python3 -m venv --system-site-packages ~/venvs/trt-env
+source ~/venvs/trt-env/bin/activate
+
+# 3. 确保 nvcc 在 PATH 中，安装 numpy 与 pycuda
+export PATH=/usr/local/cuda/bin:$PATH
+python -m pip install --upgrade pip
+python -m pip install numpy pycuda
 ```
 
 验证：
 
 ```bash
-python3 -c "import tensorrt; print(tensorrt.__version__)"
+python -c "import tensorrt; print(tensorrt.__version__)"
 ```
 
 ### 3.2 加载引擎并推理
@@ -151,13 +162,26 @@ int main(int argc, char** argv) {
 
     // 1. 读取并反序列化引擎
     std::ifstream file(argv[1], std::ios::binary | std::ios::ate);
+    if (!file) {
+        std::cerr << "Failed to open engine file: " << argv[1] << "\n";
+        return 1;
+    }
     std::streamsize size = file.tellg();
+    if (size <= 0) {
+        std::cerr << "Invalid or empty engine file: " << argv[1] << "\n";
+        return 1;
+    }
     file.seekg(0);
     std::vector<char> blob(size);
     file.read(blob.data(), size);
 
     nvinfer1::IRuntime* runtime = nvinfer1::createInferRuntime(gLogger);
     nvinfer1::ICudaEngine* engine = runtime->deserializeCudaEngine(blob.data(), size);
+    if (!engine) {
+        std::cerr << "Failed to deserialize CUDA engine\n";
+        delete runtime;
+        return 1;
+    }
     nvinfer1::IExecutionContext* ctx = engine->createExecutionContext();
 
     // 2. 获取输入/输出张量名称
@@ -206,12 +230,14 @@ int main(int argc, char** argv) {
 `CMakeLists.txt`：
 
 ```cmake
-cmake_minimum_required(VERSION 3.16)
-project(trt_infer CXX)
-find_package(CUDA REQUIRED)
+cmake_minimum_required(VERSION 3.18)
+project(trt_infer LANGUAGES CXX)
+
+find_package(CUDAToolkit REQUIRED)
+
 add_executable(infer infer.cpp)
-target_include_directories(infer PRIVATE ${CUDA_INCLUDE_DIRS} /usr/include/aarch64-linux-gnu)
-target_link_libraries(infer nvinfer cudart)
+target_include_directories(infer PRIVATE /usr/include/aarch64-linux-gnu)
+target_link_libraries(infer PRIVATE nvinfer CUDA::cudart)
 ```
 
 ```bash

@@ -1,15 +1,15 @@
 ---
-title: Accelerating with TensorRT
+title: TensorRT Acceleration
 outline: deep
 ---
 
-# Accelerating with TensorRT
+# TensorRT Acceleration
 
 **TensorRT** is NVIDIA's high-performance inference engine. Through operator fusion, precision quantization (FP16/INT8) and kernel auto-tuning, it significantly speeds up model inference on the GPU. On Jetson, TensorRT ships **preinstalled with JetPack** — no separate installation needed — and is the standard deployment path.
 
 The typical pipeline is: **training framework (PyTorch etc.) → export ONNX → build a TensorRT engine (`.engine`) → load the engine from C++ or Python**.
 
-:::tip
+::: tip
 The examples below target **JetPack 6.2.x (TensorRT 10.x)**. TensorRT 10 removed legacy APIs such as `enqueueV2` / `execute_async_v2`; all examples here use the new API.
 :::
 
@@ -62,24 +62,35 @@ Common options:
 | `--minShapes / --optShapes / --maxShapes` | For dynamic input shapes |
 | `--verbose` | Detailed build logs — useful when conversion fails |
 
-> Ultralytics can also export a TensorRT engine in one line: `yolo export model=yolo11s.pt format=engine half=True device=0`. Then simply replace `YOLO("yolo11s.pt")` with `YOLO("yolo11s.engine")` in the [YOLO inference example](/en/orin-nano-series/pytorch).
+::: tip One-Line Engine Export
+Ultralytics can also export a TensorRT engine in one command: `yolo export model=yolo11s.pt format=engine half=True device=0`. Once exported, simply replace `YOLO("yolo11s.pt")` with `YOLO("yolo11s.engine")` in the [YOLO inference example](/en/orin-nano-series/pytorch#_7-run-yolo11-camera-inference).
+:::
 
 ## 3. Python Bindings
 
-### 3.1 Installation
+### 3.1 Install and Configure Virtual Environment
+
+`python3-libnvinfer` installed via `apt` resides in the system Python directory (`/usr/lib/python3/dist-packages`). When working inside a Python virtual environment (especially on **JetPack 7 / Ubuntu 24.04** where PEP 668 restricts system-wide `pip`), create your `venv` with **`--system-site-packages`** so `tensorrt` remains visible inside the virtual environment. In addition, building `pycuda` via `pip` requires `python3-dev` headers and `nvcc` in `PATH` (see [Install CUDA](/en/orin-nano-series/cuda)).
 
 ```bash
-# TensorRT Python bindings (JetPack repo)
-sudo apt install python3-libnvinfer python3-libnvinfer-dev
+# 1. Install system TensorRT Python bindings and build headers
+sudo apt update
+sudo apt install -y python3-libnvinfer python3-libnvinfer-dev python3-dev python3-venv
 
-# pycuda for device memory copies
-pip install pycuda
+# 2. Create and activate a virtual environment with access to system packages
+python3 -m venv --system-site-packages ~/venvs/trt-env
+source ~/venvs/trt-env/bin/activate
+
+# 3. Ensure nvcc is in PATH and install numpy and pycuda
+export PATH=/usr/local/cuda/bin:$PATH
+python -m pip install --upgrade pip
+python -m pip install numpy pycuda
 ```
 
 Verify:
 
 ```bash
-python3 -c "import tensorrt; print(tensorrt.__version__)"
+python -c "import tensorrt; print(tensorrt.__version__)"
 ```
 
 ### 3.2 Load the Engine and Run Inference
@@ -151,13 +162,26 @@ int main(int argc, char** argv) {
 
     // 1. Read and deserialize the engine
     std::ifstream file(argv[1], std::ios::binary | std::ios::ate);
+    if (!file) {
+        std::cerr << "Failed to open engine file: " << argv[1] << "\n";
+        return 1;
+    }
     std::streamsize size = file.tellg();
+    if (size <= 0) {
+        std::cerr << "Invalid or empty engine file: " << argv[1] << "\n";
+        return 1;
+    }
     file.seekg(0);
     std::vector<char> blob(size);
     file.read(blob.data(), size);
 
     nvinfer1::IRuntime* runtime = nvinfer1::createInferRuntime(gLogger);
     nvinfer1::ICudaEngine* engine = runtime->deserializeCudaEngine(blob.data(), size);
+    if (!engine) {
+        std::cerr << "Failed to deserialize CUDA engine\n";
+        delete runtime;
+        return 1;
+    }
     nvinfer1::IExecutionContext* ctx = engine->createExecutionContext();
 
     // 2. Get input/output tensor names
@@ -206,12 +230,14 @@ int main(int argc, char** argv) {
 `CMakeLists.txt`:
 
 ```cmake
-cmake_minimum_required(VERSION 3.16)
-project(trt_infer CXX)
-find_package(CUDA REQUIRED)
+cmake_minimum_required(VERSION 3.18)
+project(trt_infer LANGUAGES CXX)
+
+find_package(CUDAToolkit REQUIRED)
+
 add_executable(infer infer.cpp)
-target_include_directories(infer PRIVATE ${CUDA_INCLUDE_DIRS} /usr/include/aarch64-linux-gnu)
-target_link_libraries(infer nvinfer cudart)
+target_include_directories(infer PRIVATE /usr/include/aarch64-linux-gnu)
+target_link_libraries(infer PRIVATE nvinfer CUDA::cudart)
 ```
 
 ```bash
