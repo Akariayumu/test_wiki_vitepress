@@ -50,6 +50,10 @@ features:
     details: 小尺寸高密度载板，丰富 USB、M.2 与 GH1.25 扩展接口
     link: /c1903/c1903
     linkText: 查看规格书
+  - title: C2402 载板（预发布）
+    details: Jetson Orin Nano/NX 载板，产品资料预览
+    link: /c2402/c2402
+    linkText: 查看预发布资料
   - title: AI 开发
     details: CUDA、PyTorch、Ollama、TensorRT 环境搭建
     link: /orin-nano-series/cuda

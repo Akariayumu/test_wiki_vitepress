@@ -48,6 +48,12 @@ const rootSidebar = [
     ]
   },
   {
+    text: 'C2402 载板',
+    items: [
+      { text: 'C2402 产品介绍（预发布）', link: '/c2402/c2402' },
+    ]
+  },
+  {
     text: 'Jetson Orin 使用教程',
     collapsed: false,
     items: [
@@ -252,6 +258,7 @@ const rootNav = [
   },
   { text: 'C1903', link: '/c1903/c1903' },
   { text: 'C2401', link: '/c2401/c2401' },
+  { text: 'C2402', link: '/c2402/c2402' },
   { text: 'Jetson 教程', link: '/orin-nano-series/intro' },
   { text: 'GPIO', link: '/gpio-tutorial/jetpack6-gpio' },
   { text: '刷机', link: '/flashing-guide/ubuntu-sdkmanager' },
