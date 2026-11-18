@@ -37,7 +37,7 @@ We offer a range of carrier boards and complete kits for NVIDIA Jetson Orin Nano
 | **C1902 V2** | Industrial wide-temperature upgrade (-20 °C to 55 °C) with 8-layer PCB and dedicated REC button | [C1902 V2 Introduction](/en/c1902v2/c1902v2) |
 | **C1903** | Industrial wide-temperature carrier board / kit with full-lineup SUPER mode, dual M.2, and GH1.25 interfaces | [C1903 Introduction](/en/c1903/c1903) |
 | **C2401** | Compact 55 × 92 mm high-density mini kit with GbE + 2.5GbE dual Ethernet and 9.5V–30V input | [C2401 Introduction](/en/c2401/c2401) |
-| **C2402** (Pre-release) | Multi-interface carrier board supporting GMSL2 cameras, dual GbE, and 4G/5G expansion | [C2402 Introduction](/en/c2402/c2402) |
+| **C2402** | Multi-interface carrier board supporting GMSL2 cameras, dual GbE, and 4G/5G expansion | [C2402 Introduction](/en/c2402/c2402) |
 
 For detailed board-by-board specifications, see [Product Comparison](/en/products/compare). For Jetson module specifications, refer to the [Orin Nano Series Overview](/en/orin-nano-series/intro) and [Orin NX Series Overview](/en/orin-nx-series/intro).
 

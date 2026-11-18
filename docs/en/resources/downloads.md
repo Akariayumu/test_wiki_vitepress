@@ -62,6 +62,16 @@ This page consolidates hardware design references for KYtech carrier boards and 
 | 3D model (STEP) | Available upon request — contact us |
 | Firmware & device tree | See [Flash C2401](/en/flashing-guide/c2401-flashing), [USB Configuration](/en/orin-nano-series/usb-config), [Network Card Driver](/en/orin-nano-series/network-driver) |
 
+## C2402
+
+| Resource | Status / Link |
+|----------|---------------|
+| Product overview / Datasheet | [View online](/en/c2402/c2402) (PDF available upon request — contact us) |
+| Mechanical drawing & 3D model (STEP) | Available upon request — contact us (see [Dimensions](/en/c2402/c2402#dimensions-mm)) |
+| GH1.25 peripheral pinout | [Pinout table](/en/c2402/c2402#gh1-25-peripheral-connectors) |
+| Interface layout | [Front](/img/c2402-layout-front.webp) · [Back](/img/c2402-layout-back.webp) |
+| Peripheral drivers & guides | See [GMSL Camera Guide](/en/orin-nano-series/gmsl-camera), [4G Module Guide](/en/orin-nano-series/4g-module), [Network Card Driver](/en/orin-nano-series/network-driver) |
+
 ## General Resources
 
 - [40-pin Expansion Header (Jetson-IO)](/en/orin-nano-series/expansion-header)

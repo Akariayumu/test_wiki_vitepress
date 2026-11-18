@@ -62,6 +62,16 @@ outline: deep
 | 3D 模型（STEP） | 整理中，请联系获取 |
 | 固件与设备树 | 参见 [C2401 刷入系统](/flashing-guide/c2401-flashing)、[USB 配置说明](/orin-nano-series/usb-config)、[网卡驱动](/orin-nano-series/network-driver) |
 
+## C2402
+
+| 资料 | 状态 / 链接 |
+|------|------------|
+| 产品介绍 / 规格书（Datasheet） | [在线查看](/c2402/c2402)（离线 PDF 整理中，请联系获取） |
+| 机械尺寸图与 3D 模型（STEP） | 请联系技术支持获取（螺丝孔位参见[产品尺寸说明](/c2402/c2402#产品尺寸-mm)） |
+| GH1.25 外设引脚图 | [引脚定义表](/c2402/c2402#gh1-25-外设接口) |
+| 接口布局图 | [正面](/img/c2402-layout-front.webp) · [背面](/img/c2402-layout-back.webp) |
+| 外设驱动与使用说明 | 参见 [GMSL 摄像头使用说明](/orin-nano-series/gmsl-camera)、[4G 模块使用说明](/orin-nano-series/4g-module)、[网卡驱动](/orin-nano-series/network-driver) |
+
 ## 通用资料
 
 - [40-pin 扩展头配置（Jetson-IO）](/orin-nano-series/expansion-header)

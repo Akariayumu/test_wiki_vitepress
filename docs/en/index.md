@@ -55,9 +55,9 @@ features:
     linkText: View details
   - icon:
       src: /img/c2402-banner.webp
-      alt: C2402 Carrier Board (Pre-release)
-    title: C2402 Carrier Board (Pre-release)
-    details: Pre-release Jetson Orin Nano / NX carrier board with GMSL2 camera, dual GbE, and 4G/5G expansion
+      alt: C2402 Carrier Board
+    title: C2402 Carrier Board
+    details: Compact Jetson Orin Nano / NX carrier board with 4-channel GMSL2 camera, dual GbE, and 4G/5G expansion
     link: /en/c2402/c2402
     linkText: View details
   - title: AI Development

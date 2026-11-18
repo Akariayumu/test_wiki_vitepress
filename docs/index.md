@@ -55,9 +55,9 @@ features:
     linkText: 查看产品介绍
   - icon:
       src: /img/c2402-banner.webp
-      alt: C2402 载板（预发布）
-    title: C2402 载板（预发布）
-    details: 支持 GMSL2 相机、双千兆网口与 4G/5G 扩展的 Jetson Orin Nano / NX 载板预览
+      alt: C2402 载板
+    title: C2402 载板
+    details: 支持 4 路 GMSL2 相机、双千兆网口与 4G/5G 通信扩展的紧凑型 Jetson Orin Nano / NX 载板
     link: /c2402/c2402
     linkText: 查看产品介绍
   - title: AI 开发

@@ -51,7 +51,7 @@ const rootSidebar = [
   {
     text: 'C2402 载板',
     items: [
-      { text: 'C2402 产品介绍（预发布）', link: '/c2402/c2402' },
+      { text: 'C2402 产品介绍', link: '/c2402/c2402' },
     ]
   },
   {
@@ -179,7 +179,7 @@ const enSidebar = [
   {
     text: 'C2402 Carrier Board',
     items: [
-      { text: 'C2402 Introduction (Pre-release)', link: '/en/c2402/c2402' },
+      { text: 'C2402 Introduction', link: '/en/c2402/c2402' },
     ]
   },
   {
@@ -270,7 +270,7 @@ const rootNav = [
       { text: 'C1902 (V1.x) 载板', link: '/c1902/c1902' },
       { text: 'C1903 载板 / 套件', link: '/c1903/c1903' },
       { text: 'C2401 迷你套件', link: '/c2401/c2401' },
-      { text: 'C2402 载板（预发布）', link: '/c2402/c2402' },
+      { text: 'C2402 载板', link: '/c2402/c2402' },
     ]
   },
   { text: 'Jetson 教程', link: '/orin-nano-series/intro' },
@@ -292,7 +292,7 @@ const enNav = [
       { text: 'C1902 (V1.x) Carrier Board', link: '/en/c1902/c1902' },
       { text: 'C1903 Carrier Board / Kit', link: '/en/c1903/c1903' },
       { text: 'C2401 Mini Kit', link: '/en/c2401/c2401' },
-      { text: 'C2402 Carrier Board (Pre-release)', link: '/en/c2402/c2402' },
+      { text: 'C2402 Carrier Board', link: '/en/c2402/c2402' },
     ]
   },
   { text: 'Tutorials', link: '/en/orin-nano-series/intro' },
