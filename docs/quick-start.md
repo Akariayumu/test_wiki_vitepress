@@ -95,6 +95,7 @@ import { withBase } from 'vitepress'
     <a :href="withBase('/orin-nano-series/openclaw')">部署 OpenClaw</a>
     <a :href="withBase('/orin-nano-series/jetson-container')">ComfyUI 容器部署</a>
     <a :href="withBase('/orin-nano-series/network-driver')">网卡驱动</a>
+    <a :href="withBase('/orin-nano-series/gmsl-camera')">GMSL 摄像头</a>
     <a :href="withBase('/orin-nano-series/4g-module')">4G 模块</a>
     <a :href="withBase('/orin-nano-series/boot-logo')">自定义启动 LOGO</a>
   </div>

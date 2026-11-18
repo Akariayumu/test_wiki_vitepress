@@ -87,6 +87,7 @@ const rootSidebar = [
           { text: '部署 OpenClaw', link: '/orin-nano-series/openclaw' },
           { text: '使用 Jetson Containers 部署 ComfyUI', link: '/orin-nano-series/jetson-container' },
           { text: '网卡驱动', link: '/orin-nano-series/network-driver' },
+          { text: 'GMSL 摄像头使用说明', link: '/orin-nano-series/gmsl-camera' },
           { text: '4G 模块使用说明', link: '/orin-nano-series/4g-module' },
           { text: '自定义启动 LOGO', link: '/orin-nano-series/boot-logo' },
         ]
@@ -214,6 +215,7 @@ const enSidebar = [
           { text: 'Deploy OpenClaw', link: '/en/orin-nano-series/openclaw' },
           { text: 'Deploy ComfyUI with Jetson Containers', link: '/en/orin-nano-series/jetson-container' },
           { text: 'Network Card Driver', link: '/en/orin-nano-series/network-driver' },
+          { text: 'GMSL Camera Guide', link: '/en/orin-nano-series/gmsl-camera' },
           { text: '4G Module Guide', link: '/en/orin-nano-series/4g-module' },
           { text: 'Custom Boot Logo', link: '/en/orin-nano-series/boot-logo' },
         ]

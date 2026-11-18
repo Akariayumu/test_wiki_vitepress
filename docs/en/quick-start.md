@@ -95,6 +95,7 @@ Follow the learning path step by step:
     <a :href="withBase('/en/orin-nano-series/openclaw')">Deploy OpenClaw</a>
     <a :href="withBase('/en/orin-nano-series/jetson-container')">ComfyUI (Jetson Containers)</a>
     <a :href="withBase('/en/orin-nano-series/network-driver')">Network Card Driver</a>
+    <a :href="withBase('/en/orin-nano-series/gmsl-camera')">GMSL Camera</a>
     <a :href="withBase('/en/orin-nano-series/4g-module')">4G Module</a>
     <a :href="withBase('/en/orin-nano-series/boot-logo')">Custom Boot Logo</a>
   </div>
